@@ -1,5 +1,6 @@
 using UnityEngine;
 using static PlayerInputConfig;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PlayerController : MonoBehaviour
 {
@@ -7,16 +8,15 @@ public class PlayerController : MonoBehaviour
     private Animator anim;
     private BoxCollider2D boxCollider;
     private PlayerInputConfig playerInput;
-    private PlayerController playMate;
 
     [SerializeField] private float speed = 2.0f;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask playMateLayer;
-    [SerializeField] Player player;
+    [SerializeField] private Player player;
 
     private float horizontalInput;
 
-    private enum PlayerState
+    public enum PlayerState
     {
         Idle,
         Running,
@@ -25,7 +25,14 @@ public class PlayerController : MonoBehaviour
         Carrying,
     }
 
+    public enum PlayerDirection
+    {
+        Left,
+        Right
+    }
+
     private PlayerState state;
+    private PlayerDirection direction;
 
     private void Awake()
     {
@@ -33,12 +40,6 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
         playerInput = new PlayerInputConfig(player);
-
-        GameObject playMateGameObject = (player == Player.Player1) ? GameObject.Find("Player 2") : GameObject.Find("Player 1");
-        if (playMateGameObject != null)
-            playMate = playMateGameObject.GetComponent<PlayerController>();
-        else
-            Debug.Log("playMateGameObject is null");
     }
 
     private void Update()
@@ -77,9 +78,7 @@ public class PlayerController : MonoBehaviour
             setPlayerState(PlayerState.Sitting);
         if (Input.GetKeyUp(playerInput.moveDown))
             setPlayerState(PlayerState.Idle);
-
-
-
+    
         // Cập nhật Animation theo trạng thái của player
         updateAnimation();
     }
@@ -89,12 +88,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(playerInput.moveLeft))
         {
             horizontalInput = -1f;
-            transform.localScale = new Vector3(-1, 1, 1);       // flip
+            setPlayerDirection(PlayerDirection.Left);
         }
         else if (Input.GetKey(playerInput.moveRight))
         {
             horizontalInput = 1f;
-            transform.localScale = Vector3.one;                 // flip
+            setPlayerDirection(PlayerDirection.Right);
         }
 
         Vector2 movement = new Vector2(horizontalInput, 0f);
@@ -115,6 +114,13 @@ public class PlayerController : MonoBehaviour
 
         if (isJumping())
             anim.SetTrigger("jump");
+
+        // Xử lý quay mặt
+        if(direction == PlayerDirection.Left)
+            transform.localScale = new Vector3(-1, 1, 1);
+        else
+            transform.localScale = Vector3.one;
+
     }
 
     private void setPlayerState(PlayerState state)
@@ -138,7 +144,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Player tiếp đất khi đứng trên mặt đất hoặc đứng trên player khác
-    private bool isGrounded()
+    public bool isGrounded()
     {
         RaycastHit2D groundLayerRaycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.1f, groundLayer);
         RaycastHit2D playMateLayerRaycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.1f, playMateLayer);
@@ -151,5 +157,38 @@ public class PlayerController : MonoBehaviour
     {
         RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.up, 0.1f, playMateLayer);
         return raycastHit.collider != null;
+    }
+
+    private void setPlayerDirection(PlayerDirection direction)
+    {
+        this.direction = direction;
+    }
+
+    public bool isFacingLeft()
+    {
+        return direction == PlayerDirection.Left;
+    }
+
+    public bool isFacingRight()
+    {
+        return direction == PlayerDirection.Right;
+    }
+
+    public bool isLeftPlayer(PlayerController otherPlayer) 
+    {
+        return Mathf.Sign(transform.position.x - otherPlayer.transform.position.x) == -1.0f;
+    }
+
+    public bool isRightPlayer(PlayerController otherPlayer)
+    {
+        return Mathf.Sign(transform.position.x - otherPlayer.transform.position.x) == 1.0f;
+    }
+
+    // Đang hướng về người chơi khác:
+    // 1.Đứng bên trái người chơi đó và hướng mặt về bên phải
+    // 2. Đứng bên phải người chơi đó và hướng mặt về bên trái
+    public bool isFacingPlayer(PlayerController otherPlayer)
+    {
+        return (isLeftPlayer(otherPlayer) && isFacingRight()) || (isRightPlayer(otherPlayer) && isFacingLeft());
     }
 }
