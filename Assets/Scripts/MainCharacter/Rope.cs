@@ -24,7 +24,7 @@ public class Rope : MonoBehaviour
     void Start()
     {
         ropeLineRenderer = this.GetComponent<LineRenderer>();
-        Vector3 ropeStartPoint = new Vector3(this.player1.transform.position.x, this.player1.transform.position.y, -0.1f);
+        Vector3 ropeStartPoint = new Vector3(this.player1.transform.position.x, this.player1.transform.position.y, 0.1f);
 
         for (int i = 0; i < segmentLength; i++)
         {
@@ -48,19 +48,19 @@ public class Rope : MonoBehaviour
 
         float distance = Vector2.Distance(player1.transform.position, player2.transform.position);
 
-        // Check khi quay mặt về nhau thì bỏ đi lực đẩy
-        if (joint.enabled && 
-            (playerController1.isFacingPlayer(playerController2) || playerController2.isFacingPlayer(playerController1)) &&
-            (playerController1.isGrounded() || playerController2.isGrounded()))
+        // Khi 1 trong 2 đi về hướng của nhau, tắt SpringJoint2D và vẽ dây thừng bình thường
+        if ((playerController1.isRunToPlayer(playerController2) || playerController2.isRunToPlayer(playerController1))
+           && joint.enabled
+           && playerController1.isGrounded() 
+           && playerController2.isGrounded())
         {
             joint.enabled = false;
             maxRopeLineRenderer.enabled = false;
             ropeLineRenderer.enabled = true;
-            Debug.Log(joint.enabled);
         }
 
-        // khoảng cách đủ xa thì bật lực kéo
-        if (distance > 5 && !joint.enabled)
+        // Khi khoảng cách đạt tối đa, bật SpringJoint2D và vẽ dây thừng căng
+        if (distance >= 5 && !joint.enabled)
         {
             joint.enabled = true;
             maxRopeLineRenderer.enabled = true;
@@ -95,12 +95,12 @@ public class Rope : MonoBehaviour
     {
         // Constrant to First Point
         RopeSegment firstSegment = this.ropeSegments[0];
-        firstSegment.posNow = new Vector3(this.player1.transform.position.x, this.player1.transform.position.y, -0.1f);
+        firstSegment.posNow = new Vector3(this.player1.transform.position.x, this.player1.transform.position.y, 0.1f);
         this.ropeSegments[0] = firstSegment;
 
         // Constrant to Final Point 
         RopeSegment endSegment = this.ropeSegments[this.ropeSegments.Count - 1];
-        endSegment.posNow = new Vector3(this.player2.transform.position.x, this.player2.transform.position.y, -0.1f);
+        endSegment.posNow = new Vector3(this.player2.transform.position.x, this.player2.transform.position.y, 0.1f);
         this.ropeSegments[this.ropeSegments.Count - 1] = endSegment;
 
         // Constrant between 2 Point
@@ -145,6 +145,7 @@ public class Rope : MonoBehaviour
         ropeLineRenderer.endWidth = lineWidth;
 
         Vector3[] ropePositions = new Vector3[this.segmentLength];
+
         for (int i = 0; i < this.segmentLength; i++)
         {
             ropePositions[i] = this.ropeSegments[i].posNow;
@@ -155,8 +156,8 @@ public class Rope : MonoBehaviour
 
         // Max rope length
         Vector3[] ropeMaxPositions = new Vector3[2];
-        ropeMaxPositions[0] = new Vector3(player1.transform.position.x, player1.transform.position.y, 0);
-        ropeMaxPositions[1] = new Vector3(player2.transform.position.x, player2.transform.position.y, 0);
+        ropeMaxPositions[0] = new Vector3(player1.transform.position.x, player1.transform.position.y, 0.1f);
+        ropeMaxPositions[1] = new Vector3(player2.transform.position.x, player2.transform.position.y, 0.1f);
         maxRopeLineRenderer.startWidth = lineWidth;
         maxRopeLineRenderer.endWidth = lineWidth;
         maxRopeLineRenderer.positionCount = 2;

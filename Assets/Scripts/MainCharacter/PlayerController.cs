@@ -49,35 +49,34 @@ public class PlayerController : MonoBehaviour
         // Cõng bạn
         if (bottomPlayer())
             setPlayerState(PlayerState.Carrying);
-        else
+        else if (isCarrying() && !bottomPlayer())
             setPlayerState(PlayerState.Idle);
 
-        // Các hành động chỉ có thể thực hiện nếu đang không ngồi và không cõng bạn
-        if (state != PlayerState.Sitting && state != PlayerState.Carrying)
-        {
-            setPlayerState(PlayerState.Idle); // reset lại trạng thái idle -> tránh bị loop trạng thái (Running, Jumping) khi không có sự kiện chuyển trạng thái khác)
+        // Ngồi
+        if (Input.GetKeyDown(playerInput.moveDown) && isGrounded())
+            setPlayerState(PlayerState.Sitting);
 
-            // Di chuyển nhân vật theo chiều ngang
+        if (isSitting() && Input.GetKeyUp(playerInput.moveDown))
+            setPlayerState(PlayerState.Idle);
+
+        if (!isSitting() && !isCarrying())
+        {
+            setPlayerState(PlayerState.Idle);
+
+            // Chạy
             if (Input.GetKey(playerInput.moveLeft) || Input.GetKey(playerInput.moveRight))
             {
                 Move();
                 setPlayerState(PlayerState.Running);
             }
 
-            // Có thể nhảy khi đang tiếp đất và không có playMate trên đầu
-            if (Input.GetKey(playerInput.moveUp))
-                if (isGrounded())
-                {
-                    Jump();
-                    setPlayerState(PlayerState.Jumping);
-                }
+            // Nhảy
+            if (Input.GetKey(playerInput.moveUp) && isGrounded())
+            {
+                Jump();
+                setPlayerState(PlayerState.Jumping);
+            }                
         }
-
-        // Ngồi
-        if (Input.GetKeyDown(playerInput.moveDown) && isGrounded())
-            setPlayerState(PlayerState.Sitting);
-        if (Input.GetKeyUp(playerInput.moveDown))
-            setPlayerState(PlayerState.Idle);
     
         // Cập nhật Animation theo trạng thái của player
         updateAnimation();
@@ -110,7 +109,7 @@ public class PlayerController : MonoBehaviour
 
         anim.SetBool("grounded", isGrounded());
         anim.SetBool("run", isRunning());
-        anim.SetBool("sit", isSitting() || bottomPlayer());
+        anim.SetBool("sit", isSitting() || isCarrying());
 
         if (isJumping())
             anim.SetTrigger("jump");
@@ -143,6 +142,11 @@ public class PlayerController : MonoBehaviour
         return state == PlayerState.Jumping;
     }
 
+    private bool isCarrying()
+    {
+        return state == PlayerState.Carrying;
+    }
+
     // Player tiếp đất khi đứng trên mặt đất hoặc đứng trên player khác
     public bool isGrounded()
     {
@@ -164,31 +168,14 @@ public class PlayerController : MonoBehaviour
         this.direction = direction;
     }
 
-    public bool isFacingLeft()
-    {
-        return direction == PlayerDirection.Left;
-    }
-
-    public bool isFacingRight()
-    {
-        return direction == PlayerDirection.Right;
-    }
-
-    public bool isLeftPlayer(PlayerController otherPlayer) 
-    {
-        return Mathf.Sign(transform.position.x - otherPlayer.transform.position.x) == -1.0f;
-    }
-
-    public bool isRightPlayer(PlayerController otherPlayer)
-    {
-        return Mathf.Sign(transform.position.x - otherPlayer.transform.position.x) == 1.0f;
-    }
-
     // Đang hướng về người chơi khác:
-    // 1.Đứng bên trái người chơi đó và hướng mặt về bên phải
-    // 2. Đứng bên phải người chơi đó và hướng mặt về bên trái
-    public bool isFacingPlayer(PlayerController otherPlayer)
+    // 1. Người chơi khác đứng bên phải và chạy về bên phải
+    // 2. Người chơi khác đứng bên trái và chạy về bên trái
+    public bool isRunToPlayer(PlayerController otherPlayer)
     {
-        return (isLeftPlayer(otherPlayer) && isFacingRight()) || (isRightPlayer(otherPlayer) && isFacingLeft());
+        // xác định vị trí người chơi khác so với người chơi hiện tại
+        float positionSign = Mathf.Sign(otherPlayer.transform.position.x - transform.position.x); // -1: left, 1: right
+
+        return (positionSign == horizontalInput);
     }
 }
