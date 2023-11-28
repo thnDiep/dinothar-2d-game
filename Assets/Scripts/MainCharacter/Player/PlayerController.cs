@@ -1,6 +1,5 @@
 using UnityEngine;
 using static PlayerInputConfig;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,6 +7,8 @@ public class PlayerController : MonoBehaviour
     private Animator anim;
     private BoxCollider2D boxCollider;
     private PlayerInputConfig playerInput;
+    [SerializeField] private PhysicsMaterial2D highFriction;
+    [SerializeField] private PhysicsMaterial2D normalFriction;
 
     [SerializeField] private float speed = 2.0f;
     [SerializeField] private LayerMask groundLayer;
@@ -40,6 +41,8 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
         playerInput = new PlayerInputConfig(player);
+
+        setPlayerDirection(PlayerDirection.Right);
     }
 
     private void Update()
@@ -53,9 +56,9 @@ public class PlayerController : MonoBehaviour
             setPlayerState(PlayerState.Idle);
 
         // Ngồi
-        if (Input.GetKeyDown(playerInput.moveDown) && isGrounded())
+        if (Input.GetKeyDown(playerInput.moveDown) && isGrounded()) 
             setPlayerState(PlayerState.Sitting);
-
+            
         if (isSitting() && Input.GetKeyUp(playerInput.moveDown))
             setPlayerState(PlayerState.Idle);
 
@@ -75,11 +78,14 @@ public class PlayerController : MonoBehaviour
             {
                 Jump();
                 setPlayerState(PlayerState.Jumping);
-            }                
+            }
         }
-    
+
         // Cập nhật Animation theo trạng thái của player
         updateAnimation();
+
+        // tăng ma sát khi ngồi
+        setHighFriction(isSitting());
     }
 
     private void Move()
@@ -119,7 +125,6 @@ public class PlayerController : MonoBehaviour
             transform.localScale = new Vector3(-1, 1, 1);
         else
             transform.localScale = Vector3.one;
-
     }
 
     private void setPlayerState(PlayerState state)
@@ -127,22 +132,22 @@ public class PlayerController : MonoBehaviour
         this.state = state;
     }
 
-    private bool isRunning()
+    public bool isRunning()
     {
         return state == PlayerState.Running;
     }
 
-    private bool isSitting()
+    public bool isSitting()
     {
         return state == PlayerState.Sitting;
     }
 
-    private bool isJumping()
+    public bool isJumping()
     {
         return state == PlayerState.Jumping;
     }
 
-    private bool isCarrying()
+    public bool isCarrying()
     {
         return state == PlayerState.Carrying;
     }
@@ -157,7 +162,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Bị player khác leo lên đầu
-    private bool bottomPlayer()
+    public bool bottomPlayer()
     {
         RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.up, 0.1f, playMateLayer);
         return raycastHit.collider != null;
@@ -177,5 +182,13 @@ public class PlayerController : MonoBehaviour
         float positionSign = Mathf.Sign(otherPlayer.transform.position.x - transform.position.x); // -1: left, 1: right
 
         return (positionSign == horizontalInput);
+    }
+
+    void setHighFriction(bool isHigh)
+    {
+        if(isHigh)
+            boxCollider.sharedMaterial = highFriction;
+        else
+            boxCollider.sharedMaterial = normalFriction;
     }
 }

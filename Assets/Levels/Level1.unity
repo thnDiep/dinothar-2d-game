@@ -123,6 +123,54 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &420531024
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 420531025}
+  - component: {fileID: 420531026}
+  m_Layer: 0
+  m_Name: Players
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &420531025
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 420531024}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.03649, y: -3.5073385, z: 0.049023673}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 513772280}
+  - {fileID: 1024464295}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &420531026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 420531024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bb36719f3cb87a418c46398e2ace0ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player1: {fileID: 513772283}
+  player2: {fileID: 1024464299}
 --- !u!1 &513772275
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,7 +229,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 513772275}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: aee4e750ff9959d48aca859621724adc, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -277,12 +325,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 513772275}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.93, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -9.03649, y: 3.5073385, z: -0.049023673}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 420531025}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &513772282
 Animator:
@@ -317,6 +365,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2ee72d84e06e1a4f8857d8d4fdd2266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highFriction: {fileID: 6200000, guid: 62a067fb62e3aaf4781adf7dd17ea308, type: 2}
+  normalFriction: {fileID: 6200000, guid: aee4e750ff9959d48aca859621724adc, type: 2}
   speed: 2
   groundLayer:
     serializedVersion: 2
@@ -342,10 +392,10 @@ SpringJoint2D:
   m_AutoConfigureConnectedAnchor: 0
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 0, y: 0}
-  m_AutoConfigureDistance: 1
-  m_Distance: 6.93
+  m_AutoConfigureDistance: 0
+  m_Distance: 3
   m_DampingRatio: 0
-  m_Frequency: 1
+  m_Frequency: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,12 +600,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1024464293}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -7.03649, y: 3.5073385, z: -0.049023673}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 420531025}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &1024464296
 Rigidbody2D:
@@ -593,7 +643,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1024464293}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: aee4e750ff9959d48aca859621724adc, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -662,6 +712,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2ee72d84e06e1a4f8857d8d4fdd2266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highFriction: {fileID: 6200000, guid: 62a067fb62e3aaf4781adf7dd17ea308, type: 2}
+  normalFriction: {fileID: 6200000, guid: aee4e750ff9959d48aca859621724adc, type: 2}
   speed: 2
   groundLayer:
     serializedVersion: 2
@@ -4253,7 +4305,8 @@ MonoBehaviour:
   player1: {fileID: 513772275}
   player2: {fileID: 1024464293}
   ropeMax: {fileID: 1539855680}
-  segmentLength: 10
+  ropeLength: 6
+  maxDistance: 3
 --- !u!120 &1896341971
 LineRenderer:
   serializedVersion: 2
@@ -4379,8 +4432,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 519420032}
-  - {fileID: 513772280}
-  - {fileID: 1024464295}
+  - {fileID: 420531025}
   - {fileID: 1187669353}
   - {fileID: 1249389019}
   - {fileID: 666618675}
