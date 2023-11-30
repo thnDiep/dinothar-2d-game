@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     private BoxCollider2D boxCollider;
     private PlayerInputConfig playerInput;
     private PlayerController playMate;
+    private float money = 0;
 
     [SerializeField] private float speed = 2.0f;
     [SerializeField] private LayerMask groundLayer;
