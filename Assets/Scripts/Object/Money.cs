@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class Money : MonoBehaviour
 {
-    PlayerManager playerManager;
+    [SerializeField] PlayerManager playerManager;
+    [SerializeField] PlayerController Player1;
+    [SerializeField] PlayerController Player2;
     [SerializeField] GameObject coin;
     private enum money
     {
@@ -13,25 +15,36 @@ public class Money : MonoBehaviour
 
     private void Start()
     {
-        playerManager = GetComponent<PlayerManager>();
     }
 
     private void Update()
     {
+
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player") && playerManager != null)
+        if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("va cham");
-            if (gameObject.CompareTag("Coin1"))
+            // Debug.Log("va cham");
+            if (this.CompareTag("Coin1"))
+            {
+
+                // Debug.Log("va cham dong 1");
                 playerManager.plusMoney((int)money.Coin1);
+            }
 
-            else if (gameObject.CompareTag("Coin2"))
+            else if (this.CompareTag("Coin2"))
+            {
+
+                // Debug.Log("va cham dong 2");
                 playerManager.plusMoney((int)money.Coin2);
-
+            }
             else
+            {
+
+                // Debug.Log("va cham dong 3");
                 playerManager.plusMoney((int)money.Coin3);
+            }
 
         }
         Destroy(gameObject);

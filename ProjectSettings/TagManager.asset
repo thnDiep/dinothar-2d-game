@@ -4,7 +4,6 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Ground
   - Coin1
   - Coin2
   - Coin3
@@ -15,9 +14,9 @@ TagManager:
   - 
   - Water
   - UI
-  - Ground
-  - Player 1
-  - Player 2
+  - 
+  - 
+  - 
   - 
   - 
   - 
