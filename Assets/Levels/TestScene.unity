@@ -207,14 +207,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7107096819109969394, guid: 9279c34d7dbe0344f93c20a9bbbea02d, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7107096819109969394, guid: 9279c34d7dbe0344f93c20a9bbbea02d, type: 3}
-      propertyPath: m_ConnectedRigidBody
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 8530970126527913324, guid: 9279c34d7dbe0344f93c20a9bbbea02d, type: 3}
       propertyPath: m_Name
       value: Player 1
@@ -281,9 +273,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a849633033bcbd4a9e9bf0ea48c22ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoneyTxt: {fileID: 1522169020}
   player1: {fileID: 32624276}
   player2: {fileID: 1193325137}
+  moneyBarUI: {fileID: 920811504}
 --- !u!4 &509635147 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5612210610526898689, guid: cfd8177209d5b4bec83478cd7c2fe3b5, type: 3}
@@ -549,6 +541,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 920811503}
+  - component: {fileID: 920811504}
   m_Layer: 5
   m_Name: MoneyBar
   m_TagString: Untagged
@@ -577,6 +570,19 @@ RectTransform:
   m_AnchoredPosition: {x: 200, y: -50}
   m_SizeDelta: {x: 310, y: 140}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &920811504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 920811502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a20f6eb885b69474dad85293c82a36c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moneyText: {fileID: 1522169020}
 --- !u!1001 &927527472
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4546,7 +4552,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1803807732
 Transform:
   m_ObjectHideFlags: 0

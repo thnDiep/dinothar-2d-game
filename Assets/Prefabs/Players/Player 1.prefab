@@ -198,7 +198,7 @@ MonoBehaviour:
   highFriction: {fileID: 6200000, guid: cba1786e554547948b3394d3780d4a06, type: 2}
   normalFriction: {fileID: 6200000, guid: aee4e750ff9959d48aca859621724adc, type: 2}
   speed: 2
-  rotateForce: 2
+  rotationSeed: 5
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -216,7 +216,7 @@ SpringJoint2D:
   m_Enabled: 0
   serializedVersion: 4
   m_EnableCollision: 0
-  m_ConnectedRigidBody: {fileID: 5213771190051071477, guid: fc5586572ee6fc5498dcad4dba897164, type: 3}
+  m_ConnectedRigidBody: {fileID: 0}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_BreakAction: 3

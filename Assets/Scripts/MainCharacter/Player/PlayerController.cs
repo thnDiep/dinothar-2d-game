@@ -12,13 +12,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PhysicsMaterial2D highFriction;
     [SerializeField] private PhysicsMaterial2D normalFriction;
 
+
     [SerializeField] private float speed = 2.0f;
-    [SerializeField] private float rotateForce = 2.0f;
+    [SerializeField] private float rotationSeed = 5.0f;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask playMateLayer;
     [SerializeField] private Player player;
 
     private float horizontalInput;
+
+    private float lastGroundedTime;
 
     public enum PlayerState
     {
@@ -52,18 +55,27 @@ public class PlayerController : MonoBehaviour
     {
         horizontalInput = 0f;
 
+        if(isGrounded())
+            lastGroundedTime = Time.time;
+
         // Cõng bạn
-        if (bottomPlayer())
+        if (bottomPlayer() && !isSitting())
             setPlayerState(PlayerState.Carrying);
         else if (isCarrying() && !bottomPlayer())
             setPlayerState(PlayerState.Idle);
 
         // Ngồi
         if (Input.GetKeyDown(playerInput.moveDown) && isGrounded())
+        {
             setPlayerState(PlayerState.Sitting);
+            PlayerManager.Instance.State = PlayerManager.PlayerState.Rotate;
+        }
 
         if (isSitting() && Input.GetKeyUp(playerInput.moveDown))
+        {
             setPlayerState(PlayerState.Idle);
+            PlayerManager.Instance.State = PlayerManager.PlayerState.Normal;
+        }
 
         if (!isSitting() && !isCarrying())
         {
@@ -77,7 +89,7 @@ public class PlayerController : MonoBehaviour
             }
 
             // Nhảy
-            if (Input.GetKey(playerInput.moveUp) && isGrounded())
+            if (Input.GetKeyDown(playerInput.moveUp) && isGrounded())
             {
                 Jump();
                 setPlayerState(PlayerState.Jumping);
@@ -86,8 +98,8 @@ public class PlayerController : MonoBehaviour
 
         
         updateAnimation();  // Cập nhật Animation theo trạng thái của player
-        updateFriction();   // Cập nhật ma sát theo trạng thái của player
-        updateConstraint();
+        updateFriction();   // Cập nhật ma sát
+        updateConstraint(); // Cập nhật constraint
     }
 
     private void Move()
@@ -104,10 +116,12 @@ public class PlayerController : MonoBehaviour
         }
 
         Vector2 movement = new Vector2(horizontalInput, 0f);
-        //if (PlayerManager.Instance.GetGameState() == PlayerManager.State.Normal)
-        rb.velocity = new Vector2(movement.x * speed, rb.velocity.y);
-        //else if (PlayerManager.Instance.GetGameState() == PlayerManager.State.Rotate)
-        //rb.AddForce(new Vector2(horizontalInput, 0) * rotateForce);
+
+        // Nếu thời gian lần cuối chạm đất lớn hơn 1s -> player bị treo lơ lửng -> xoay
+        if (PlayerManager.Instance.State == PlayerManager.PlayerState.Rotate && !isGrounded() && Time.time - lastGroundedTime >= 1f)
+            rb.AddForce(new Vector2(horizontalInput, 0) * rotationSeed);
+        else 
+            rb.velocity = new Vector2(movement.x * speed, rb.velocity.y);
     }
 
     private void Jump()
@@ -134,7 +148,7 @@ public class PlayerController : MonoBehaviour
 
     public void updateFriction()
     {
-        if (state == PlayerState.Sitting || state == PlayerState.Carrying)
+        if (state == PlayerState.Sitting)
             boxCollider.sharedMaterial = maxFriction;
         else if (state == PlayerState.Idle)
             boxCollider.sharedMaterial = highFriction;

@@ -1,16 +1,27 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using static PlayerInputConfig;
 
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager Instance { get; private set; }
+    private PlayerState state;
+    public enum PlayerState
+    {
+        Normal,
+        Rotate
+    }
 
     private int money = 0;
-    [SerializeField] TextMeshProUGUI MoneyTxt;
     [SerializeField] PlayerController player1;
     [SerializeField] PlayerController player2;
+
+    // Các thành phần UI
+    [SerializeField] MoneyBar moneyBarUI;
+    public PlayerState State
+    {
+        get { return state; }
+        set { state = value; }
+    }
 
     void Awake()
     {
@@ -23,23 +34,19 @@ public class PlayerManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        if (MoneyTxt != null)
-        {
-            MoneyTxt.text = money.ToString();
-        }
+
+        // Update UI lúc bắt đầu
+        moneyBarUI.setMoney(money);
     }
 
     public void changeMoney(int money)
     {
         this.money += money;
-        if (MoneyTxt != null)
-        {
-            MoneyTxt.text = this.money.ToString();
-        }
+        moneyBarUI.setMoney(this.money);
     }
 
     public int getMoney()
     {
-        return money;
+        return this.money;
     }
 }
