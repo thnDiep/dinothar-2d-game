@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 5024477390071696836}
   - component: {fileID: 7317362540266649985}
   - component: {fileID: 630639447305588045}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Coin2
-  m_TagString: Untagged
+  m_TagString: Money
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -155,5 +155,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a363efc4e0faaa043ba20ac9f9f258f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  players: {fileID: 0}
   value: 2

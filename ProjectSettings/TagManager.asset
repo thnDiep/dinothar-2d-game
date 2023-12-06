@@ -16,6 +16,7 @@ TagManager:
   - Ground
   - Player1
   - Player2
+  - Object
   - 
   - 
   - 
@@ -37,8 +38,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - Bullet
   m_SortingLayers:
   - name: Default
     uniqueID: 0

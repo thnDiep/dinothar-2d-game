@@ -10,7 +10,7 @@ public class Money : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             PlayerManager.Instance.changeMoney(value);
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
     }
 }

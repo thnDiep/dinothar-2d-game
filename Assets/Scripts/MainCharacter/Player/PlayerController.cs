@@ -1,5 +1,5 @@
+using System.Collections;
 using UnityEngine;
-using static PlayerInputConfig;
 
 public class PlayerController : MonoBehaviour
 {
@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     private Animator anim;
     private BoxCollider2D boxCollider;
     private PlayerInputConfig playerInput;
+    public GameObject bulletPrefab;
 
     [SerializeField] private PhysicsMaterial2D maxFriction;
     [SerializeField] private PhysicsMaterial2D highFriction;
@@ -17,11 +18,29 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float rotationSeed = 5.0f;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask playMateLayer;
-    [SerializeField] private Player player;
+    [SerializeField] private PlayerManager.Player player;
 
-    private float horizontalInput;
+    // Cách chỉ số người chơi
+    [SerializeField] private float attackSpeed = 300f;
+    [SerializeField] private float attackDamage = 10f;
 
     private float lastGroundedTime;
+
+    // Shoot
+    private bool canShoot = true;
+    private float countDownShoot = 2f;
+    private float currentAttackDamage;
+
+    // Skill: 20 giây sử dụng, 10 giây hồi chiêu
+    private Bullet.BulletType bulletType;
+
+    private bool canUseSingleSkill = true;
+    private bool canUseCombineSkill = true;
+    IEnumerator IESetCanUseSingleSkill = null;
+    IEnumerator IESetCanUseCombineSkill = null;
+
+    private float skillDuration = 10f;
+    private float cooldown = 20f;
 
     public enum PlayerState
     {
@@ -32,14 +51,8 @@ public class PlayerController : MonoBehaviour
         Carrying,
     }
 
-    public enum PlayerDirection
-    {
-        Left,
-        Right
-    }
-
     private PlayerState state;
-    private PlayerDirection direction;
+    private Vector2 direction;
 
     private void Awake()
     {
@@ -48,14 +61,17 @@ public class PlayerController : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
         playerInput = new PlayerInputConfig(player);
 
-        setPlayerDirection(PlayerDirection.Right);
+        direction = new Vector2(1, 0); // right
+
+        bulletType = Bullet.BulletType.basic;
+        currentAttackDamage = attackDamage * (int)bulletType;
     }
 
     private void Update()
     {
-        horizontalInput = 0f;
+        //horizontalInput = 0f;
 
-        if(isGrounded())
+        if (isGrounded())
             lastGroundedTime = Time.time;
 
         // Cõng bạn
@@ -96,7 +112,12 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        
+        if (Input.GetKeyDown(playerInput.shoot) && canShoot)
+            Shoot();
+
+        if (Input.GetKeyDown(playerInput.useSkill) && canUseSingleSkill)
+            UseSingleSkill();
+
         updateAnimation();  // Cập nhật Animation theo trạng thái của player
         updateFriction();   // Cập nhật ma sát
         updateConstraint(); // Cập nhật constraint
@@ -106,27 +127,125 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey(playerInput.moveLeft))
         {
-            horizontalInput = -1f;
-            setPlayerDirection(PlayerDirection.Left);
+            direction = new Vector2(-1, 0);
         }
         else if (Input.GetKey(playerInput.moveRight))
         {
-            horizontalInput = 1f;
-            setPlayerDirection(PlayerDirection.Right);
+            direction = new Vector2(1, 0);
         }
-
-        Vector2 movement = new Vector2(horizontalInput, 0f);
 
         // Nếu thời gian lần cuối chạm đất lớn hơn 1s -> player bị treo lơ lửng -> xoay
         if (PlayerManager.Instance.State == PlayerManager.PlayerState.Rotate && !isGrounded() && Time.time - lastGroundedTime >= 1f)
-            rb.AddForce(new Vector2(horizontalInput, 0) * rotationSeed);
+            rb.AddForce(direction * rotationSeed);
         else 
-            rb.velocity = new Vector2(movement.x * speed, rb.velocity.y);
+            rb.velocity = new Vector2(direction.x * speed, rb.velocity.y);
     }
 
     private void Jump()
     {
         rb.velocity = new Vector2(rb.velocity.x, 10);
+    }
+
+    private void Shoot()
+    {
+        GameObject bulletObject = Instantiate(bulletPrefab, rb.position + Vector2.up * 0.1f + direction * 0.5f, Quaternion.identity);
+        Bullet bullet = bulletObject.GetComponent<Bullet>();
+        bullet.Launch(direction, attackSpeed, bulletType);
+        Debug.Log(currentAttackDamage);
+
+        StartCoroutine(SetCanShoot());
+    }
+
+    IEnumerator SetCanShoot()
+    {
+        canShoot = false;
+        yield return new WaitForSeconds(countDownShoot);
+        canShoot = true;
+    }
+    public void UseSingleSkill()
+    {
+        if (IESetCanUseCombineSkill != null && bulletType == Bullet.BulletType.combineSkill)
+        {
+            Debug.Log("Stop use combine skill");
+            StopCoroutine(IESetCanUseCombineSkill);
+            StartCoroutine(cooldownCombineSkill());
+        }
+
+        IESetCanUseSingleSkill = SetCanUseSingleSkill();
+        StartCoroutine(IESetCanUseSingleSkill);
+    }
+
+    IEnumerator SetCanUseSingleSkill()
+    {
+        Debug.Log("Start use single skill");
+        canUseSingleSkill = false;
+
+        // Sử dụng kỹ năng nên sức mạnh tấn công tăng gấp đôi
+        bulletType = Bullet.BulletType.singleSkill;
+        currentAttackDamage = attackDamage * (int)bulletType;
+
+        // Hết thời gian sử dụng kỹ năng sức mạnh trở về bình thường
+        yield return new WaitForSeconds(skillDuration);
+        bulletType = Bullet.BulletType.basic;
+        currentAttackDamage = attackDamage * (int)bulletType;
+        Debug.Log("End use single skill");
+
+        // Hết thời gian hồi chiêu, có thể sử dụng skill trở lại
+        yield return new WaitForSeconds(cooldown);
+        canUseSingleSkill = true;
+        IESetCanUseSingleSkill = null;
+        Debug.Log("Can use single skill");
+    }
+
+    IEnumerator cooldownSingleSkill()
+    {
+        // Hết thời gian hồi chiêu, có thể sử dụng skill trở lại
+        yield return new WaitForSeconds(cooldown);
+        canUseSingleSkill = true;
+        Debug.Log("Can use single skill");
+    }
+
+    public void UseCombineSkill()
+    {
+        if(IESetCanUseSingleSkill != null && bulletType == Bullet.BulletType.singleSkill)
+        {
+            Debug.Log("Stop use single skill");
+            StopCoroutine(IESetCanUseSingleSkill);
+            StartCoroutine(cooldownSingleSkill());
+        }
+
+        IESetCanUseCombineSkill = SetCanUseCombineSkill();
+        StartCoroutine(IESetCanUseCombineSkill);
+    }
+
+    IEnumerator SetCanUseCombineSkill()
+    {
+        Debug.Log("Start use combine skill");
+        canUseCombineSkill = false;
+
+        // Sử dụng kỹ năng nên sức mạnh tấn công tăng gấp đôi
+        bulletType = Bullet.BulletType.combineSkill;
+        currentAttackDamage = attackDamage * (int)bulletType;
+
+        // Hết thời gian sử dụng kỹ năng sức mạnh trở về bình thường
+        yield return new WaitForSeconds(skillDuration);
+        bulletType = Bullet.BulletType.basic;
+        currentAttackDamage = attackDamage * (int)bulletType;
+        Debug.Log("End use combine skill");
+
+        // Hết thời gian hồi chiêu, có thể sử dụng skill trở lại
+        yield return new WaitForSeconds(cooldown);
+        canUseCombineSkill = true;
+        IESetCanUseCombineSkill = null;
+        Debug.Log("Can use combine skill");
+    }
+
+    IEnumerator cooldownCombineSkill()
+    {
+        // Hết thời gian hồi chiêu, có thể sử dụng skill trở lại
+        yield return new WaitForSeconds(cooldown);
+        canUseCombineSkill = true;
+        Debug.Log("Can use combine skill");
     }
 
     private void updateAnimation()
@@ -140,10 +259,7 @@ public class PlayerController : MonoBehaviour
             anim.SetTrigger("jump");
 
         // Xử lý quay mặt
-        if (direction == PlayerDirection.Left)
-            transform.localScale = new Vector3(-1, 1, 1);
-        else
-            transform.localScale = Vector3.one;
+        transform.localScale = new Vector3(direction.x, 1, 1);
     }
 
     public void updateFriction()
@@ -205,11 +321,6 @@ public class PlayerController : MonoBehaviour
         return raycastHit.collider != null;
     }
 
-    private void setPlayerDirection(PlayerDirection direction)
-    {
-        this.direction = direction;
-    }
-
     // Đang hướng về người chơi khác:
     // 1. Người chơi khác đứng bên phải và chạy về bên phải
     // 2. Người chơi khác đứng bên trái và chạy về bên trái
@@ -217,6 +328,11 @@ public class PlayerController : MonoBehaviour
     {
         // xác định vị trí người chơi khác so với người chơi hiện tại
         float positionSign = Mathf.Sign(otherPlayer.transform.position.x - transform.position.x); // -1: left, 1: right
-        return (positionSign == horizontalInput);
+        return (positionSign == direction.x);
+    }
+
+    public bool getCanUseCombineSkill()
+    {
+        return canUseCombineSkill;
     }
 }

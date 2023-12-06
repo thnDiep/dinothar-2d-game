@@ -727,10 +727,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1064618541}
     m_Modifications:
-    - target: {fileID: 630639447305588045, guid: e2336fe6f91c02e49814a68a12efdc7b, type: 3}
-      propertyPath: players
-      value: 
-      objectReference: {fileID: 420531026}
     - target: {fileID: 1649870757037686907, guid: e2336fe6f91c02e49814a68a12efdc7b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.22
@@ -1121,7 +1117,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -10
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -4335,10 +4331,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1064618541}
     m_Modifications:
-    - target: {fileID: 630639447305588045, guid: e2336fe6f91c02e49814a68a12efdc7b, type: 3}
-      propertyPath: players
-      value: 
-      objectReference: {fileID: 420531026}
     - target: {fileID: 1649870757037686907, guid: e2336fe6f91c02e49814a68a12efdc7b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10.26
