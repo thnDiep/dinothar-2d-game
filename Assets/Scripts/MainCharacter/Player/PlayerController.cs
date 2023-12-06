@@ -148,7 +148,8 @@ public class PlayerController : MonoBehaviour
 
     private void Shoot()
     {
-        GameObject bulletObject = Instantiate(bulletPrefab, rb.position + Vector2.up * 0.1f + direction * 0.5f, Quaternion.identity);
+        anim.SetTrigger("shoot");
+        GameObject bulletObject = Instantiate(bulletPrefab, rb.position + direction * 0.5f, Quaternion.identity);
         Bullet bullet = bulletObject.GetComponent<Bullet>();
         bullet.Launch(direction, attackSpeed, bulletType);
         Debug.Log(currentAttackDamage);

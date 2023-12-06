@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8f843bd6cf1fdf64e9fe3616b4a4c2d9
+guid: 2997695e47f3dc345868a40ce030c06a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: jump_0
+      name: bite_0
       rect:
         serializedVersion: 2
         x: 0
@@ -137,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7fdfdcb336e943b4daedca08918cf7d1
-      internalID: 1545463864
+      spriteID: 7379f83d93d68644583cc6f295d6d753
+      internalID: 1635795418
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: jump_1
+      name: bite_1
       rect:
         serializedVersion: 2
         x: 24
@@ -158,14 +158,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 135c40523f0a73c4ab02cc73b261c115
-      internalID: 320313783
+      spriteID: d4efccc893b89884b845575540ed0007
+      internalID: 191395931
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: jump_2
+      name: bite_2
       rect:
         serializedVersion: 2
         x: 48
@@ -179,29 +179,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 901ef30762d46104cbac42976dc167eb
-      internalID: -1859398823
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: jump_3
-      rect:
-        serializedVersion: 2
-        x: 72
-        y: 0
-        width: 24
-        height: 24
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 756d8d4783dc54c46a88b92bc781b94f
-      internalID: 1410841761
+      spriteID: ae96782b190f61040a02cd35c96024da
+      internalID: -387410281
       vertices: []
       indices: 
       edges: []
@@ -217,10 +196,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      jump_0: 1545463864
-      jump_1: 320313783
-      jump_2: -1859398823
-      jump_3: 1410841761
+      bite_0: 1635795418
+      bite_1: 191395931
+      bite_2: -387410281
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
