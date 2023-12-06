@@ -7,10 +7,12 @@ public class PlayerController : MonoBehaviour
     private Animator anim;
     private BoxCollider2D boxCollider;
     private PlayerInputConfig playerInput;
+    [SerializeField] private PhysicsMaterial2D maxFriction;
     [SerializeField] private PhysicsMaterial2D highFriction;
     [SerializeField] private PhysicsMaterial2D normalFriction;
 
     [SerializeField] private float speed = 2.0f;
+    [SerializeField] private float rotateForce = 2.0f;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask playMateLayer;
     [SerializeField] private Player player;
@@ -56,9 +58,9 @@ public class PlayerController : MonoBehaviour
             setPlayerState(PlayerState.Idle);
 
         // Ngồi
-        if (Input.GetKeyDown(playerInput.moveDown) && isGrounded()) 
+        if (Input.GetKeyDown(playerInput.moveDown) && isGrounded())
             setPlayerState(PlayerState.Sitting);
-            
+
         if (isSitting() && Input.GetKeyUp(playerInput.moveDown))
             setPlayerState(PlayerState.Idle);
 
@@ -81,11 +83,10 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        // Cập nhật Animation theo trạng thái của player
-        updateAnimation();
-
-        // tăng ma sát khi ngồi
-        setHighFriction(isSitting());
+        
+        updateAnimation();  // Cập nhật Animation theo trạng thái của player
+        updateFriction();   // Cập nhật ma sát theo trạng thái của player
+        updateConstraint();
     }
 
     private void Move()
@@ -102,7 +103,10 @@ public class PlayerController : MonoBehaviour
         }
 
         Vector2 movement = new Vector2(horizontalInput, 0f);
-        rb.velocity = new Vector2(movement.x * speed, rb.velocity.y);
+        //if (PlayerManager.Instance.GetGameState() == PlayerManager.State.Normal)
+        //rb.velocity = new Vector2(movement.x * speed, rb.velocity.y);
+        //else if (PlayerManager.Instance.GetGameState() == PlayerManager.State.Rotate)
+        rb.AddForce(new Vector2(horizontalInput, 0) * rotateForce);
     }
 
     private void Jump()
@@ -125,6 +129,24 @@ public class PlayerController : MonoBehaviour
             transform.localScale = new Vector3(-1, 1, 1);
         else
             transform.localScale = Vector3.one;
+    }
+
+    public void updateFriction()
+    {
+        if (state == PlayerState.Sitting || state == PlayerState.Carrying)
+            boxCollider.sharedMaterial = maxFriction;
+        else if (state == PlayerState.Idle)
+            boxCollider.sharedMaterial = highFriction;
+        else
+            boxCollider.sharedMaterial = normalFriction;
+    }
+
+    public void updateConstraint()
+    {
+        if(state == PlayerState.Sitting) 
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        else
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
     private void setPlayerState(PlayerState state)
@@ -180,15 +202,6 @@ public class PlayerController : MonoBehaviour
     {
         // xác định vị trí người chơi khác so với người chơi hiện tại
         float positionSign = Mathf.Sign(otherPlayer.transform.position.x - transform.position.x); // -1: left, 1: right
-
         return (positionSign == horizontalInput);
-    }
-
-    void setHighFriction(bool isHigh)
-    {
-        if(isHigh)
-            boxCollider.sharedMaterial = highFriction;
-        else
-            boxCollider.sharedMaterial = normalFriction;
     }
 }

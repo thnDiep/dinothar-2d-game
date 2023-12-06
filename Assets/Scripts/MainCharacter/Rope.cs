@@ -57,6 +57,7 @@ public class Rope : MonoBehaviour
            && (playerController1.isGrounded() || playerController2.isGrounded()))
             toggleMaxRope(false);
 
+
         // Khi khoảng cách đạt tối đa, bật SpringJoint2D và vẽ dây thừng căng
         if (distance > maxDistance && !joint.enabled)
             toggleMaxRope(true);
