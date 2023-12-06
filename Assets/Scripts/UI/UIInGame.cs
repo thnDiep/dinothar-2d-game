@@ -1,27 +1,33 @@
 using UnityEngine;
+using TMPro;
+
 
 public class UIInGame : MonoBehaviour
 {
-    PlayerManager playerManager;
+    public TextMeshProUGUI moneyText;
 
-
-    private void Start()
+    public TextMeshProUGUI diamondText;
+    public TextMeshProUGUI lifeText;
+    public void setMoney(int amount)
     {
-        playerManager = GetComponent<PlayerManager>();
-        //playerManager.money.OnValueChanged += UpdateMoney;
-
-    }
-
-    private void Update()
-    {
-
-    }
-
-    private void UpdateMoney()
-    {
-        if (playerManager != null)
+        if (moneyText != null)
         {
+            moneyText.text = amount.ToString();
+        }
+    }
+    public void setDiamond(int amount)
+    {
+        if (diamondText != null)
+        {
+            diamondText.text = amount.ToString();
+        }
+    }
 
+    public void setLife(int amount)
+    {
+        if (diamondText != null)
+        {
+            lifeText.text = amount.ToString();
         }
     }
 
