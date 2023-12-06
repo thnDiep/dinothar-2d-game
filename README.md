@@ -1,7 +1,9 @@
 # Course: GAME DEVELOPMENT
 
+'''
 CLASS: 20KTPM
 Made by: NQD Team
+'''
 
 ## Structure of project
 

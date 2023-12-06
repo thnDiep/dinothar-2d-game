@@ -4,9 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Coin1
   - Ground
-  - Player1
-  - Player2
   layers:
   - Default
   - TransparentFX
@@ -15,8 +14,8 @@ TagManager:
   - Water
   - UI
   - Ground
-  - Player 1
-  - Player 2
+  - Player1
+  - Player2
   - 
   - 
   - 

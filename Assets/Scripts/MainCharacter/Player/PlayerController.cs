@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     private Animator anim;
     private BoxCollider2D boxCollider;
     private PlayerInputConfig playerInput;
+
     [SerializeField] private PhysicsMaterial2D maxFriction;
     [SerializeField] private PhysicsMaterial2D highFriction;
     [SerializeField] private PhysicsMaterial2D normalFriction;
@@ -104,9 +105,9 @@ public class PlayerController : MonoBehaviour
 
         Vector2 movement = new Vector2(horizontalInput, 0f);
         //if (PlayerManager.Instance.GetGameState() == PlayerManager.State.Normal)
-        //rb.velocity = new Vector2(movement.x * speed, rb.velocity.y);
+        rb.velocity = new Vector2(movement.x * speed, rb.velocity.y);
         //else if (PlayerManager.Instance.GetGameState() == PlayerManager.State.Rotate)
-        rb.AddForce(new Vector2(horizontalInput, 0) * rotateForce);
+        //rb.AddForce(new Vector2(horizontalInput, 0) * rotateForce);
     }
 
     private void Jump()
@@ -125,7 +126,7 @@ public class PlayerController : MonoBehaviour
             anim.SetTrigger("jump");
 
         // Xử lý quay mặt
-        if(direction == PlayerDirection.Left)
+        if (direction == PlayerDirection.Left)
             transform.localScale = new Vector3(-1, 1, 1);
         else
             transform.localScale = Vector3.one;
