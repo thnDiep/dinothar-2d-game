@@ -58,7 +58,6 @@ public class PlayerManager : MonoBehaviour
         uIInGame.setMoney(currentMoney);
         uIInGame.setDiamond(currentDiamond);
         uIInGame.setLife(currentLife);
-
     }
 
     private void Update()

@@ -1,11 +1,11 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 
 public class UIInGame : MonoBehaviour
 {
     public TextMeshProUGUI moneyText;
-
     public TextMeshProUGUI diamondText;
     public TextMeshProUGUI lifeText;
     public void setMoney(int amount)
