@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 // using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine.UI;
@@ -8,7 +9,6 @@ using UnityEngine.UI;
 public class UIInGame : MonoBehaviour
 {
     public TextMeshProUGUI moneyText;
-
     public TextMeshProUGUI diamondText;
     public TextMeshProUGUI lifeText;
 

@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -7,7 +8,7 @@ public class PlayerController : MonoBehaviour
     private Animator anim;
     private BoxCollider2D boxCollider;
     private PlayerInputConfig playerInput;
-    public GameObject bulletPrefab;
+
 
     [SerializeField] private PhysicsMaterial2D maxFriction;
     [SerializeField] private PhysicsMaterial2D highFriction;
@@ -21,14 +22,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerManager.Player player;
 
     // Cách chỉ số người chơi
-    [SerializeField] private float attackSpeed = 300f;
-    [SerializeField] private float attackDamage = 10f;
+    private float attackSpeed = 300f;
+    private float attackDamage = 10f;
 
     private float lastGroundedTime;
 
     // Shoot
+    [SerializeField] private GameObject bulletPrefab;
+
     private bool canShoot = true;
-    private float countDownShoot = 2f;
+    private float countDownShootTime = 1.0f;
     private float currentAttackDamage;
 
     // Skill: 20 giây sử dụng, 10 giây hồi chiêu
@@ -39,8 +42,12 @@ public class PlayerController : MonoBehaviour
     IEnumerator IESetCanUseSingleSkill = null;
     IEnumerator IESetCanUseCombineSkill = null;
 
-    private float skillDuration = 10f;
-    private float cooldown = 20f;
+    private float skillDurationTime = 10f;
+    private float singleSkillCooldownTime = 20f;
+    private float combineSkillCooldownTime = 30f;
+
+    // UI
+    [SerializeField] private SkillBarUI skillBarUI;
 
     public enum PlayerState
     {
@@ -152,19 +159,14 @@ public class PlayerController : MonoBehaviour
         GameObject bulletObject = Instantiate(bulletPrefab, rb.position + direction * 0.5f, Quaternion.identity);
         Bullet bullet = bulletObject.GetComponent<Bullet>();
         bullet.Launch(direction, attackSpeed, bulletType);
-        Debug.Log(currentAttackDamage);
+        //Debug.Log("damage:" + currentAttackDamage);
 
         StartCoroutine(SetCanShoot());
     }
 
-    IEnumerator SetCanShoot()
-    {
-        canShoot = false;
-        yield return new WaitForSeconds(countDownShoot);
-        canShoot = true;
-    }
     public void UseSingleSkill()
     {
+        // Nếu đang sử dụng combine skill thì ngừng sử dụng và đếm ngược thời gian hồi chiêu của combine skill
         if (IESetCanUseCombineSkill != null && bulletType == Bullet.BulletType.combineSkill)
         {
             Debug.Log("Stop use combine skill");
@@ -176,39 +178,10 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(IESetCanUseSingleSkill);
     }
 
-    IEnumerator SetCanUseSingleSkill()
-    {
-        Debug.Log("Start use single skill");
-        canUseSingleSkill = false;
-
-        // Sử dụng kỹ năng nên sức mạnh tấn công tăng gấp đôi
-        bulletType = Bullet.BulletType.singleSkill;
-        currentAttackDamage = attackDamage * (int)bulletType;
-
-        // Hết thời gian sử dụng kỹ năng sức mạnh trở về bình thường
-        yield return new WaitForSeconds(skillDuration);
-        bulletType = Bullet.BulletType.basic;
-        currentAttackDamage = attackDamage * (int)bulletType;
-        Debug.Log("End use single skill");
-
-        // Hết thời gian hồi chiêu, có thể sử dụng skill trở lại
-        yield return new WaitForSeconds(cooldown);
-        canUseSingleSkill = true;
-        IESetCanUseSingleSkill = null;
-        Debug.Log("Can use single skill");
-    }
-
-    IEnumerator cooldownSingleSkill()
-    {
-        // Hết thời gian hồi chiêu, có thể sử dụng skill trở lại
-        yield return new WaitForSeconds(cooldown);
-        canUseSingleSkill = true;
-        Debug.Log("Can use single skill");
-    }
-
     public void UseCombineSkill()
     {
-        if(IESetCanUseSingleSkill != null && bulletType == Bullet.BulletType.singleSkill)
+        // Nếu đang sử dụng single skill thì ngừng sử dụng và đếm ngược thời gian hồi chiêu của single skill
+        if (IESetCanUseSingleSkill != null && bulletType == Bullet.BulletType.singleSkill)
         {
             Debug.Log("Stop use single skill");
             StopCoroutine(IESetCanUseSingleSkill);
@@ -218,37 +191,7 @@ public class PlayerController : MonoBehaviour
         IESetCanUseCombineSkill = SetCanUseCombineSkill();
         StartCoroutine(IESetCanUseCombineSkill);
     }
-
-    IEnumerator SetCanUseCombineSkill()
-    {
-        Debug.Log("Start use combine skill");
-        canUseCombineSkill = false;
-
-        // Sử dụng kỹ năng nên sức mạnh tấn công tăng gấp đôi
-        bulletType = Bullet.BulletType.combineSkill;
-        currentAttackDamage = attackDamage * (int)bulletType;
-
-        // Hết thời gian sử dụng kỹ năng sức mạnh trở về bình thường
-        yield return new WaitForSeconds(skillDuration);
-        bulletType = Bullet.BulletType.basic;
-        currentAttackDamage = attackDamage * (int)bulletType;
-        Debug.Log("End use combine skill");
-
-        // Hết thời gian hồi chiêu, có thể sử dụng skill trở lại
-        yield return new WaitForSeconds(cooldown);
-        canUseCombineSkill = true;
-        IESetCanUseCombineSkill = null;
-        Debug.Log("Can use combine skill");
-    }
-
-    IEnumerator cooldownCombineSkill()
-    {
-        // Hết thời gian hồi chiêu, có thể sử dụng skill trở lại
-        yield return new WaitForSeconds(cooldown);
-        canUseCombineSkill = true;
-        Debug.Log("Can use combine skill");
-    }
-
+    
     private void updateAnimation()
     {
 
@@ -335,5 +278,102 @@ public class PlayerController : MonoBehaviour
     public bool getCanUseCombineSkill()
     {
         return canUseCombineSkill;
+    }
+
+    IEnumerator SetCanShoot()
+    {
+        canShoot = false;
+        yield return new WaitForSeconds(countDownShootTime);
+        canShoot = true;
+    }
+
+    IEnumerator SetCanUseSingleSkill()
+    {
+        Debug.Log("Start use single skill");
+        canUseSingleSkill = false;
+        skillBarUI.startUseSingleSkillCooldown();
+
+        // Sử dụng kỹ năng nên sức mạnh tấn công tăng
+        bulletType = Bullet.BulletType.singleSkill;
+        currentAttackDamage = attackDamage * (int)bulletType;
+
+        // Đếm ngược thời gian sử dụng skill
+        float remainingTime = skillDurationTime;
+        while (remainingTime > 0)
+        {
+            skillBarUI.applySingleSkillCooldown(remainingTime, skillDurationTime, false);
+            yield return new WaitForSeconds(1f);
+            remainingTime -= 1f;
+        }
+
+        // Hết thời gian sử dụng kỹ năng sức mạnh trở về bình thường
+        bulletType = Bullet.BulletType.basic;
+        currentAttackDamage = attackDamage * (int)bulletType;
+        Debug.Log("End use single skill");
+
+        StartCoroutine(cooldownSingleSkill());
+    }
+
+    IEnumerator cooldownSingleSkill()
+    {
+        // Đếm ngược thời gian hồi chiêu skill
+        float remainingTime = singleSkillCooldownTime;
+        while (remainingTime > 0)
+        {
+            skillBarUI.applySingleSkillCooldown(remainingTime, singleSkillCooldownTime, true);
+            yield return new WaitForSeconds(1f);
+            remainingTime -= 1f;
+        }
+
+        // Hết thời gian hồi chiêu, có thể sử dụng skill trở lại
+        canUseSingleSkill = true;
+        skillBarUI.stopUseSingleSkillCooldown();
+        IESetCanUseSingleSkill = null;
+        Debug.Log("Can use single skill");
+    }
+
+    IEnumerator SetCanUseCombineSkill()
+    {
+        Debug.Log("Start use combine skill");
+        canUseCombineSkill = false;
+        skillBarUI.startUseCombineSkillCooldown();
+
+        // Sử dụng kỹ năng nên sức mạnh tấn công tăng
+        bulletType = Bullet.BulletType.combineSkill;
+        currentAttackDamage = attackDamage * (int)bulletType;
+
+        // Đếm ngược thời gian sử dụng skill
+        float remainingTime = skillDurationTime;
+        while (remainingTime > 0)
+        {
+            skillBarUI.applyCombineSkillCooldown(remainingTime, skillDurationTime, false);
+            yield return new WaitForSeconds(1f);
+            remainingTime -= 1f;
+        }
+
+        // Hết thời gian sử dụng kỹ năng sức mạnh trở về bình thường
+        bulletType = Bullet.BulletType.basic;
+        currentAttackDamage = attackDamage * (int)bulletType;
+        Debug.Log("End use combine skill");
+
+        StartCoroutine(cooldownCombineSkill());
+    }
+
+    IEnumerator cooldownCombineSkill()
+    {
+        // Đếm ngược thời gian hồi chiêu
+        float remainingTime = combineSkillCooldownTime;
+        while (remainingTime > 0)
+        {
+            skillBarUI.applyCombineSkillCooldown(remainingTime, combineSkillCooldownTime, true);
+            yield return new WaitForSeconds(1f);
+            remainingTime -= 1f;
+        }
+
+        // Hết thời gian hồi chiêu, có thể sử dụng skill trở lại
+        canUseCombineSkill = true;
+        skillBarUI.stopUseCombineSkillCooldown();
+        IESetCanUseCombineSkill = null;
+        Debug.Log("Can use combine skill");
     }
 }

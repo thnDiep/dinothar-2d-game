@@ -33,7 +33,6 @@ public class Bullet : MonoBehaviour
     public void Launch(Vector2 direction, float force, BulletType bulletType)
     {
         anim.SetInteger("bulletType", (int)bulletType);
-        Debug.Log(bulletType);
         transform.localScale = new Vector3(direction.x, 1, 1);
         rb.AddForce(direction * force);
     }
