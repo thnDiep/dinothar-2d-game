@@ -7,7 +7,6 @@ public class Bullet : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
 
-    
     public enum BulletType
     {
         basic = 1,                  // 1: khi bắn bình thường
@@ -16,6 +15,9 @@ public class Bullet : MonoBehaviour
     }
 
     [SerializeField] private float timeExist = 1.5f;
+    private int damage;
+    private BulletType bulletType;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -30,16 +32,26 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void Launch(Vector2 direction, float force, BulletType bulletType)
+    public void Launch(Vector2 direction, float force, BulletType bulletType, int damage)
     {
         anim.SetInteger("bulletType", (int)bulletType);
         transform.localScale = new Vector3(direction.x, 1, 1);
         rb.AddForce(direction * force);
+
+        this.damage = damage;
+        this.bulletType = bulletType;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log("Hit " + collision.gameObject.name);
-        Destroy(gameObject);
+        Boss boss = collider.GetComponent<Boss>();
+        if (boss != null)
+        {
+            boss.TakeDamage(damage * (int)bulletType);
+            Destroy(gameObject);
+        }
+
+        //Instantiate(impactEffect, transform.position, transform.rotation);
+
     }
 }

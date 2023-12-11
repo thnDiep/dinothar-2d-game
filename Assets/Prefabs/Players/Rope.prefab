@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4985740287518226225}
   - component: {fileID: 6211282939821819519}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: MaxRope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 6533563932281735025}
   - component: {fileID: 4603476624163255514}
   - component: {fileID: 8516525315565197726}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Rope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -211,7 +211,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 1}
@@ -286,8 +286,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4214e0e7ee29a0d46a343453837a6441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1: {fileID: 8530970126527913324, guid: 9279c34d7dbe0344f93c20a9bbbea02d, type: 3}
-  player2: {fileID: 3643604322087739742, guid: fc5586572ee6fc5498dcad4dba897164, type: 3}
+  player1: {fileID: 0}
+  player2: {fileID: 0}
   ropeMax: {fileID: 4829502874113609112}
   ropeLength: 6
   maxDistance: 3

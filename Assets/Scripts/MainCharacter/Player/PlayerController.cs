@@ -4,35 +4,35 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    private Animator anim;
-    private BoxCollider2D boxCollider;
-    private PlayerInputConfig playerInput;
-
-
     [SerializeField] private PhysicsMaterial2D maxFriction;
     [SerializeField] private PhysicsMaterial2D highFriction;
     [SerializeField] private PhysicsMaterial2D normalFriction;
-
 
     [SerializeField] private float speed = 2.0f;
     [SerializeField] private float rotationSeed = 5.0f;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask playMateLayer;
     [SerializeField] private PlayerManager.Player player;
+    // Shoot
+    [SerializeField] private GameObject bulletPrefab;
+    // UI
+    private SkillBarUI skillBarUI;
+
+    private Rigidbody2D rb;
+    private Animator anim;
+    private BoxCollider2D boxCollider;
+    private PlayerInputConfig playerInput;
 
     // Cách chỉ số người chơi
     private float attackSpeed = 300f;
-    private float attackDamage = 10f;
+    private int attackDamage = 10;
 
+    // check trạng thái Hanging
     private float lastGroundedTime;
 
-    // Shoot
-    [SerializeField] private GameObject bulletPrefab;
 
     private bool canShoot = true;
     private float countDownShootTime = 1.0f;
-    private float currentAttackDamage;
 
     // Skill: 20 giây sử dụng, 10 giây hồi chiêu
     private Bullet.BulletType bulletType;
@@ -45,9 +45,6 @@ public class PlayerController : MonoBehaviour
     private float skillDurationTime = 10f;
     private float singleSkillCooldownTime = 20f;
     private float combineSkillCooldownTime = 30f;
-
-    // UI
-    [SerializeField] private SkillBarUI skillBarUI;
 
     public enum PlayerState
     {
@@ -67,11 +64,17 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
         playerInput = new PlayerInputConfig(player);
+    }
+
+    private void Start()
+    {
+        if (player == PlayerManager.Player.Player1)
+            skillBarUI = PlayerManager.Instance.uiInGame.skillBar1;
+        else
+            skillBarUI = PlayerManager.Instance.uiInGame.skillBar2;
 
         direction = new Vector2(1, 0); // right
-
         bulletType = Bullet.BulletType.basic;
-        currentAttackDamage = attackDamage * (int)bulletType;
     }
 
     private void Update()
@@ -122,8 +125,13 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(playerInput.shoot) && canShoot)
             Shoot();
 
-        if (Input.GetKeyDown(playerInput.useSkill) && canUseSingleSkill)
-            UseSingleSkill();
+        if (PlayerManager.Instance.Stage == PlayerManager.PlayerStage.Fight)
+        {
+            skillBarUI.gameObject.SetActive(true);
+
+            if (Input.GetKeyDown(playerInput.useSkill) && canUseSingleSkill)
+                UseSingleSkill();
+        }
 
         updateAnimation();  // Cập nhật Animation theo trạng thái của player
         updateFriction();   // Cập nhật ma sát
@@ -158,7 +166,7 @@ public class PlayerController : MonoBehaviour
         anim.SetTrigger("shoot");
         GameObject bulletObject = Instantiate(bulletPrefab, rb.position + direction * 0.5f, Quaternion.identity);
         Bullet bullet = bulletObject.GetComponent<Bullet>();
-        bullet.Launch(direction, attackSpeed, bulletType);
+        bullet.Launch(direction, attackSpeed, bulletType, attackDamage);
         //Debug.Log("damage:" + currentAttackDamage);
 
         StartCoroutine(SetCanShoot());
@@ -171,7 +179,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Stop use combine skill");
             StopCoroutine(IESetCanUseCombineSkill);
-            StartCoroutine(cooldownCombineSkill());
+            StartCoroutine(CooldownCombineSkill());
         }
 
         IESetCanUseSingleSkill = SetCanUseSingleSkill();
@@ -185,11 +193,17 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Stop use single skill");
             StopCoroutine(IESetCanUseSingleSkill);
-            StartCoroutine(cooldownSingleSkill());
+            StartCoroutine(CooldownSingleSkill());
         }
 
         IESetCanUseCombineSkill = SetCanUseCombineSkill();
         StartCoroutine(IESetCanUseCombineSkill);
+    }
+
+    public void TakeDamage(int damage)
+    {
+        anim.SetTrigger("hurt");
+        PlayerManager.Instance.changeHealth(-damage);
     }
     
     private void updateAnimation()
@@ -289,13 +303,12 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator SetCanUseSingleSkill()
     {
-        Debug.Log("Start use single skill");
+        //Debug.Log("Start use single skill");
         canUseSingleSkill = false;
         skillBarUI.startUseSingleSkillCooldown();
 
-        // Sử dụng kỹ năng nên sức mạnh tấn công tăng
+        // Sử dụng kỹ năng
         bulletType = Bullet.BulletType.singleSkill;
-        currentAttackDamage = attackDamage * (int)bulletType;
 
         // Đếm ngược thời gian sử dụng skill
         float remainingTime = skillDurationTime;
@@ -306,15 +319,14 @@ public class PlayerController : MonoBehaviour
             remainingTime -= 1f;
         }
 
-        // Hết thời gian sử dụng kỹ năng sức mạnh trở về bình thường
+        // Hết thời gian sử dụng kỹ năng
         bulletType = Bullet.BulletType.basic;
-        currentAttackDamage = attackDamage * (int)bulletType;
-        Debug.Log("End use single skill");
+        //Debug.Log("End use single skill");
 
-        StartCoroutine(cooldownSingleSkill());
+        StartCoroutine(CooldownSingleSkill());
     }
 
-    IEnumerator cooldownSingleSkill()
+    IEnumerator CooldownSingleSkill()
     {
         // Đếm ngược thời gian hồi chiêu skill
         float remainingTime = singleSkillCooldownTime;
@@ -329,18 +341,17 @@ public class PlayerController : MonoBehaviour
         canUseSingleSkill = true;
         skillBarUI.stopUseSingleSkillCooldown();
         IESetCanUseSingleSkill = null;
-        Debug.Log("Can use single skill");
+        //Debug.Log("Can use single skill");
     }
 
     IEnumerator SetCanUseCombineSkill()
     {
-        Debug.Log("Start use combine skill");
+        //Debug.Log("Start use combine skill");
         canUseCombineSkill = false;
         skillBarUI.startUseCombineSkillCooldown();
 
-        // Sử dụng kỹ năng nên sức mạnh tấn công tăng
+        // Sử dụng kỹ năng
         bulletType = Bullet.BulletType.combineSkill;
-        currentAttackDamage = attackDamage * (int)bulletType;
 
         // Đếm ngược thời gian sử dụng skill
         float remainingTime = skillDurationTime;
@@ -351,15 +362,14 @@ public class PlayerController : MonoBehaviour
             remainingTime -= 1f;
         }
 
-        // Hết thời gian sử dụng kỹ năng sức mạnh trở về bình thường
+        // Hết thời gian sử dụng kỹ năng 
         bulletType = Bullet.BulletType.basic;
-        currentAttackDamage = attackDamage * (int)bulletType;
-        Debug.Log("End use combine skill");
+        //Debug.Log("End use combine skill");
 
-        StartCoroutine(cooldownCombineSkill());
+        StartCoroutine(CooldownCombineSkill());
     }
 
-    IEnumerator cooldownCombineSkill()
+    IEnumerator CooldownCombineSkill()
     {
         // Đếm ngược thời gian hồi chiêu
         float remainingTime = combineSkillCooldownTime;
@@ -374,6 +384,6 @@ public class PlayerController : MonoBehaviour
         canUseCombineSkill = true;
         skillBarUI.stopUseCombineSkillCooldown();
         IESetCanUseCombineSkill = null;
-        Debug.Log("Can use combine skill");
+        //Debug.Log("Can use combine skill");
     }
 }
