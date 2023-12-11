@@ -76,6 +76,7 @@ public class PlayerManager : MonoBehaviour
         uIInGame.setMoney(currentMoney);
         uIInGame.setDiamond(currentDiamond);
         uIInGame.setLife(currentLife);
+        uIInGame.starBar.setStars(currentClue);
     }
 
     private void Update()
@@ -139,7 +140,8 @@ public class PlayerManager : MonoBehaviour
     {
         this.currentClue = Mathf.Clamp(this.currentClue + 1, 0, maxClue);
         clueCollection.unblockClue();
-        uIInGame.setStar(this.currentClue);
+        //uIInGame.setStar(this.currentClue);
+        uIInGame.starBar.setStars(currentClue);
     }
 
     public void changeHealth(int amount)

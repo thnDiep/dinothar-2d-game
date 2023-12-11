@@ -11,6 +11,7 @@ public class UIInGame : MonoBehaviour
     public TextMeshProUGUI lifeText;
     public Image currentStarImg;
     public Sprite starImg1, starImg2, starImg3;
+    public StarBar starBar;
 
     [Header("Fight stage")]
     public SkillBarUI skillBar1;
