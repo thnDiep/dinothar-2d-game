@@ -69,9 +69,9 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         if (player == PlayerManager.Player.Player1)
-            skillBarUI = PlayerManager.Instance.uiInGame.skillBar1;
+            skillBarUI = PlayerManager.Instance.uIInGame.skillBar1;
         else
-            skillBarUI = PlayerManager.Instance.uiInGame.skillBar2;
+            skillBarUI = PlayerManager.Instance.uIInGame.skillBar2;
 
         direction = new Vector2(1, 0); // right
         bulletType = Bullet.BulletType.basic;

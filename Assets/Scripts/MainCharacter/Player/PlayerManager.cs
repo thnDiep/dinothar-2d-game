@@ -8,7 +8,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] PlayerController player1;
     [SerializeField] PlayerController player2;
     [SerializeField] Tilemap gate;
-    public UIInGame uiInGame;
+    public UIInGame uIInGame;
+    [SerializeField] ClueCollecitonBtn clueCollection;
 
     public enum Player
     {
@@ -37,13 +38,13 @@ public class PlayerManager : MonoBehaviour
 
     private int minLife = 0;
     private int maxLife = 5;
-    private int currentMoney = 0;
-    private int currentDiamond = 0;
-    private int currentLife;
+    private int maxClue = 3;
 
+    private int currentMoney, currentDiamond, currentLife, currentClue;
 
     private int maxHealth = 100;
     private int health;
+
 
     void Awake()
     {
@@ -66,12 +67,15 @@ public class PlayerManager : MonoBehaviour
         // đánh boss
         health = maxHealth;
 
+        currentMoney = 0;
+        currentDiamond = 0;
         currentLife = maxLife - 1;
+        currentClue = 0;
 
         // Update UI lúc bắt đầu
-        uiInGame.setMoney(currentMoney);
-        uiInGame.setDiamond(currentDiamond);
-        uiInGame.setLife(currentLife);
+        uIInGame.setMoney(currentMoney);
+        uIInGame.setDiamond(currentDiamond);
+        uIInGame.setLife(currentLife);
     }
 
     private void Update()
@@ -96,36 +100,46 @@ public class PlayerManager : MonoBehaviour
 
         Stage = isFightStage ? PlayerStage.Fight : PlayerStage.Move;
 
-        // UI in Move stage
-        uiInGame.moneyBar.gameObject.SetActive(!isFightStage);
+        // Move stage
+        uIInGame.bars.gameObject.SetActive(!isFightStage);
 
-        // UI in Fight stage
+        // Fight stage
         gate.gameObject.SetActive(isFightStage);
-        uiInGame.skillBar1.gameObject.SetActive(isFightStage);
-        uiInGame.skillBar2.gameObject.SetActive(isFightStage);
+        uIInGame.skillBar1.gameObject.SetActive(isFightStage);
+        uIInGame.skillBar2.gameObject.SetActive(isFightStage);
     }
 
     public void changeMoney(int money)
     {
         this.currentMoney += money;
-        uiInGame.setMoney(this.currentMoney);
+
+        if (this.currentMoney < 0)
+            this.currentMoney = 0;
+
+        uIInGame.setMoney(this.currentMoney);
     }
 
     public void changeDiamond(int diamond)
     {
         this.currentDiamond += diamond;
-        uiInGame.setDiamond(this.currentDiamond);
+
+        if (this.currentDiamond < 0)
+            this.currentDiamond = 0;
+
+        uIInGame.setDiamond(this.currentDiamond);
     }
 
     public void changeLife(int life)
     {
-        this.currentLife = Mathf.Clamp(this.currentLife + 1, minLife, maxLife);
-        uiInGame.setLife(this.currentLife);
+        this.currentLife = Mathf.Clamp(this.currentLife + life, minLife, maxLife);
+        uIInGame.setLife(this.currentLife);
     }
 
-    public int getMoney()
+    public void changeClue(int clue)
     {
-        return this.currentMoney;
+        this.currentClue = Mathf.Clamp(this.currentClue + 1, 0, maxClue);
+        clueCollection.unblockClue();
+        uIInGame.setStar(this.currentClue);
     }
 
     public void changeHealth(int amount)
