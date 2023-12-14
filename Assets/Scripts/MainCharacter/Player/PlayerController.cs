@@ -158,7 +158,7 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        rb.velocity = new Vector2(rb.velocity.x, 10);
+        rb.velocity = new Vector2(rb.velocity.x, 15);
     }
 
     private void Shoot()
