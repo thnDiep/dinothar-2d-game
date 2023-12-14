@@ -4,24 +4,27 @@ using UnityEngine;
 
 public class BossRun : StateMachineBehaviour
 {
-    [SerializeField] private float speed = 1.0f;
     [SerializeField] private float attackRange = 1.5f;
+    [SerializeField] private bool isAngry = false;
 
     private Rigidbody2D rb;
     private Boss boss;
     private Transform player1, player2;
+    private float speed;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         rb = animator.GetComponent<Rigidbody2D>();
         boss = animator.GetComponent<Boss>();
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        if (players.Length == 2)
-        {
-            player1 = players[0].transform;
-            player2 = players[1].transform;
-        }
+        player1 = PlayerManager.Instance.player1.transform;
+        player2 = PlayerManager.Instance.player2.transform;
+
+        speed = boss.SPEED;
+
+        if (isAngry)
+            speed += 0.5f;
+
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

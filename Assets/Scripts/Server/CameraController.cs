@@ -13,7 +13,7 @@ public class CameraController : MonoBehaviour
     private float leftLimit = -7;
     float rightLimit = 15.51f;
     float downLimit = -4f;
-    float topLimit = 18.22f;
+    float topLimit = 21f;
     float distanceToUpdateDirY = 7.5f;
 
     bool outScreen;
@@ -44,16 +44,16 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(PlayerManager.Instance.Stage == PlayerManager.PlayerStage.Move)
-        {
+        //if(PlayerManager.Instance.Stage == PlayerManager.PlayerStage.Move)
+        //{
             followPlayer();
-        }
-        else if (!isFixed)
-        {
-            isFixed = true;
-            transform.position = new Vector3(rightLimit, topLimit, player.transform.position.z - 20);
-            Camera.main.orthographicSize = 4f;
-        }
+        //}
+        //else if (!isFixed)
+        //{
+        //    isFixed = true;
+        //    transform.position = new Vector3(rightLimit, topLimit, player.transform.position.z - 20);
+        //    Camera.main.orthographicSize = 4f;
+        //}
     }
 
     private void followPlayer()

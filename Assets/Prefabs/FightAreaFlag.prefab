@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3207320640213856715}
   - component: {fileID: 8865660840727586933}
-  - component: {fileID: 5699872919420720121}
   - component: {fileID: 2339527061501068300}
   m_Layer: 0
   m_Name: FightAreaFlag
@@ -29,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 20, y: 30.3, z: 0}
-  m_LocalScale: {x: 1, y: 20, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -86,18 +85,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5699872919420720121
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5919752583429817511}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f01eb4f0bb352ea45a9ee7482c97b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &2339527061501068300
 BoxCollider2D:
   m_ObjectHideFlags: 0
