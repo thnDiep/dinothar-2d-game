@@ -5,11 +5,30 @@ using UnityEngine.Tilemaps;
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager Instance { get; private set; }
-    [SerializeField] PlayerController player1;
-    [SerializeField] PlayerController player2;
+    [Header("Stats")]
+    public float HP = 100;
+    public int ATK = 10;
+    public float ATTACK_SPEED = 200f;
+    public float DEF = 0;
+
+    [Header("Frictions")]
+    public PhysicsMaterial2D maxFriction;
+    public PhysicsMaterial2D highFriction;
+    public PhysicsMaterial2D normalFriction;
+
+    [Header("Content")]
+    public PlayerController player1;
+    public PlayerController player2;
+    [SerializeField] GameObject fightArae;
     [SerializeField] Tilemap gate;
+
+    [Header("UI")]
     public UIInGame uIInGame;
     [SerializeField] ClueCollecitonBtn clueCollection;
+
+    [Header("Information")]
+    public PlayerStage Stage;
+    public PlayerState State;
 
     public enum Player
     {
@@ -30,11 +49,8 @@ public class PlayerManager : MonoBehaviour
     }
 
 
-    public PlayerStage Stage;
     private bool isSetFightStage = false;
-    public PlayerState State;
     private PlayerInputConfig player1Input, player2Input;
-
 
     private int minLife = 0;
     private int maxLife = 5;
@@ -42,8 +58,7 @@ public class PlayerManager : MonoBehaviour
 
     private int currentMoney, currentDiamond, currentLife, currentClue;
 
-    private int maxHealth = 100;
-    private int health;
+    private float health;
 
 
     void Awake()
@@ -64,14 +79,13 @@ public class PlayerManager : MonoBehaviour
         // Giai đoạn di chuyển
         setStage(false);
 
-        // đánh boss
-        health = maxHealth;
 
         currentMoney = 0;
         currentDiamond = 0;
         currentLife = maxLife - 1;
         currentClue = 0;
 
+        health = HP;
         // Update UI lúc bắt đầu
         uIInGame.setMoney(currentMoney);
         uIInGame.setDiamond(currentDiamond);
@@ -81,7 +95,16 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-        if(Stage == PlayerStage.Fight)
+        if (Stage == PlayerStage.Move)
+        {
+            if (player1.transform.position.x < fightArae.transform.position.x && player2.transform.position.x < fightArae.transform.position.x
+                && player1.transform.position.y > fightArae.transform.position.y && player2.transform.position.y > fightArae.transform.position.y)
+            {
+                Stage = PlayerStage.Fight;
+            }
+
+        }
+        else if (Stage == PlayerStage.Fight)
         {
             if(!isSetFightStage)
                 setStage(true);
@@ -144,9 +167,11 @@ public class PlayerManager : MonoBehaviour
         uIInGame.starBar.setStars(currentClue);
     }
 
-    public void changeHealth(int amount)
+    public void TakeDamage(int damage)
     {
-        health = Mathf.Clamp(health + amount, 0, maxHealth);
+        float lossHealth = (1 - DEF / 10.0f) * damage;
+        health -= lossHealth;
+
         if (health <= 0)
         {
             Debug.Log("Dead");

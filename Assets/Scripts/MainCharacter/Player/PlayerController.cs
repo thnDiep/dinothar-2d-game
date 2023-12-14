@@ -4,33 +4,26 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private PhysicsMaterial2D maxFriction;
-    [SerializeField] private PhysicsMaterial2D highFriction;
-    [SerializeField] private PhysicsMaterial2D normalFriction;
+    [Header("Content")]
+    [SerializeField] private PlayerManager.Player player;
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private float moveSpeed = 4.0f;
+    [SerializeField] private float rotationSpeed = 5.0f;
 
-    [SerializeField] private float speed = 2.0f;
-    [SerializeField] private float rotationSeed = 5.0f;
+    [Header("Layer")]
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask playMateLayer;
-    [SerializeField] private PlayerManager.Player player;
-    // Shoot
-    [SerializeField] private GameObject bulletPrefab;
-    // UI
-    private SkillBarUI skillBarUI;
 
     private Rigidbody2D rb;
     private Animator anim;
     private BoxCollider2D boxCollider;
     private PlayerInputConfig playerInput;
-
-    // Cách chỉ số người chơi
-    private float attackSpeed = 300f;
-    private int attackDamage = 10;
+    private SkillBarUI skillBarUI;
 
     // check trạng thái Hanging
     private float lastGroundedTime;
 
-
+    // Shot
     private bool canShoot = true;
     private float countDownShootTime = 1.0f;
 
@@ -151,9 +144,9 @@ public class PlayerController : MonoBehaviour
 
         // Nếu thời gian lần cuối chạm đất lớn hơn 1s -> player bị treo lơ lửng -> xoay
         if (PlayerManager.Instance.State == PlayerManager.PlayerState.Rotate && !isGrounded() && Time.time - lastGroundedTime >= 1f)
-            rb.AddForce(direction * rotationSeed);
+            rb.AddForce(direction * rotationSpeed);
         else 
-            rb.velocity = new Vector2(direction.x * speed, rb.velocity.y);
+            rb.velocity = new Vector2(direction.x * moveSpeed, rb.velocity.y);
     }
 
     private void Jump()
@@ -166,7 +159,7 @@ public class PlayerController : MonoBehaviour
         anim.SetTrigger("shoot");
         GameObject bulletObject = Instantiate(bulletPrefab, rb.position + direction * 0.5f, Quaternion.identity);
         Bullet bullet = bulletObject.GetComponent<Bullet>();
-        bullet.Launch(direction, attackSpeed, bulletType, attackDamage);
+        bullet.Launch(direction, PlayerManager.Instance.ATTACK_SPEED, bulletType, PlayerManager.Instance.ATK);
         //Debug.Log("damage:" + currentAttackDamage);
 
         StartCoroutine(SetCanShoot());
@@ -203,7 +196,7 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(int damage)
     {
         anim.SetTrigger("hurt");
-        PlayerManager.Instance.changeHealth(-damage);
+        PlayerManager.Instance.TakeDamage(damage);
     }
     
     private void updateAnimation()
@@ -223,11 +216,11 @@ public class PlayerController : MonoBehaviour
     public void updateFriction()
     {
         if (state == PlayerState.Sitting)
-            boxCollider.sharedMaterial = maxFriction;
+            boxCollider.sharedMaterial = PlayerManager.Instance.maxFriction;
         else if (state == PlayerState.Idle)
-            boxCollider.sharedMaterial = highFriction;
+            boxCollider.sharedMaterial = PlayerManager.Instance.highFriction;
         else
-            boxCollider.sharedMaterial = normalFriction;
+            boxCollider.sharedMaterial = PlayerManager.Instance.normalFriction;
     }
 
     public void updateConstraint()

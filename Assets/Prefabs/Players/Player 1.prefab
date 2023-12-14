@@ -197,7 +197,7 @@ MonoBehaviour:
   maxFriction: {fileID: 6200000, guid: 62a067fb62e3aaf4781adf7dd17ea308, type: 2}
   highFriction: {fileID: 6200000, guid: cba1786e554547948b3394d3780d4a06, type: 2}
   normalFriction: {fileID: 6200000, guid: aee4e750ff9959d48aca859621724adc, type: 2}
-  speed: 2
+  speed: 5
   rotationSeed: 5
   groundLayer:
     serializedVersion: 2
@@ -207,7 +207,6 @@ MonoBehaviour:
     m_Bits: 256
   player: 0
   bulletPrefab: {fileID: 1886405417257813160, guid: c0004059037a5ae41bba4fa389d4745d, type: 3}
-  skillBarUI: {fileID: 0}
 --- !u!231 &7107096819109969394
 SpringJoint2D:
   m_ObjectHideFlags: 0

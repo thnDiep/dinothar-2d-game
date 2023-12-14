@@ -4,39 +4,56 @@ using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
-    private Animator anim;
-    private Rigidbody2D rb;
-    private BoxCollider2D collider2d;
+    [Header("Stats")]
+    public float HP = 50;
+    public int ATK = 10;
+    public float SPEED = 4;
+    public float DEF = 0;
 
-    [SerializeField] private Transform[] players;
-    private bool isLookAtRight = true;
-
-    // Attack
-    [SerializeField] private int attackDamage = 10;
+    [Header("Range Acttack")]
     [SerializeField] private Vector3 attackOffset;
-    [SerializeField] private float attackRange;
+    public float attackRange;
     [SerializeField] private LayerMask attackMask;
 
-    // Health
-    [SerializeField] private int health = 500;
-    private int currentHealth;
-
+    [Header("Difference")]
     public bool isInvulnerable = false;
-
     public GameObject deathEffect;
+
+    private Animator anim;
+    private Rigidbody2D rb;
+
+    private bool isStart = false;
+    private bool grounded = false;
+    private bool isLookAtRight = true;
+
+    private float currentHealth;
+
     public void Awake()
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        collider2d = GetComponent<BoxCollider2D>();
 
-        currentHealth = health;
+        currentHealth = HP;
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        isStart = false;
+    }
+
+    public void Update()
+    {
+        if(!isStart && PlayerManager.Instance.Stage == PlayerManager.PlayerStage.Fight)
+        {
+            rb.constraints = RigidbodyConstraints2D.None;
+            rb.AddForce(Vector2.down * 0.1f, ForceMode2D.Impulse);
+
+            anim.SetBool("isStart", true);
+            isStart = true;
+        }
     }
 
     public void LookAtPlayer()
     {
-        Transform player1 = players[0].transform;
-        Transform player2 = players[1].transform;
+        Transform player1 = PlayerManager.Instance.player1.transform;
+        Transform player2 = PlayerManager.Instance.player2.transform;
         Transform player;
 
         float distance1 = Vector2.Distance(player1.position, transform.position);
@@ -75,7 +92,7 @@ public class Boss : MonoBehaviour
         Collider2D colInfo = Physics2D.OverlapCircle(pos, attackRange, attackMask);
         if (colInfo != null)
         {
-            colInfo.GetComponent<PlayerController>().TakeDamage(attackDamage);
+            colInfo.GetComponent<PlayerController>().TakeDamage(ATK);
         }
     }
 
@@ -88,7 +105,7 @@ public class Boss : MonoBehaviour
         Collider2D colInfo = Physics2D.OverlapCircle(pos, attackRange, attackMask);
         if (colInfo != null)
         {
-            colInfo.GetComponent<PlayerController>().TakeDamage(attackDamage * 2);
+            colInfo.GetComponent<PlayerController>().TakeDamage(ATK * 2);
         }
     }
 
@@ -101,18 +118,17 @@ public class Boss : MonoBehaviour
         Gizmos.DrawWireSphere(pos, attackRange);
     }
 
-
     public void TakeDamage(int damage)
     {
         if (isInvulnerable)
             return;
 
-        currentHealth -= damage;
-        Debug.Log("Boss Health:" + currentHealth);
-        if(currentHealth < health * 0.3)
+        float lossHealth = (1 - DEF/ 10.0f)  * damage;
+        currentHealth -= lossHealth;
+
+        if(currentHealth < HP * 0.3)
         {
             anim.SetBool("isAngry", true);
-            Debug.Log("Boss is angry");
         }
         if (currentHealth <= 0)
         {
@@ -131,5 +147,18 @@ public class Boss : MonoBehaviour
         yield return new WaitForSeconds(2f);
         Instantiate(deathEffect, transform.position, Quaternion.identity);
         Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            rb.constraints = RigidbodyConstraints2D.FreezePositionY;
+
+            if (!grounded)
+                anim.SetBool("grounded", true);
+
+            grounded = true;
+        }
     }
 }
