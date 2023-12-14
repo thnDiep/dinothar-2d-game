@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using Unity.VisualScripting;
@@ -163,13 +164,13 @@ public class PlayerController : MonoBehaviour
         // Nếu thời gian lần cuối chạm đất lớn hơn 1s -> player bị treo lơ lửng -> xoay
         if (PlayerManager.Instance.State == PlayerManager.PlayerState.Rotate && !isGrounded() && Time.time - lastGroundedTime >= 1f)
             rb.AddForce(direction * rotationSpeed);
-        else 
+        else
             rb.velocity = new Vector2(direction.x * moveSpeed, rb.velocity.y);
     }
 
     private void Jump()
     {
-        rb.velocity = new Vector2(rb.velocity.x, 10);
+        rb.velocity = new Vector2(rb.velocity.x, 15);
     }
 
     private void Shoot()
@@ -280,7 +281,7 @@ public class PlayerController : MonoBehaviour
 
     public void updateConstraint()
     {
-        if(state == PlayerState.Sitting) 
+        if (state == PlayerState.Sitting)
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
         else
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -289,6 +290,11 @@ public class PlayerController : MonoBehaviour
     private void setPlayerState(PlayerState state)
     {
         this.state = state;
+    }
+
+    public PlayerState getPlayerState()
+    {
+        return this.state;
     }
 
     public bool isRunning()
