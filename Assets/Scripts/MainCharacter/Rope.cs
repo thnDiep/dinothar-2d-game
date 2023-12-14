@@ -17,7 +17,6 @@ public class Rope : MonoBehaviour
     private float ropeWidth = 0.1f;
 
     private LineRenderer maxRopeRenderer;
-
     private SpringJoint2D joint;
 
     private PlayerController playerController1;
