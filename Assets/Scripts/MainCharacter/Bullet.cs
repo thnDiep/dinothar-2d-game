@@ -24,6 +24,8 @@ public class Bullet : MonoBehaviour
         anim = GetComponent<Animator>();
 
         StartCoroutine(DestroyBullet());
+
+
     }
 
     IEnumerator DestroyBullet()
@@ -51,7 +53,19 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
         }
 
-        //Instantiate(impactEffect, transform.position, transform.rotation);
+        Wander_4 wander_4 = collider.GetComponent<Wander_4>();
+        if (wander_4 != null)
+        {
+            wander_4.GetComponent<Wander_4>().isAttacked();
+            Destroy(gameObject);
+        }
+
+        Bat_5 bat_5 = collider.GetComponent<Bat_5>();
+        if (bat_5 != null)
+        {
+            bat_5.GetComponent<Bat_5>().isAttacked();
+            Destroy(gameObject);
+        }
 
     }
 }
