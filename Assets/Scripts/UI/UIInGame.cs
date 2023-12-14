@@ -9,8 +9,8 @@ public class UIInGame : MonoBehaviour
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI diamondText;
     public TextMeshProUGUI lifeText;
-    public Image currentStarImg;
-    public Sprite starImg1, starImg2, starImg3;
+    //public Image currentStarImg;
+    //public Sprite starImg1, starImg2, starImg3;
     public StarBar starBar;
 
     [Header("Fight stage")]
@@ -40,19 +40,19 @@ public class UIInGame : MonoBehaviour
         }
     }
 
-    public void setStar(int numberStar)
-    {
-        if (numberStar == 1)
-        {
-            currentStarImg.sprite = starImg1;
-        }
-        else if (numberStar == 2)
-        {
-            currentStarImg.sprite = starImg2;
-        }
-        else
-        {
-            currentStarImg.sprite = starImg3;
-        }
-    }
+    //public void setStar(int numberStar)
+    //{
+    //    if (numberStar == 1)
+    //    {
+    //        currentStarImg.sprite = starImg1;
+    //    }
+    //    else if (numberStar == 2)
+    //    {
+    //        currentStarImg.sprite = starImg2;
+    //    }
+    //    else
+    //    {
+    //        currentStarImg.sprite = starImg3;
+    //    }
+    //}
 }

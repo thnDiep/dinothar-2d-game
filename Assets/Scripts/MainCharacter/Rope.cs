@@ -35,6 +35,7 @@ public class Rope : MonoBehaviour
             ropeStartPoint.y -= ropeSegmentLen;
         }
 
+
         joint = player1.GetComponent<SpringJoint2D>();
         joint.connectedBody = player2.GetComponent<Rigidbody2D>();
 

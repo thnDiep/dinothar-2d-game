@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -39,6 +40,10 @@ public class PlayerController : MonoBehaviour
     private float singleSkillCooldownTime = 20f;
     private float combineSkillCooldownTime = 30f;
 
+    //// Effect of Deadth
+    //private float moveDuration = 2.0f;
+    //private float elapsedTime = 0f;
+
     public enum PlayerState
     {
         Idle,
@@ -72,6 +77,19 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        //Debug.Log("Active");
+        //if(PlayerManager.Instance.isDead())
+        //{
+        //    elapsedTime += Time.deltaTime;
+        //    transform.position = Vector3.Lerp(transform.position, PlayerManager.Instance.revivalPosition, elapsedTime / moveDuration);
+        //    Debug.Log(transform.position);
+        //    if (elapsedTime >= moveDuration)
+        //    {
+        //        // Reset thời gian và thực hiện các hành động khi di chuyển hoàn thành
+        //        elapsedTime = 0f;
+        //    }
+        //    return;
+        //}
         //horizontalInput = 0f;
 
         if (isGrounded())
@@ -195,10 +213,47 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (PlayerManager.Instance.isDead())
+            return;
+
         anim.SetTrigger("hurt");
         PlayerManager.Instance.TakeDamage(damage);
     }
-    
+
+    public void Die()
+    {
+        anim.SetTrigger("dead");
+        //StartCoroutine(MoveSmoothly());
+        transform.position = PlayerManager.Instance.revivalPosition;
+        gameObject.SetActive(false);
+    }
+ 
+    public void Revival()
+    {
+        anim.SetBool("isReveal", true);
+        gameObject.SetActive(true);
+    }
+
+    //IEnumerator MoveSmoothly()
+    //{
+    //    float elapsedTime = 0f;
+    //    Vector3 startingPos = transform.position;
+    //    Vector3 targetPosition = PlayerManager.Instance.revivalPosition;
+
+    //    while (elapsedTime < moveDuration)
+    //    {
+    //        // Lerp giữa vị trí hiện tại và vị trí đích
+    //        transform.position = Vector3.Lerp(startingPos, targetPosition, elapsedTime / moveDuration);
+
+    //        // Tăng thời gian đã trôi qua
+    //        elapsedTime += Time.deltaTime;
+
+    //        yield return null; // Chờ đợi cho frame tiếp theo
+    //    }
+
+    //    transform.position = targetPosition;
+    //}
+
     private void updateAnimation()
     {
 

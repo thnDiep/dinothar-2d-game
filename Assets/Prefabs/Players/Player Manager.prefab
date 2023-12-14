@@ -57,8 +57,9 @@ MonoBehaviour:
   normalFriction: {fileID: 6200000, guid: aee4e750ff9959d48aca859621724adc, type: 2}
   player1: {fileID: 1801432460246974597}
   player2: {fileID: 3190706081586586727}
-  fightArae: {fileID: 9065282620161019783}
+  fightArea: {fileID: 9065282620161019783}
   gate: {fileID: 0}
+  rope: {fileID: 4822686771263058890}
   uIInGame: {fileID: 0}
   clueCollection: {fileID: 0}
   Stage: 0

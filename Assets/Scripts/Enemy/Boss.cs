@@ -21,6 +21,7 @@ public class Boss : MonoBehaviour
 
     private Animator anim;
     private Rigidbody2D rb;
+    private Vector3 originPosition;
 
     private bool isStart = false;
     private bool grounded = false;
@@ -36,17 +37,30 @@ public class Boss : MonoBehaviour
         currentHealth = HP;
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
         isStart = false;
+
+        originPosition = transform.position;
     }
 
     public void Update()
     {
+        if (PlayerManager.Instance.isDead())
+        {
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
+            currentHealth = HP;
+            isStart = false;
+            anim.SetBool("isStart", isStart);
+
+            transform.position = originPosition;
+            return;
+        }
+
         if(!isStart && PlayerManager.Instance.Stage == PlayerManager.PlayerStage.Fight)
         {
             rb.constraints = RigidbodyConstraints2D.None;
             rb.AddForce(Vector2.down * 0.1f, ForceMode2D.Impulse);
 
-            anim.SetBool("isStart", true);
             isStart = true;
+            anim.SetBool("isStart", isStart);
         }
     }
 
@@ -133,6 +147,7 @@ public class Boss : MonoBehaviour
         if (currentHealth <= 0)
         {
             Die();
+            PlayerManager.Instance.Win();
         }
     }
 
