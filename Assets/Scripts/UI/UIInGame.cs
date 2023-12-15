@@ -17,6 +17,16 @@ public class UIInGame : MonoBehaviour
     public SkillBarUI skillBar1;
     public SkillBarUI skillBar2;
 
+    [Header("Level complete")]
+    public GameObject winningScreen;
+    public GameObject losingScreen;
+
+    private void Start()
+    {
+        winningScreen.SetActive(false);
+        losingScreen.SetActive(false);
+    }
+
     public void setMoney(int amount)
     {
         if (moneyText != null)
@@ -38,6 +48,16 @@ public class UIInGame : MonoBehaviour
         {
             lifeText.text = amount.ToString();
         }
+    }
+
+    public void showWinningScreen()
+    {
+        winningScreen.SetActive(true);
+    }
+
+    public void showLosingScreen()
+    {
+        losingScreen.SetActive(true);
     }
 
     //public void setStar(int numberStar)

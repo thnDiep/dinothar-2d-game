@@ -147,7 +147,6 @@ public class Boss : MonoBehaviour
         if (currentHealth <= 0)
         {
             Die();
-            PlayerManager.Instance.Win();
         }
     }
 
@@ -162,6 +161,7 @@ public class Boss : MonoBehaviour
         yield return new WaitForSeconds(2f);
         Instantiate(deathEffect, transform.position, Quaternion.identity);
         Destroy(gameObject);
+        PlayerManager.Instance.Win();
     }
 
     private void OnTriggerEnter2D(Collider2D other)

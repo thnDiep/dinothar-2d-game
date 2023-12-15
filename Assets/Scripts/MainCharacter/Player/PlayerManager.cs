@@ -49,7 +49,6 @@ public class PlayerManager : MonoBehaviour
         Fight
     }
 
-
     private PlayerInputConfig player1Input, player2Input;
 
     private int maxLife = 5;
@@ -81,7 +80,8 @@ public class PlayerManager : MonoBehaviour
 
         currentMoney = 0;
         currentDiamond = 0;
-        currentLife = maxLife - 1;
+        //currentLife = maxLife - 1;
+        currentLife = 1;
         currentClue = 0;
 
         health = HP;
@@ -158,6 +158,7 @@ public class PlayerManager : MonoBehaviour
         if (currentLife == 0)
         {
             Debug.Log("Losing");
+            uIInGame.showLosingScreen();
         }
     }
 
@@ -166,6 +167,21 @@ public class PlayerManager : MonoBehaviour
         this.currentClue = Mathf.Clamp(this.currentClue + clue, 0, maxClue);
         clueCollection.unblockClue();
         uIInGame.starBar.setStars(currentClue);
+    }
+
+    public int getDiamond()
+    {
+        return currentDiamond;
+    }
+
+    public int getStar()
+    {
+        return currentClue;
+    }
+
+    public int getMoney()
+    {
+        return currentMoney;
     }
 
     public void TakeDamage(int damage)
@@ -177,17 +193,16 @@ public class PlayerManager : MonoBehaviour
         if (health <= 0)
         {
             changeLife(-1);
-            dead = true;
-            player1.Die();
-            player2.Die();
-            rope.SetActive(false);
 
-            Debug.Log("Dead");
-            Debug.Log("Current life" + currentLife);
-
-            // Hồi sinh nếu còn mạng
+            // Hiệu ứng hồi sinh nếu còn mạng
             if (currentLife > 0)
             {
+                dead = true;
+                player1.Die();
+                player2.Die();
+                rope.SetActive(false);
+                Debug.Log("Dead");
+                Debug.Log("Current life" + currentLife);
                 StartCoroutine(RevialAfterDelay(2f));
             }
         }
@@ -214,5 +229,6 @@ public class PlayerManager : MonoBehaviour
     public void Win()
     {
         Debug.Log("Winning");
+        uIInGame.showWinningScreen();
     }
 }
