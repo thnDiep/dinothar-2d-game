@@ -7,7 +7,7 @@ public class UIInGame : MonoBehaviour
     [Header("Bars")]
     public GameObject bars;
     public GameObject healthBars;
-    public StarBar starBar;
+    // public StarBar1 starBar;
 
 
     [Header("Text in bars")]
@@ -18,8 +18,9 @@ public class UIInGame : MonoBehaviour
     //public Sprite starImg1, starImg2, starImg3;
 
     [Header("Button")]
-    public Button ClueCollectionBtn;
+    public ClueCollecitonBtn clueCollectionBtn;
 
+    public FillBar starBar;
 
     [Header("Fight stage")]
     public SkillBarUI skillBar1;
@@ -57,7 +58,6 @@ public class UIInGame : MonoBehaviour
             lifeText.text = amount.ToString();
         }
     }
-
     public void showWinningScreen()
     {
         winningScreen.SetActive(true);

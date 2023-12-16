@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Art/Sprites/UI/New folder.meta
 guid: c6e6b719aac558d4b94114fbce6224db
+========
+guid: dc200f1ce58057646b47d31b61493791
+>>>>>>>> bc877d37586ff94426e6431ccd8f6e91b99cc7ea:Assets/Art/Sprites/UI/Icons.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
