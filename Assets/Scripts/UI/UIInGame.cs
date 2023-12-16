@@ -4,14 +4,22 @@ using TMPro;
 
 public class UIInGame : MonoBehaviour
 {
-    [Header("Move stage")]
+    [Header("Bars")]
     public GameObject bars;
+    public GameObject healthBars;
+    public StarBar starBar;
+
+
+    [Header("Text in bars")]
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI diamondText;
     public TextMeshProUGUI lifeText;
     //public Image currentStarImg;
     //public Sprite starImg1, starImg2, starImg3;
-    public StarBar starBar;
+
+    [Header("Button")]
+    public Button ClueCollectionBtn;
+
 
     [Header("Fight stage")]
     public SkillBarUI skillBar1;
@@ -75,4 +83,6 @@ public class UIInGame : MonoBehaviour
     //        currentStarImg.sprite = starImg3;
     //    }
     //}
+
+
 }

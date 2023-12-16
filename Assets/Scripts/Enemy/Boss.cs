@@ -10,6 +10,9 @@ public class Boss : MonoBehaviour
     public float SPEED = 4;
     public float DEF = 0;
 
+    [Header("UI")]
+    public BossHealthBar healthBar;
+
     [Header("Range Acttack")]
     [SerializeField] private Vector3 attackOffset;
     public float attackRange;
@@ -39,6 +42,7 @@ public class Boss : MonoBehaviour
         isStart = false;
 
         originPosition = transform.position;
+        healthBar.setMaxHealth(HP);
     }
 
     public void Update()
@@ -47,6 +51,7 @@ public class Boss : MonoBehaviour
         {
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
             currentHealth = HP;
+            healthBar.setHealth(currentHealth);
             isStart = false;
             anim.SetBool("isStart", isStart);
 
@@ -54,7 +59,7 @@ public class Boss : MonoBehaviour
             return;
         }
 
-        if(!isStart && PlayerManager.Instance.Stage == PlayerManager.PlayerStage.Fight)
+        if (!isStart && PlayerManager.Instance.Stage == PlayerManager.PlayerStage.Fight)
         {
             rb.constraints = RigidbodyConstraints2D.None;
             rb.AddForce(Vector2.down * 0.1f, ForceMode2D.Impulse);
@@ -87,7 +92,7 @@ public class Boss : MonoBehaviour
             transform.localScale = flipped;
             transform.Rotate(0f, 180f, 0f);
             isLookAtRight = false;
-        } 
+        }
         // Đứng bên trái player và nhìn vào bên trái
         else if (transform.position.x < player.position.x && !isLookAtRight)
         {
@@ -137,10 +142,12 @@ public class Boss : MonoBehaviour
         if (isInvulnerable)
             return;
 
-        float lossHealth = (1 - DEF/ 10.0f)  * damage;
-        currentHealth -= lossHealth;
+        float lossHealth = (1 - DEF / 10.0f) * damage;
+        // currentHealth -= lossHealth;
+        currentHealth = Mathf.Clamp(currentHealth - lossHealth, 0, HP);
+        healthBar.setHealth(currentHealth);
 
-        if(currentHealth < HP * 0.3)
+        if (currentHealth < HP * 0.3)
         {
             anim.SetBool("isAngry", true);
         }

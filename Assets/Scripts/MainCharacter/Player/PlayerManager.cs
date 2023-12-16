@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
+
 
 public class PlayerManager : MonoBehaviour
 {
@@ -26,6 +28,13 @@ public class PlayerManager : MonoBehaviour
     [Header("UI")]
     public UIInGame uIInGame;
     [SerializeField] ClueCollecitonBtn clueCollection;
+    public PlayersHealthBar healthBar;
+    public GameObject StreetFrame;
+    public GameObject FightBossFrame;
+
+
+    [Header("Server")]
+    public CameraController cameraController;
 
     [Header("Information")]
     public PlayerStage Stage;
@@ -60,6 +69,7 @@ public class PlayerManager : MonoBehaviour
     private bool dead;
     public Vector3 revivalPosition;
 
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -81,10 +91,12 @@ public class PlayerManager : MonoBehaviour
         currentMoney = 0;
         currentDiamond = 0;
         //currentLife = maxLife - 1;
-        currentLife = 1;
+        currentLife = 5;
         currentClue = 0;
 
+        healthBar.setMaxHealth(HP);
         health = HP;
+
         revivalPosition = new Vector3(fightArea.transform.position.x - 1.0f, fightArea.transform.position.y + 5.0f, 0);
 
         // Update UI lúc bắt đầu
@@ -92,6 +104,8 @@ public class PlayerManager : MonoBehaviour
         uIInGame.setDiamond(currentDiamond);
         uIInGame.setLife(currentLife);
         uIInGame.starBar.setStars(currentClue);
+
+
     }
 
     private void Update()
@@ -123,11 +137,17 @@ public class PlayerManager : MonoBehaviour
 
         // Move stage
         uIInGame.bars.gameObject.SetActive(!isFightStage);
+        uIInGame.ClueCollectionBtn.gameObject.SetActive(!isFightStage);
+        StreetFrame.SetActive(isFightStage);
 
         // Fight stage
         gate.gameObject.SetActive(isFightStage);
         uIInGame.skillBar1.gameObject.SetActive(isFightStage);
         uIInGame.skillBar2.gameObject.SetActive(isFightStage);
+        uIInGame.healthBars.SetActive(isFightStage);
+        cameraController.setIsFightStage(isFightStage);
+        FightBossFrame.SetActive(!isFightStage);
+
     }
 
     public void changeMoney(int money)
@@ -154,10 +174,12 @@ public class PlayerManager : MonoBehaviour
     {
         this.currentLife = Mathf.Clamp(this.currentLife + life, 0, maxLife);
         uIInGame.setLife(this.currentLife);
+        healthBar.loseLife(currentLife);
 
         if (currentLife == 0)
         {
             Debug.Log("Losing");
+            uIInGame.healthBars.SetActive(false);
             uIInGame.showLosingScreen();
         }
     }
@@ -187,7 +209,8 @@ public class PlayerManager : MonoBehaviour
     public void TakeDamage(int damage)
     {
         float lossHealth = (1 - DEF / 10.0f) * damage;
-        health -= lossHealth;
+        // health -= lossHealth;
+        health = Mathf.Clamp(health - lossHealth, 0, HP);
 
         // Nếu hết máu, trừ 1 mạng và fill đầy máu lại (nếu còn mạng)
         if (health <= 0)
@@ -207,6 +230,7 @@ public class PlayerManager : MonoBehaviour
             }
         }
         Debug.Log("Health:" + health);
+        healthBar.setHealth(health);
     }
 
     IEnumerator RevialAfterDelay(float delay)
@@ -215,7 +239,9 @@ public class PlayerManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
         dead = false;
 
+
         health = HP;
+        healthBar.setHealth(health);
         player1.Revival();
         player2.Revival();
         rope.SetActive(true);
@@ -229,6 +255,7 @@ public class PlayerManager : MonoBehaviour
     public void Win()
     {
         Debug.Log("Winning");
+        uIInGame.healthBars.SetActive(false);
         uIInGame.showWinningScreen();
     }
 }

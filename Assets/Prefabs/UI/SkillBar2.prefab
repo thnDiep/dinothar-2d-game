@@ -28,6 +28,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1860209018646818206, guid: 68b05b9b0bf63e741999c4b7c7ebef95, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 97
+      objectReference: {fileID: 0}
     - target: {fileID: 2830615651735558554, guid: 68b05b9b0bf63e741999c4b7c7ebef95, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -130,11 +134,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6527049628415837680, guid: 68b05b9b0bf63e741999c4b7c7ebef95, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 169
+      objectReference: {fileID: 0}
+    - target: {fileID: 6527049628415837680, guid: 68b05b9b0bf63e741999c4b7c7ebef95, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -81
       objectReference: {fileID: 0}
     - target: {fileID: 8371191430756164467, guid: 68b05b9b0bf63e741999c4b7c7ebef95, type: 3}
       propertyPath: m_Name
-      value: SkillBar2 Variant
+      value: SkillBar2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
