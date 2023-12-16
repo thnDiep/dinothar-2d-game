@@ -143,6 +143,9 @@ public class Boss : MonoBehaviour
         if(currentHealth < HP * 0.3)
         {
             anim.SetBool("isAngry", true);
+        } else
+        {
+            anim.SetBool("isAngry", false);
         }
         if (currentHealth <= 0)
         {

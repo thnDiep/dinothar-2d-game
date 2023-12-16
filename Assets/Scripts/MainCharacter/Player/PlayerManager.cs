@@ -6,18 +6,6 @@ public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager Instance { get; private set; }
 
-    //// Stats Index
-    //private float hpIndex = 1;
-    //private float atkIndex = 1;
-    //private float attackSpeedIndex = 1;
-    //private float defIndex = 0;
-
-    ////// Origincal Stats
-    ////public int DEFAULT_HP = 100;
-    ////public int DEFAULT_ATK = 10;
-    ////public int DEFAULT_ATTACK_SPEED = 200;
-    ////public int DEFAULT_DEF = 10;
-
     [Header("Stats")]
     public float HP = 100;
     public int ATK = 10;
@@ -30,15 +18,18 @@ public class PlayerManager : MonoBehaviour
     public PhysicsMaterial2D normalFriction;
 
     [Header("Content")]
+    public int level;
     public PlayerController player1;
     public PlayerController player2;
-    [SerializeField] GameObject fightArea;
-    [SerializeField] Tilemap gate;
     [SerializeField] GameObject rope;
 
-    [Header("UI")]
-    public UIInGame uIInGame;
-    [SerializeField] ClueCollecitonBtn clueCollection;
+    [Header("Map")]
+    [SerializeField] GameObject fightArea;
+    [SerializeField] Tilemap gate;
+
+    //[Header("UI")]
+    //public UIManager uIInGame;
+    //[SerializeField] ClueCollecitonBtn clueCollection;
 
     [Header("Information")]
     public PlayerStage Stage;
@@ -82,9 +73,11 @@ public class PlayerManager : MonoBehaviour
         else
         {
             Instance = this;
-            //DontDestroyOnLoad(gameObject);
         }
+    }
 
+    void Start()
+    {
         player1Input = new PlayerInputConfig(Player.Player1);
         player2Input = new PlayerInputConfig(Player.Player2);
 
@@ -98,24 +91,20 @@ public class PlayerManager : MonoBehaviour
         currentLife = 2;
         currentClue = 0;
 
+        // Update chỉ số chiến đấu theo chỉ số hiện tại của player có
+        updatePower();
         health = HP;
-
         revivalPosition = new Vector3(fightArea.transform.position.x - 1.0f, fightArea.transform.position.y + 5.0f, 0);
 
         // Update UI lúc bắt đầu
-        uIInGame.setMoney(currentMoney);
-        uIInGame.setDiamond(currentDiamond);
-        uIInGame.setLife(currentLife);
-        uIInGame.starBar.setFullNodes(currentClue);
-    }
-
-    public void DestroySingleton()
-    {
-        // Thực hiện bất kỳ công việc dọn dẹp cần thiết ở đây
-        // ...
-
-        // Hủy singleton
-        Destroy(gameObject);
+        //uIInGame.setMoney(currentMoney);
+        //uIInGame.setDiamond(currentDiamond);
+        //uIInGame.setLife(currentLife);
+        //uIInGame.starBar.setFullNodes(currentClue);
+        UIInGame.Instance.setMoney(currentMoney);
+        UIInGame.Instance.setDiamond(currentDiamond);
+        UIInGame.Instance.setLife(currentLife);
+        UIInGame.Instance.setStar(currentClue);
     }
 
     private void Update()
@@ -125,11 +114,12 @@ public class PlayerManager : MonoBehaviour
             if (player1.transform.position.x < fightArea.transform.position.x && player2.transform.position.x < fightArea.transform.position.x
                 && player1.transform.position.y > fightArea.transform.position.y && player2.transform.position.y > fightArea.transform.position.y)
             {
+                // chuyển sang giai đoạn chiến đấu
                 Stage = PlayerStage.Fight;
-                setStage(true); // giai đoạn chiến đấu  
+                setStage(true);   
             }
         }
-        else if (Stage == PlayerStage.Fight)
+        else if (Stage == PlayerStage.Fight && GameManager.Instance.learnedCombineSkill())
         {
             if (Input.GetKey(player1Input.useCombineSkill) && Input.GetKey(player2Input.useCombineSkill)
             && player1.getCanUseCombineSkill() && player2.getCanUseCombineSkill())
@@ -140,19 +130,30 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+
+
     public void setStage(bool isFightStage)
     {
-        //Stage = isFightStage ? PlayerStage.Fight : PlayerStage.Move;
-
         // Move stage
-        uIInGame.bars.gameObject.SetActive(!isFightStage);
+        //uIInGame.bars.gameObject.SetActive(!isFightStage);
 
         // Fight stage
-        gate.gameObject.SetActive(isFightStage);
-        uIInGame.skillBar1.gameObject.SetActive(isFightStage);
-        uIInGame.skillBar2.gameObject.SetActive(isFightStage);
+        //gate.gameObject.SetActive(isFightStage);
+        //uIInGame.skillBar1.gameObject.SetActive(isFightStage);
+        //uIInGame.skillBar2.gameObject.SetActive(isFightStage);
+
+        if(isFightStage)
+        {
+            gate.gameObject.SetActive(true);
+            UIInGame.Instance.setFightStage();
+        } else
+        {
+            gate.gameObject.SetActive(false);
+            UIInGame.Instance.setMoveStage();
+        }
     }
 
+    // giai đoạn di chuyển
     public void changeMoney(int money)
     {
         this.currentMoney += money;
@@ -160,7 +161,13 @@ public class PlayerManager : MonoBehaviour
         if (this.currentMoney < 0)
             this.currentMoney = 0;
 
-        uIInGame.setMoney(this.currentMoney);
+        UIInGame.Instance.setMoney(this.currentMoney);
+        //uIInGame.setMoney(this.currentMoney);
+    }
+
+    public int getMoney()
+    {
+        return currentMoney;
     }
 
     public void changeDiamond(int diamond)
@@ -170,26 +177,8 @@ public class PlayerManager : MonoBehaviour
         if (this.currentDiamond < 0)
             this.currentDiamond = 0;
 
-        uIInGame.setDiamond(this.currentDiamond);
-    }
-
-    public void changeLife(int life)
-    {
-        this.currentLife = Mathf.Clamp(this.currentLife + life, 0, maxLife);
-        uIInGame.setLife(this.currentLife);
-
-        if (currentLife == 0)
-        {
-            Debug.Log("Losing");
-            uIInGame.showLosingScreen();
-        }
-    }
-
-    public void changeClue(int clue)
-    {
-        this.currentClue = Mathf.Clamp(this.currentClue + clue, 0, maxClue);
-        clueCollection.unblockClue();
-        uIInGame.starBar.setFullNodes(currentClue);
+        UIInGame.Instance.setDiamond(this.currentDiamond);
+        //uIInGame.setDiamond(this.currentDiamond);
     }
 
     public int getDiamond()
@@ -197,14 +186,40 @@ public class PlayerManager : MonoBehaviour
         return currentDiamond;
     }
 
+    public void changeLife(int life)
+    {
+        this.currentLife = Mathf.Clamp(this.currentLife + life, 0, maxLife);
+        //uIInGame.setLife(this.currentLife);
+        UIInGame.Instance.setLife(this.currentLife);
+
+        // Thua nếu hết mạng
+        if (currentLife <= 0)
+        {
+            Lose();
+        }
+    }
+
+    public void changeClue(int clue)
+    {
+        this.currentClue = Mathf.Clamp(this.currentClue + clue, 0, maxClue);
+        //clueCollection.unblockClue();
+        //uIInGame.starBar.setFullNodes(currentClue);
+        UIInGame.Instance.setStar(this.currentClue);
+    }
+
     public int getStar()
     {
         return currentClue;
     }
 
-    public int getMoney()
+
+    // giai đoạn chiến đấu
+    public void updatePower()
     {
-        return currentMoney;
+        ATK = GameManager.Instance.getATK();
+        HP = GameManager.Instance.getHP();
+        ATTACK_SPEED = GameManager.Instance.getAttackSpeed();
+        DEF = GameManager.Instance.getDEF();
     }
 
     public void TakeDamage(int damage)
@@ -220,25 +235,24 @@ public class PlayerManager : MonoBehaviour
             player1.Die();
             player2.Die();
             rope.SetActive(false);
-            Debug.Log("Dead");
 
             // Hiệu ứng hồi sinh nếu còn mạng
             if (currentLife > 0)
             {
-                Debug.Log("Current life" + currentLife);
-                StartCoroutine(RevialAfterDelay(2f));
+                StartCoroutine(RevivalAfterDelay(2f));
             }
         }
-        Debug.Log("Health:" + health);
     }
 
-    IEnumerator RevialAfterDelay(float delay)
+    IEnumerator RevivalAfterDelay(float delay)
     {
         // Chờ đợi cho animation chết hoàn thành
         yield return new WaitForSeconds(delay);
         dead = false;
 
+        updatePower();
         health = HP;
+
         player1.Revival();
         player2.Revival();
         rope.SetActive(true);
@@ -249,29 +263,18 @@ public class PlayerManager : MonoBehaviour
         return dead;
     }
 
+    // kết thúc level
     public void Win()
     {
-        Debug.Log("Winning");
-        uIInGame.showWinningScreen();
+        //uIInGame.showWinningScreen();
+        UIInGame.Instance.showWinningScreen();
+        GameManager.Instance.LevelCompleted(level, currentMoney, currentDiamond, currentClue);
     }
-
-    public void UpgradeAttack(int atkIndex)
+    
+    public void Lose()
     {
-        ATK = atkIndex * 10;
-    }
-
-    public void UpgradeHealth(int healthIndex)
-    {
-        HP = healthIndex * 100;
-    }
-
-    public void UpgradeSpeed(int speedIndex)
-    {
-        ATTACK_SPEED = speedIndex * 100 + 100;
-    }
-
-    public void UpgradeDefense(int defIndex)
-    {
-        DEF = defIndex * 10;
+        //uIInGame.showLosingScreen();
+        UIInGame.Instance.showLosingScreen();
+        GameManager.Instance.LevelFailed(level, currentClue);
     }
 }

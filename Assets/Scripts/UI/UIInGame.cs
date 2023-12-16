@@ -3,14 +3,14 @@ using UnityEngine.UI;
 using TMPro;
 
 public class UIInGame : MonoBehaviour
-{ 
+{
+    public static UIInGame Instance { get; private set; }
+
     [Header("Move stage")]
     public GameObject bars;
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI diamondText;
     public TextMeshProUGUI lifeText;
-    //public Image currentStarImg;
-    //public Sprite starImg1, starImg2, starImg3;
     public FillBar starBar;
 
     [Header("Fight stage")]
@@ -21,8 +21,24 @@ public class UIInGame : MonoBehaviour
     public GameObject winningScreen;
     public GameObject losingScreen;
 
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+
     private void Start()
     {
+        setLockSkill1(!GameManager.Instance.learnedSkill1());
+        setLockSkill2(!GameManager.Instance.learnedSkill2());
+        setLockCombineSkill(!GameManager.Instance.learnedCombineSkill());
+
         winningScreen.SetActive(false);
         losingScreen.SetActive(false);
     }
@@ -49,6 +65,26 @@ public class UIInGame : MonoBehaviour
             lifeText.text = amount.ToString();
         }
     }
+
+    public void setStar(int amount)
+    {
+        starBar.setFullNodes(amount);
+    }
+
+    public void setMoveStage()
+    {
+        bars.gameObject.SetActive(true);
+        skillBar1.gameObject.SetActive(false);
+        skillBar2.gameObject.SetActive(false);
+    }
+
+    public void setFightStage()
+    {
+        bars.gameObject.SetActive(false);
+        skillBar1.gameObject.SetActive(true);
+        skillBar2.gameObject.SetActive(true);
+    }
+
     public void showWinningScreen()
     {
         winningScreen.SetActive(true);
@@ -59,19 +95,19 @@ public class UIInGame : MonoBehaviour
         losingScreen.SetActive(true);
     }
 
-    //public void setStar(int numberStar)
-    //{
-    //    if (numberStar == 1)
-    //    {
-    //        currentStarImg.sprite = starImg1;
-    //    }
-    //    else if (numberStar == 2)
-    //    {
-    //        currentStarImg.sprite = starImg2;
-    //    }
-    //    else
-    //    {
-    //        currentStarImg.sprite = starImg3;
-    //    }
-    //}
+    public void setLockSkill1(bool isLock)
+    {
+        skillBar1.singleSkill.Lock(isLock);
+    }
+
+    public void setLockSkill2(bool isLock)
+    {
+        skillBar2.singleSkill.Lock(isLock);
+    }
+
+    public void setLockCombineSkill(bool isLock)
+    {
+        skillBar1.combineSkill.Lock(isLock);
+        skillBar2.combineSkill.Lock(isLock);
+    }
 }
