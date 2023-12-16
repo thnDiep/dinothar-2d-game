@@ -14,7 +14,7 @@ public class Rope : MonoBehaviour
     private LineRenderer ropeRenderer;
     private List<RopeSegment> ropeSegments = new List<RopeSegment>();
     private float ropeSegmentLen = 0.25f;
-    private float ropeWidth = 0.1f;
+    private float ropeWidth = 0.03f;
 
     private LineRenderer maxRopeRenderer;
     private SpringJoint2D joint;

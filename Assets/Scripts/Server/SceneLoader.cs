@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 public class SceneLoader : MonoBehaviour
 {
     public static SceneLoader Instance { get; private set; }
-
     private void Awake()
     {
         if (Instance == null)
@@ -19,7 +18,7 @@ public class SceneLoader : MonoBehaviour
         }
     }
 
-    public void PlayerAgain()
+    public void Replay()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Time.timeScale = 1.0f;
@@ -34,5 +33,15 @@ public class SceneLoader : MonoBehaviour
     public void OnButtonPress(string sceneName)
     {
         LoadScene(sceneName);
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0.0f;
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1.0f;
     }
 }

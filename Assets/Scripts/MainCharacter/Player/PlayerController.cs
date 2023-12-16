@@ -71,7 +71,6 @@ public class PlayerController : MonoBehaviour
             skillBarUI = PlayerManager.Instance.uIInGame.skillBar1;
         else
             skillBarUI = PlayerManager.Instance.uIInGame.skillBar2;
-
         direction = new Vector2(1, 0); // right
         bulletType = Bullet.BulletType.basic;
     }
@@ -170,7 +169,7 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        rb.velocity = new Vector2(rb.velocity.x, 15);
+        rb.velocity = new Vector2(rb.velocity.x, 13);
     }
 
     private void Shoot()
@@ -224,15 +223,21 @@ public class PlayerController : MonoBehaviour
     public void Die()
     {
         anim.SetTrigger("dead");
-        //StartCoroutine(MoveSmoothly());
-        transform.position = PlayerManager.Instance.revivalPosition;
+        StartCoroutine(DeathEffect());
+    }
+
+    private IEnumerator DeathEffect()
+    {
+        yield return new WaitForSeconds(1.5f);
+        //Instantiate(deathEffect, transform.position, Quaternion.identity);
         gameObject.SetActive(false);
     }
- 
+
     public void Revival()
     {
-        anim.SetBool("isReveal", true);
         gameObject.SetActive(true);
+        anim.SetBool("isReveal", true);
+        transform.position = PlayerManager.Instance.revivalPosition;
     }
 
     //IEnumerator MoveSmoothly()

@@ -153,6 +153,7 @@ public class Boss : MonoBehaviour
     private void Die()
     {
         anim.SetTrigger("Die");
+        isInvulnerable = true;
         StartCoroutine(DeathEffect());
     }
 

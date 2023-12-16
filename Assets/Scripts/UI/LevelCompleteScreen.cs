@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -7,17 +7,17 @@ using UnityEngine.UI;
 public class LevelCompleteScreen : MonoBehaviour
 {
     public Image fadeImage;
-    public StarBar starBar;
+    public FillBar starBar;
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI diamondText;
 
-    public float fadeDuration = 1.0f;
+    public float fadeDuration = 2.0f;
     private float currentAlpha = 0f;
 
     void Start()
     {
         fadeImage = GetComponent<Image>();
-        starBar.setStars(PlayerManager.Instance.getStar());
+        starBar.setFullNodes(PlayerManager.Instance.getStar());
 
         if(moneyText != null)
             moneyText.text = PlayerManager.Instance.getMoney().ToString();
@@ -50,5 +50,4 @@ public class LevelCompleteScreen : MonoBehaviour
         color.a = alpha;
         fadeImage.color = color;
     }
-
 }
