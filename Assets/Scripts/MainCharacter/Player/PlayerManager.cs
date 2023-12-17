@@ -240,6 +240,7 @@ public class PlayerManager : MonoBehaviour
             dead = true;
             player1.Die();
             player2.Die();
+            SoundManager.Instance.PlaySoundGameOver();
             rope.SetActive(false);
             Debug.Log("Dead");
 
