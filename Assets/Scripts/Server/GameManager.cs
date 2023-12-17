@@ -12,6 +12,10 @@ public class GameManager : MonoBehaviour
     public static event Action<int> MoneyChangedEvent;
     public static event Action<int> DiamondChangedEvent;
 
+    public static event Action<bool> Skill1ChangedEvent;
+    public static event Action<bool> Skill2ChangedEvent;
+    public static event Action<bool> CombineSkillChangedEvent;
+
     public int DEFAULT_HP = 100;
     public int DEFAULT_ATK = 10;
     public int DEFAULT_ATTACK_SPEED = 200;
@@ -36,21 +40,19 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        PlayerPrefs.DeleteKey("PlayerData"); // Hoàn thành game thì xóa dòng này
         LoadPlayerData();
-    }
-
-    void FixedUpdate()
-    {
-        Debug.Log(playerData.money);
     }
 
     void SavePlayerData()
     {
         PlayerPrefs.SetString("PlayerData", JsonUtility.ToJson(playerData));
         PlayerPrefs.Save();
+
         MoneyChangedEvent?.Invoke(playerData.money);
         DiamondChangedEvent?.Invoke(playerData.diamond);
+        Skill1ChangedEvent?.Invoke(playerData.singleSkill1);
+        Skill2ChangedEvent?.Invoke(playerData.singleSkill2);
+        CombineSkillChangedEvent?.Invoke(playerData.combineSkill);
     }
 
     void LoadPlayerData()
@@ -70,14 +72,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void NewGame()
+    {
+        PlayerPrefs.DeleteKey("PlayerData");
+        LoadPlayerData();
+    }
+
     public void LevelCompleted(int level, int money, int diamond, int clue)
     {
         // Cập nhật trạng thái khi người chơi hoàn thành cấp độ
         playerData.level = level;
 
         // Lấy số sao lớn nhất
-        if(clue > playerData.stars[level])
-            playerData.stars[level] = clue;
+        if(clue > playerData.stars[level - 1])
+            playerData.stars[level - 1] = clue;
 
         playerData.money += money;
         playerData.diamond += diamond;
@@ -171,6 +179,21 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
+    public int getMoney()
+    {
+        return playerData.money;
+    }
+
+    public int getDiamond()
+    {
+        return playerData.diamond;
+    }
+
+    public int[] getStars()
+    {
+        return playerData.stars;
+    }
+
     public int getATK()
     {
         return playerData.atkIndex * DEFAULT_ATK;
@@ -180,6 +203,7 @@ public class GameManager : MonoBehaviour
     {
         return playerData.hpIndex * DEFAULT_HP;
     }
+
     public int getAttackSpeed()
     {
         return playerData.attackSpeedIndex * DEFAULT_ATTACK_SPEED;

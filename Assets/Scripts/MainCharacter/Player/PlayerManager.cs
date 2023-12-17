@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager Instance { get; private set; }
-    public static event Action<int> LifeChangeEvent;
+    //public static event Action<int> LifeChangeEvent;
     public static event Action<float> HealthChangeEvent;
 
     [Header("Stats")]
