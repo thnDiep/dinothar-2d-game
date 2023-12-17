@@ -6,16 +6,27 @@ public class UIInGame : MonoBehaviour
 {
     public static UIInGame Instance { get; private set; }
 
-    [Header("Move stage")]
-    public GameObject bars;
+    //[Header("Move stage")]
+    [Header("Stage")]
+    public GameObject MoveStageUI;
+    public GameObject FightStageUI;
+
+    [Header("Bars")]
+    public FillBar starBar;
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI diamondText;
     public TextMeshProUGUI lifeText;
-    public FillBar starBar;
 
-    [Header("Fight stage")]
+    [Header("Skill")]
     public SkillBarUI skillBar1;
     public SkillBarUI skillBar2;
+
+    [Header("Health bars")]
+    public PlayersHealthBar playerHealthBar;
+    public BossHealthBar bossHealthBar;
+
+    [Header("Button")]
+    public ClueCollecitonBtn clueCollectionBtn;
 
     [Header("Level complete")]
     public GameObject winningScreen;
@@ -41,6 +52,15 @@ public class UIInGame : MonoBehaviour
 
         winningScreen.SetActive(false);
         losingScreen.SetActive(false);
+
+        PlayerManager.HealthChangeEvent += playerHealthBar.setHealth;
+        Boss.HealthChangeEvent += bossHealthBar.setHealth;
+    }
+
+    private void OnDestroy()
+    {
+        PlayerManager.HealthChangeEvent -= playerHealthBar.setHealth;
+        Boss.HealthChangeEvent -= bossHealthBar.setHealth;
     }
 
     public void setMoney(int amount)
@@ -71,27 +91,27 @@ public class UIInGame : MonoBehaviour
         starBar.setFullNodes(amount);
     }
 
-    public void setMoveStage()
+    public void updateLife(int amount)
     {
-        bars.gameObject.SetActive(true);
-        skillBar1.gameObject.SetActive(false);
-        skillBar2.gameObject.SetActive(false);
+        setLife(amount);
+        playerHealthBar.loseLife(amount);
     }
 
-    public void setFightStage()
+    public void setStage(bool isFightStage)
     {
-        bars.gameObject.SetActive(false);
-        skillBar1.gameObject.SetActive(true);
-        skillBar2.gameObject.SetActive(true);
+        MoveStageUI.gameObject.SetActive(!isFightStage);
+        FightStageUI.gameObject.SetActive(isFightStage);
     }
 
     public void showWinningScreen()
     {
+        FightStageUI.SetActive(false);
         winningScreen.SetActive(true);
     }
 
     public void showLosingScreen()
     {
+        FightStageUI.SetActive(false);
         losingScreen.SetActive(true);
     }
 

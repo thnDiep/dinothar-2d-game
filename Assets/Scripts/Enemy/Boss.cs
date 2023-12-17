@@ -1,14 +1,20 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
+    public static event Action<float> HealthChangeEvent;
+
     [Header("Stats")]
     public float HP = 50;
     public int ATK = 10;
     public float SPEED = 4;
     public float DEF = 0;
+
+    //[Header("UI")]
+    //public BossHealthBar healthBar;
 
     [Header("Range Acttack")]
     [SerializeField] private Vector3 attackOffset;
@@ -28,15 +34,34 @@ public class Boss : MonoBehaviour
     private bool isLookAtRight = true;
 
     private float currentHealth;
+    public float health
+    {
+        get { return currentHealth; }
+        set
+        {
+            if (currentHealth != value)
+            {
+                currentHealth = value;
+                HealthChangeEvent?.Invoke(currentHealth);
+            }
+        }
+    }
 
     public void Awake()
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-
-        currentHealth = HP;
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
+
+    }
+
+    public void Start()
+    {
         isStart = false;
+        health = HP;
+        UIInGame.Instance.bossHealthBar.setMaxHealth(HP);
+        //currentHealth = HP;
+        //healthBar.setMaxHealth(HP);
 
         originPosition = transform.position;
     }
@@ -46,15 +71,18 @@ public class Boss : MonoBehaviour
         if (PlayerManager.Instance.isDead())
         {
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
-            currentHealth = HP;
             isStart = false;
             anim.SetBool("isStart", isStart);
-
+            anim.SetBool("isAngry", false);
+            health = HP;
+            //currentHealth = HP;
+            //healthBar.setHealth(currentHealth);
             transform.position = originPosition;
+
             return;
         }
 
-        if(!isStart && PlayerManager.Instance.Stage == PlayerManager.PlayerStage.Fight)
+        if (!isStart && PlayerManager.Instance.Stage == PlayerManager.PlayerStage.Fight)
         {
             rb.constraints = RigidbodyConstraints2D.None;
             rb.AddForce(Vector2.down * 0.1f, ForceMode2D.Impulse);
@@ -87,7 +115,7 @@ public class Boss : MonoBehaviour
             transform.localScale = flipped;
             transform.Rotate(0f, 180f, 0f);
             isLookAtRight = false;
-        } 
+        }
         // Đứng bên trái player và nhìn vào bên trái
         else if (transform.position.x < player.position.x && !isLookAtRight)
         {
@@ -137,17 +165,17 @@ public class Boss : MonoBehaviour
         if (isInvulnerable)
             return;
 
-        float lossHealth = (1 - DEF/ 10.0f)  * damage;
-        currentHealth -= lossHealth;
+        float lossHealth = (1 - DEF / 10.0f) * damage;
+        // currentHealth -= lossHealth;
+        health = Mathf.Clamp(health - lossHealth, 0, HP);
+        //currentHealth = Mathf.Clamp(currentHealth - lossHealth, 0, HP);
+        //healthBar.setHealth(currentHealth);
 
-        if(currentHealth < HP * 0.3)
+        if (health < HP * 0.3)
         {
             anim.SetBool("isAngry", true);
-        } else
-        {
-            anim.SetBool("isAngry", false);
-        }
-        if (currentHealth <= 0)
+        } 
+        if (health <= 0)
         {
             Die();
         }

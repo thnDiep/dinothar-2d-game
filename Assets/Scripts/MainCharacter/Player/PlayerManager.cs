@@ -1,10 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
+
 
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager Instance { get; private set; }
+    public static event Action<int> LifeChangeEvent;
+    public static event Action<float> HealthChangeEvent;
 
     [Header("Stats")]
     public float HP = 100;
@@ -26,14 +31,21 @@ public class PlayerManager : MonoBehaviour
     [Header("Map")]
     [SerializeField] GameObject fightArea;
     [SerializeField] Tilemap gate;
+    public GameObject StreetFrame;
+    public GameObject FightBossFrame;
 
     //[Header("UI")]
-    //public UIManager uIInGame;
+    //public UIInGame uIInGame;
     //[SerializeField] ClueCollecitonBtn clueCollection;
+    //public PlayersHealthBar playerHealthBar;
+
+    [Header("Server")]
+    public CameraController cameraController;
 
     [Header("Information")]
     public PlayerStage Stage;
     public PlayerState State;
+
 
     public enum Player
     {
@@ -60,9 +72,23 @@ public class PlayerManager : MonoBehaviour
 
     private int currentMoney, currentDiamond, currentLife, currentClue;
 
-    private float health;
+    private float currentHealth;
     private bool dead;
     public Vector3 revivalPosition;
+
+    public float health
+    {
+        get { return currentHealth; }
+        set
+        {
+            if (currentHealth != value)
+            {
+                currentHealth = value;
+                HealthChangeEvent?.Invoke(currentHealth);
+            }
+        }
+    }
+
 
     void Awake()
     {
@@ -87,24 +113,22 @@ public class PlayerManager : MonoBehaviour
 
         currentMoney = 0;
         currentDiamond = 0;
-        //currentLife = maxLife - 1;
-        currentLife = 2;
+        currentLife = 5;
         currentClue = 0;
 
-        // Update chỉ số chiến đấu theo chỉ số hiện tại của player có
-        updatePower();
-        health = HP;
-        revivalPosition = new Vector3(fightArea.transform.position.x - 1.0f, fightArea.transform.position.y + 5.0f, 0);
-
         // Update UI lúc bắt đầu
-        //uIInGame.setMoney(currentMoney);
-        //uIInGame.setDiamond(currentDiamond);
-        //uIInGame.setLife(currentLife);
-        //uIInGame.starBar.setFullNodes(currentClue);
         UIInGame.Instance.setMoney(currentMoney);
         UIInGame.Instance.setDiamond(currentDiamond);
         UIInGame.Instance.setLife(currentLife);
         UIInGame.Instance.setStar(currentClue);
+
+
+        // Giai đoạn chiến đấu
+        updatePower();
+        //currentHealth = HP;
+        //UIInGame.Instance.playerHealthBar.setMaxHealth(HP);
+        health = HP;
+        revivalPosition = new Vector3(fightArea.transform.position.x - 1.0f, fightArea.transform.position.y + 5.0f, 0);
     }
 
     private void Update()
@@ -128,29 +152,17 @@ public class PlayerManager : MonoBehaviour
                 player2.UseCombineSkill();
             }
         }
+
+
     }
-
-
 
     public void setStage(bool isFightStage)
     {
-        // Move stage
-        //uIInGame.bars.gameObject.SetActive(!isFightStage);
-
-        // Fight stage
-        //gate.gameObject.SetActive(isFightStage);
-        //uIInGame.skillBar1.gameObject.SetActive(isFightStage);
-        //uIInGame.skillBar2.gameObject.SetActive(isFightStage);
-
-        if(isFightStage)
-        {
-            gate.gameObject.SetActive(true);
-            UIInGame.Instance.setFightStage();
-        } else
-        {
-            gate.gameObject.SetActive(false);
-            UIInGame.Instance.setMoveStage();
-        }
+        gate.gameObject.SetActive(isFightStage);
+        UIInGame.Instance.setStage(isFightStage);
+        StreetFrame.SetActive(isFightStage);
+        FightBossFrame.SetActive(!isFightStage);
+        cameraController.setIsFightStage(isFightStage);
     }
 
     // giai đoạn di chuyển
@@ -162,7 +174,6 @@ public class PlayerManager : MonoBehaviour
             this.currentMoney = 0;
 
         UIInGame.Instance.setMoney(this.currentMoney);
-        //uIInGame.setMoney(this.currentMoney);
     }
 
     public int getMoney()
@@ -178,7 +189,6 @@ public class PlayerManager : MonoBehaviour
             this.currentDiamond = 0;
 
         UIInGame.Instance.setDiamond(this.currentDiamond);
-        //uIInGame.setDiamond(this.currentDiamond);
     }
 
     public int getDiamond()
@@ -189,8 +199,7 @@ public class PlayerManager : MonoBehaviour
     public void changeLife(int life)
     {
         this.currentLife = Mathf.Clamp(this.currentLife + life, 0, maxLife);
-        //uIInGame.setLife(this.currentLife);
-        UIInGame.Instance.setLife(this.currentLife);
+        UIInGame.Instance.updateLife(currentLife);
 
         // Thua nếu hết mạng
         if (currentLife <= 0)
@@ -218,6 +227,7 @@ public class PlayerManager : MonoBehaviour
     {
         ATK = GameManager.Instance.getATK();
         HP = GameManager.Instance.getHP();
+        UIInGame.Instance.playerHealthBar.setMaxHealth(HP);
         ATTACK_SPEED = GameManager.Instance.getAttackSpeed();
         DEF = GameManager.Instance.getDEF();
     }
@@ -225,7 +235,10 @@ public class PlayerManager : MonoBehaviour
     public void TakeDamage(int damage)
     {
         float lossHealth = (1 - DEF / 10.0f) * damage;
-        health -= lossHealth;
+        // health -= lossHealth;
+        //currentHealth = Mathf.Clamp(currentHealth - lossHealth, 0, HP);
+        //UIInGame.Instance.playerHealthBar.setHealth(currentHealth);
+        health = Mathf.Clamp(health - lossHealth, 0, HP);
 
         // Nếu hết máu, trừ 1 mạng và fill đầy máu lại (nếu còn mạng)
         if (health <= 0)
@@ -251,8 +264,9 @@ public class PlayerManager : MonoBehaviour
         dead = false;
 
         updatePower();
+        //currentHealth = HP;
+        //UIInGame.Instance.playerHealthBar.setHealth(currentHealth);
         health = HP;
-
         player1.Revival();
         player2.Revival();
         rope.SetActive(true);
@@ -266,14 +280,12 @@ public class PlayerManager : MonoBehaviour
     // kết thúc level
     public void Win()
     {
-        //uIInGame.showWinningScreen();
         UIInGame.Instance.showWinningScreen();
         GameManager.Instance.LevelCompleted(level, currentMoney, currentDiamond, currentClue);
     }
     
     public void Lose()
     {
-        //uIInGame.showLosingScreen();
         UIInGame.Instance.showLosingScreen();
         GameManager.Instance.LevelFailed(level, currentClue);
     }

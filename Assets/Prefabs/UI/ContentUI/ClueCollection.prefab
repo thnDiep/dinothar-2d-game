@@ -880,9 +880,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 827665752865865767}
         m_TargetAssemblyTypeName: ClueColleciton, Assembly-CSharp
-        m_MethodName: closeClueCollection
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

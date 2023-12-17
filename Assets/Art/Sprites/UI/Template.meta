@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scripts/UI/HealthBar.meta
+guid: 23ad6e22f0ac0b84a8a02595948b6af5
+========
 guid: 44dd710641465bd4389f150f83cd7b93
+>>>>>>>> bc877d37586ff94426e6431ccd8f6e91b99cc7ea:Assets/Art/Sprites/UI/Template.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

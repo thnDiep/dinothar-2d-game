@@ -64,7 +64,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9242eb65cc3984946bde594b267958ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 4.6
+  attackRange: 2.5
   isAngry: 0
 --- !u!1101 &-4917476861830828466
 AnimatorStateTransition:
@@ -531,7 +531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9242eb65cc3984946bde594b267958ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 4.6
+  attackRange: 2.5
   isAngry: 1
 --- !u!1101 &5877445204905780164
 AnimatorStateTransition:

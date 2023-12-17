@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -10,16 +11,16 @@ public class CameraController : MonoBehaviour
     // Start is called before the first frame update
     private GameObject[] players;
     private GameObject player;
-    private float leftLimit = -7;
-    float rightLimit = 15.51f;
-    float downLimit = -4f;
+    private float leftLimit = -29.7f;
+    float rightLimit = -5.7f;
+    float downLimit = -7.3f;
     float topLimit = 21f;
-    float distanceToUpdateDirY = 7.5f;
+    float distanceToUpdateDirY = 5f;
 
     bool outScreen;
     float dirX, dirY;
 
-    private bool isFixed = false;
+    private bool isFightStage = false;
 
     void Awake()
     {
@@ -46,7 +47,15 @@ public class CameraController : MonoBehaviour
     {
         //if(PlayerManager.Instance.Stage == PlayerManager.PlayerStage.Move)
         //{
+        if (!isFightStage)
+        {
+
             followPlayer();
+        }
+        else
+        {
+            followPlayerFightBoss();
+        }
         //}
         //else if (!isFixed)
         //{
@@ -71,7 +80,18 @@ public class CameraController : MonoBehaviour
                 outScreen = false;
             }
 
-            transform.position = new Vector3(Mathf.Clamp(player.transform.position.x, leftLimit, rightLimit), Mathf.Clamp(dirY, downLimit, topLimit), player.transform.position.z - 20);
+            transform.position = new Vector3(Mathf.Clamp(player.transform.position.x, leftLimit, rightLimit), Mathf.Clamp(dirY, downLimit, topLimit), player.transform.position.z - 8);
         }
+    }
+
+    private void followPlayerFightBoss()
+    {
+        transform.position = new Vector3(Mathf.Clamp(player.transform.position.x + 4f, leftLimit, rightLimit), 15f, player.transform.position.z - 8);
+
+    }
+
+    public void setIsFightStage(bool isFight)
+    {
+        this.isFightStage = isFight;
     }
 }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -92,9 +92,16 @@ public class UpgradeUI : MonoBehaviour
         }
 
         skill1PriceText.text = GameManager.Instance.SKILL1_PRICE.ToString();
-        skill1PriceText.text = GameManager.Instance.SKILL2_PRICE.ToString();
-        skill1PriceText.text = GameManager.Instance.COMBINE_SKILL_PRICE.ToString();
+        skill2PriceText.text = GameManager.Instance.SKILL2_PRICE.ToString();
+        combineSkillPriceText.text = GameManager.Instance.COMBINE_SKILL_PRICE.ToString();
     }
+
+    private void OnDestroy()
+    {
+        // Hủy đăng ký sự kiện trước khi đối tượng bị hủy
+        GameManager.MoneyChangedEvent -= HandleMoneyChanged;
+    }
+
 
     private void HandleMoneyChanged(int newMoney)
     {

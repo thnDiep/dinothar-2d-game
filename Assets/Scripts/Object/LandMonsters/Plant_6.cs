@@ -55,7 +55,7 @@ public class Plant_6 : MonoBehaviour
     {
         GameObject plantBulletObject = Instantiate(plantBulletPrefab, rg2d.position + direction * 0.5f, Quaternion.identity);
         PlantBullet plantBullet = plantBulletObject.GetComponent<PlantBullet>();
-        plantBullet.Launch(direction, 300f, transform.position);
+        plantBullet.Launch(direction, attackSpeed, transform.position);
 
         StartCoroutine(SetCanShoot());
     }
