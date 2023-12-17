@@ -13,10 +13,7 @@ public class Boss : MonoBehaviour
     public float SPEED = 4;
     public float DEF = 0;
 
-    //[Header("UI")]
-    //public BossHealthBar healthBar;
-
-    [Header("Range Acttack")]
+    [Header("Range Attack")]
     [SerializeField] private Vector3 attackOffset;
     public float attackRange;
     [SerializeField] private LayerMask attackMask;
@@ -60,9 +57,6 @@ public class Boss : MonoBehaviour
         isStart = false;
         health = HP;
         UIInGame.Instance.bossHealthBar.setMaxHealth(HP);
-        //currentHealth = HP;
-        //healthBar.setMaxHealth(HP);
-
         originPosition = transform.position;
     }
 
@@ -70,17 +64,9 @@ public class Boss : MonoBehaviour
     {
         if (PlayerManager.Instance.isDead())
         {
-            rb.constraints = RigidbodyConstraints2D.FreezeAll;
-            isStart = false;
-            anim.SetBool("isStart", isStart);
-            anim.SetBool("isAngry", false);
-            health = HP;
-            //currentHealth = HP;
-            //healthBar.setHealth(currentHealth);
-            transform.position = originPosition;
-
+            StartCoroutine(FunnyEffect());
             return;
-        }
+        } 
 
         if (!isStart && PlayerManager.Instance.Stage == PlayerManager.PlayerStage.Fight)
         {
@@ -166,10 +152,7 @@ public class Boss : MonoBehaviour
             return;
 
         float lossHealth = (1 - DEF / 10.0f) * damage;
-        // currentHealth -= lossHealth;
         health = Mathf.Clamp(health - lossHealth, 0, HP);
-        //currentHealth = Mathf.Clamp(currentHealth - lossHealth, 0, HP);
-        //healthBar.setHealth(currentHealth);
 
         if (health < HP * 0.3)
         {
@@ -186,6 +169,24 @@ public class Boss : MonoBehaviour
         anim.SetTrigger("Die");
         isInvulnerable = true;
         StartCoroutine(DeathEffect());
+    }
+
+    private IEnumerator FunnyEffect()
+    {
+
+        anim.SetBool("isWin", true); 
+        yield return new WaitForSeconds(2f);
+
+        // Đóng băng
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        isStart = false;
+        grounded = false;
+        anim.SetBool("isWin", false);
+        anim.SetBool("isStart", false);
+        anim.SetBool("isAngry", false);
+        anim.SetBool("grounded", false);
+        health = HP;
+        transform.position = originPosition;
     }
 
     private IEnumerator DeathEffect()

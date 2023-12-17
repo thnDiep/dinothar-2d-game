@@ -52,48 +52,57 @@ public class UpgradeUI : MonoBehaviour
 
     void Start()
     {
-        GameManager.MoneyChangedEvent += HandleMoneyChanged;
+        StartCoroutine(CheckGameManagerInstance());
+    }
 
-        atkIndex = GameManager.Instance.getAtkIndex();
-        attack.setFullNodes(atkIndex);
-        atkUpgradePrice.text = ((atkIndex + 1) * 100).ToString();
-
-        hpIndex = GameManager.Instance.getHpIndex();
-        health.setFullNodes(hpIndex);
-        healthUpgradePrice.text = ((hpIndex + 1) * 100).ToString();
-
-        speedIndex = GameManager.Instance.getAttackSpeedIndex();
-        speed.setFullNodes(speedIndex);
-        speedUpgradePrice.text = ((speedIndex + 1) * 100).ToString();
-
-        defIndex = GameManager.Instance.getDefIndex();
-        defense.setFullNodes(defIndex);
-        defUpgradePrice.text = ((defIndex + 1) * 100).ToString();
-
-        if (GameManager.Instance.learnedSkill1())
+    private IEnumerator CheckGameManagerInstance()
+    {
+        yield return new WaitForSeconds(0.1f); // Đợi một khoảng thời gian ngắn
+        if (GameManager.Instance != null)
         {
-            skill1Button.GetComponent<Selectable>().interactable = false;
-            skill1Lock.gameObject.SetActive(false);
-            skill1Price.gameObject.SetActive(false);
-        }
+            GameManager.MoneyChangedEvent += HandleMoneyChanged;
 
-        if (GameManager.Instance.learnedSkill2())
-        {
-            skill2Button.GetComponent<Selectable>().interactable = false;
-            skill2Lock.gameObject.SetActive(false);
-            skill2Price.gameObject.SetActive(false);
-        }
+            atkIndex = GameManager.Instance.getAtkIndex();
+            attack.setFullNodes(atkIndex);
+            atkUpgradePrice.text = ((atkIndex + 1) * 100).ToString();
 
-        if (GameManager.Instance.learnedCombineSkill())
-        {
-            combineSkillButton.GetComponent<Selectable>().interactable = false;
-            combineSkillLock.gameObject.SetActive(false);
-            combineSkillPrice.gameObject.SetActive(false);
-        }
+            hpIndex = GameManager.Instance.getHpIndex();
+            health.setFullNodes(hpIndex);
+            healthUpgradePrice.text = ((hpIndex + 1) * 100).ToString();
 
-        skill1PriceText.text = GameManager.Instance.SKILL1_PRICE.ToString();
-        skill2PriceText.text = GameManager.Instance.SKILL2_PRICE.ToString();
-        combineSkillPriceText.text = GameManager.Instance.COMBINE_SKILL_PRICE.ToString();
+            speedIndex = GameManager.Instance.getAttackSpeedIndex();
+            speed.setFullNodes(speedIndex);
+            speedUpgradePrice.text = ((speedIndex + 1) * 100).ToString();
+
+            defIndex = GameManager.Instance.getDefIndex();
+            defense.setFullNodes(defIndex);
+            defUpgradePrice.text = ((defIndex + 1) * 100).ToString();
+
+            if (GameManager.Instance.learnedSkill1())
+            {
+                skill1Button.GetComponent<Selectable>().interactable = false;
+                skill1Lock.gameObject.SetActive(false);
+                skill1Price.gameObject.SetActive(false);
+            }
+
+            if (GameManager.Instance.learnedSkill2())
+            {
+                skill2Button.GetComponent<Selectable>().interactable = false;
+                skill2Lock.gameObject.SetActive(false);
+                skill2Price.gameObject.SetActive(false);
+            }
+
+            if (GameManager.Instance.learnedCombineSkill())
+            {
+                combineSkillButton.GetComponent<Selectable>().interactable = false;
+                combineSkillLock.gameObject.SetActive(false);
+                combineSkillPrice.gameObject.SetActive(false);
+            }
+
+            skill1PriceText.text = GameManager.Instance.SKILL1_PRICE.ToString();
+            skill2PriceText.text = GameManager.Instance.SKILL2_PRICE.ToString();
+            combineSkillPriceText.text = GameManager.Instance.COMBINE_SKILL_PRICE.ToString();
+        }
     }
 
     private void OnDestroy()

@@ -1,5 +1,6 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 using TMPro;
 
 public class UIInGame : MonoBehaviour
@@ -32,6 +33,8 @@ public class UIInGame : MonoBehaviour
     public GameObject winningScreen;
     public GameObject losingScreen;
 
+    public ScreenFader screenFader;
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -41,20 +44,29 @@ public class UIInGame : MonoBehaviour
         else
         {
             Instance = this;
-        }
+        }   
     }
 
     private void Start()
     {
-        setLockSkill1(!GameManager.Instance.learnedSkill1());
-        setLockSkill2(!GameManager.Instance.learnedSkill2());
-        setLockCombineSkill(!GameManager.Instance.learnedCombineSkill());
-
+        StartCoroutine(CheckGameManagerInstance());
+        
         winningScreen.SetActive(false);
         losingScreen.SetActive(false);
 
         PlayerManager.HealthChangeEvent += playerHealthBar.setHealth;
         Boss.HealthChangeEvent += bossHealthBar.setHealth;
+    }
+
+    private IEnumerator CheckGameManagerInstance()
+    {
+        yield return new WaitForSeconds(0.1f); // Đợi một khoảng thời gian ngắn
+        if (GameManager.Instance != null)
+        {
+            setLockSkill1(!GameManager.Instance.learnedSkill1());
+            setLockSkill2(!GameManager.Instance.learnedSkill2());
+            setLockCombineSkill(!GameManager.Instance.learnedCombineSkill());
+        }
     }
 
     private void OnDestroy()
@@ -129,5 +141,11 @@ public class UIInGame : MonoBehaviour
     {
         skillBar1.combineSkill.Lock(isLock);
         skillBar2.combineSkill.Lock(isLock);
+    }
+
+    public void startScreenFade()
+    {
+        screenFader.gameObject.SetActive(true);
+        screenFader.StartScreenFade();
     }
 }

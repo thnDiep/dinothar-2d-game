@@ -229,8 +229,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator DeathEffect()
     {
-        yield return new WaitForSeconds(1.5f);
-        //Instantiate(deathEffect, transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(2f);
         gameObject.SetActive(false);
     }
 

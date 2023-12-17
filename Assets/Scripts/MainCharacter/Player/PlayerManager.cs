@@ -124,11 +124,18 @@ public class PlayerManager : MonoBehaviour
 
 
         // Giai đoạn chiến đấu
-        updatePower();
-        //currentHealth = HP;
-        //UIInGame.Instance.playerHealthBar.setMaxHealth(HP);
+        StartCoroutine(CheckGameManagerInstance());
         health = HP;
         revivalPosition = new Vector3(fightArea.transform.position.x - 1.0f, fightArea.transform.position.y + 5.0f, 0);
+    }
+
+    private IEnumerator CheckGameManagerInstance()
+    {
+        yield return new WaitForSeconds(0.1f); // Đợi một khoảng thời gian ngắn
+        if (GameManager.Instance != null)
+        {
+            updatePower();
+        }
     }
 
     private void Update()
@@ -152,8 +159,6 @@ public class PlayerManager : MonoBehaviour
                 player2.UseCombineSkill();
             }
         }
-
-
     }
 
     public void setStage(bool isFightStage)
@@ -259,13 +264,12 @@ public class PlayerManager : MonoBehaviour
 
     IEnumerator RevivalAfterDelay(float delay)
     {
+        UIInGame.Instance.startScreenFade();
         // Chờ đợi cho animation chết hoàn thành
         yield return new WaitForSeconds(delay);
         dead = false;
 
         updatePower();
-        //currentHealth = HP;
-        //UIInGame.Instance.playerHealthBar.setHealth(currentHealth);
         health = HP;
         player1.Revival();
         player2.Revival();
