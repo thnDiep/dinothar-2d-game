@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SkillBarUI : MonoBehaviour
 {
-    [SerializeField] private CooldownSkillUI singleSkill;
-    [SerializeField] private CooldownSkillUI combineSkill;
+    public SkillUI singleSkill;
+    public SkillUI combineSkill;
 
     public void startUseSingleSkillCooldown()
     {

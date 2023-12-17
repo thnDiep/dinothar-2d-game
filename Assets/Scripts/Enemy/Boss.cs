@@ -1,19 +1,19 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
+    public static event Action<float> HealthChangeEvent;
+
     [Header("Stats")]
     public float HP = 50;
     public int ATK = 10;
     public float SPEED = 4;
     public float DEF = 0;
 
-    [Header("UI")]
-    public BossHealthBar healthBar;
-
-    [Header("Range Acttack")]
+    [Header("Range Attack")]
     [SerializeField] private Vector3 attackOffset;
     public float attackRange;
     [SerializeField] private LayerMask attackMask;
@@ -31,33 +31,42 @@ public class Boss : MonoBehaviour
     private bool isLookAtRight = true;
 
     private float currentHealth;
+    public float health
+    {
+        get { return currentHealth; }
+        set
+        {
+            if (currentHealth != value)
+            {
+                currentHealth = value;
+                HealthChangeEvent?.Invoke(currentHealth);
+            }
+        }
+    }
 
     public void Awake()
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-
-        currentHealth = HP;
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
-        isStart = false;
 
+    }
+
+    public void Start()
+    {
+        isStart = false;
+        health = HP;
+        UIInGame.Instance.bossHealthBar.setMaxHealth(HP);
         originPosition = transform.position;
-        healthBar.setMaxHealth(HP);
     }
 
     public void Update()
     {
         if (PlayerManager.Instance.isDead())
         {
-            rb.constraints = RigidbodyConstraints2D.FreezeAll;
-            currentHealth = HP;
-            healthBar.setHealth(currentHealth);
-            isStart = false;
-            anim.SetBool("isStart", isStart);
-
-            transform.position = originPosition;
+            StartCoroutine(FunnyEffect());
             return;
-        }
+        } 
 
         if (!isStart && PlayerManager.Instance.Stage == PlayerManager.PlayerStage.Fight)
         {
@@ -143,15 +152,13 @@ public class Boss : MonoBehaviour
             return;
 
         float lossHealth = (1 - DEF / 10.0f) * damage;
-        // currentHealth -= lossHealth;
-        currentHealth = Mathf.Clamp(currentHealth - lossHealth, 0, HP);
-        healthBar.setHealth(currentHealth);
+        health = Mathf.Clamp(health - lossHealth, 0, HP);
 
-        if (currentHealth < HP * 0.3)
+        if (health < HP * 0.3)
         {
             anim.SetBool("isAngry", true);
-        }
-        if (currentHealth <= 0)
+        } 
+        if (health <= 0)
         {
             Die();
         }
@@ -162,6 +169,24 @@ public class Boss : MonoBehaviour
         anim.SetTrigger("Die");
         isInvulnerable = true;
         StartCoroutine(DeathEffect());
+    }
+
+    private IEnumerator FunnyEffect()
+    {
+
+        anim.SetBool("isWin", true); 
+        yield return new WaitForSeconds(2f);
+
+        // Đóng băng
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        isStart = false;
+        grounded = false;
+        anim.SetBool("isWin", false);
+        anim.SetBool("isStart", false);
+        anim.SetBool("isAngry", false);
+        anim.SetBool("grounded", false);
+        health = HP;
+        transform.position = originPosition;
     }
 
     private IEnumerator DeathEffect()

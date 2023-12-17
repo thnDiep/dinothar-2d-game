@@ -68,9 +68,12 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         if (player == PlayerManager.Player.Player1)
-            skillBarUI = PlayerManager.Instance.uIInGame.skillBar1;
+            //skillBarUI = PlayerManager.Instance.uIInGame.skillBar1;
+            skillBarUI = UIInGame.Instance.skillBar1;
         else
-            skillBarUI = PlayerManager.Instance.uIInGame.skillBar2;
+            //skillBarUI = PlayerManager.Instance.uIInGame.skillBar2;
+            skillBarUI = UIInGame.Instance.skillBar2;
+
         direction = new Vector2(1, 0); // right
         bulletType = Bullet.BulletType.basic;
     }
@@ -139,10 +142,8 @@ public class PlayerController : MonoBehaviour
             SoundManager.Instance.PlaySoundBulletSound();
         }
 
-        if (PlayerManager.Instance.Stage == PlayerManager.PlayerStage.Fight)
+        if (PlayerManager.Instance.Stage == PlayerManager.PlayerStage.Fight && GameManager.Instance.learnedSkill(player))
         {
-            skillBarUI.gameObject.SetActive(true);
-
             if (Input.GetKeyDown(playerInput.useSkill) && canUseSingleSkill)
                 UseSingleSkill();
         }
@@ -192,7 +193,7 @@ public class PlayerController : MonoBehaviour
         // Nếu đang sử dụng combine skill thì ngừng sử dụng và đếm ngược thời gian hồi chiêu của combine skill
         if (IESetCanUseCombineSkill != null && bulletType == Bullet.BulletType.combineSkill)
         {
-            Debug.Log("Stop use combine skill");
+            //Debug.Log("Stop use combine skill");
             StopCoroutine(IESetCanUseCombineSkill);
             StartCoroutine(CooldownCombineSkill());
         }
@@ -206,7 +207,7 @@ public class PlayerController : MonoBehaviour
         // Nếu đang sử dụng single skill thì ngừng sử dụng và đếm ngược thời gian hồi chiêu của single skill
         if (IESetCanUseSingleSkill != null && bulletType == Bullet.BulletType.singleSkill)
         {
-            Debug.Log("Stop use single skill");
+            //Debug.Log("Stop use single skill");
             StopCoroutine(IESetCanUseSingleSkill);
             StartCoroutine(CooldownSingleSkill());
 
@@ -236,16 +237,32 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator DeathEffect()
     {
-        yield return new WaitForSeconds(1.5f);
-        //Instantiate(deathEffect, transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(2f);
         gameObject.SetActive(false);
     }
 
     public void Revival()
     {
         gameObject.SetActive(true);
-        anim.SetBool("isReveal", true);
+        anim.SetBool("isRevival", true);
         transform.position = PlayerManager.Instance.revivalPosition;
+
+        canShoot = true;
+        canUseSingleSkill = true;
+        canUseCombineSkill = true;
+        bulletType = Bullet.BulletType.basic;
+        if (IESetCanUseSingleSkill != null)
+        {
+            IESetCanUseSingleSkill = null;
+            skillBarUI.stopUseSingleSkillCooldown();
+        }
+
+        if(IESetCanUseCombineSkill != null)
+        {
+            IESetCanUseCombineSkill = null;
+            skillBarUI.stopUseCombineSkillCooldown();
+
+        }
     }
 
     //IEnumerator MoveSmoothly()

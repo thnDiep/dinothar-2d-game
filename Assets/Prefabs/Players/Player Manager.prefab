@@ -54,13 +54,16 @@ MonoBehaviour:
   maxFriction: {fileID: 6200000, guid: 62a067fb62e3aaf4781adf7dd17ea308, type: 2}
   highFriction: {fileID: 6200000, guid: cba1786e554547948b3394d3780d4a06, type: 2}
   normalFriction: {fileID: 6200000, guid: aee4e750ff9959d48aca859621724adc, type: 2}
+  level: 1
   player1: {fileID: 1801432460246974597}
   player2: {fileID: 3190706081586586727}
+  rope: {fileID: 4822686771263058890}
   fightArea: {fileID: 0}
   gate: {fileID: 0}
-  rope: {fileID: 4822686771263058890}
-  uIInGame: {fileID: 0}
-  clueCollection: {fileID: 0}
+  StreetFrame: {fileID: 0}
+  FightBossFrame: {fileID: 0}
+  playerHealthBar: {fileID: 0}
+  cameraController: {fileID: 0}
   Stage: 0
   State: 0
   revivalPosition: {x: 0, y: 0, z: 0}
