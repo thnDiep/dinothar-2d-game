@@ -181,6 +181,8 @@ public class Boss : MonoBehaviour
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
         isStart = false;
         grounded = false;
+        isInvulnerable = false;
+
         anim.SetBool("isWin", false);
         anim.SetBool("isStart", false);
         anim.SetBool("isAngry", false);

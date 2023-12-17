@@ -5,8 +5,8 @@ using System.Collections;
 public class ScreenFader : MonoBehaviour
 {
     public Image fadeImage;
-    public float fadeInTime = 0.5f;
-    public float fadeOutTime = 0.5f;
+    public float fadeInTime = 1f;
+    public float fadeOutTime = 1f;
 
     public void StartScreenFade()
     {
@@ -29,7 +29,7 @@ public class ScreenFader : MonoBehaviour
 
         // Wait for a moment
         Debug.Log("FadeIn Complete");
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         // Fade Out
         elapsedTime = 0f;
