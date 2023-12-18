@@ -210,3 +210,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorialBookIcon: {fileID: 6173994337651040693}
+  tutorialBook: {fileID: 0}

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Art/Sprites/UI/Background.meta
+guid: 80cb7b63556edce4287f87f5746ec9ac
+========
 guid: 01a12019e17a391439b0fd72b862cc7e
+>>>>>>>> 420709ae2aa20415bd19268c2dd12ad7106e7c42:Assets/Prefabs/UI/ClueCollection.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

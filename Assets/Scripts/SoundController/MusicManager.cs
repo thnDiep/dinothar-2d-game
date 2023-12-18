@@ -77,7 +77,7 @@ public class MusicManager : MonoBehaviour
         }
     }
 
-    public void StopSound()
+    public void StopSoundMusic()
     {
         audioSource.Pause();
         audioSource.Stop();

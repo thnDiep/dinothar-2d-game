@@ -26,8 +26,8 @@ public class UIInGame : MonoBehaviour
     public PlayersHealthBar playerHealthBar;
     public BossHealthBar bossHealthBar;
 
-    [Header("Button")]
-    public HoverButton clueCollectionBtn;
+    //[Header("Button")]
+    //public HoverButton clueCollectionBtn;
 
     [Header("Level complete")]
     public GameObject winningScreen;

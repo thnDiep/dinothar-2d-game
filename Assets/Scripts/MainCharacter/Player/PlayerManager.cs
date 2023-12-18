@@ -14,7 +14,7 @@ public class PlayerManager : MonoBehaviour
     [Header("Stats")]
     public float HP = 100;
     public int ATK = 10;
-    public float ATTACK_SPEED = 200f;
+    public float ATTACK_SPEED = 50f;
     public float DEF = 0;
 
     [Header("Frictions")]
@@ -149,7 +149,7 @@ public class PlayerManager : MonoBehaviour
             {
                 // chuyển sang giai đoạn chiến đấu
                 Stage = PlayerStage.Fight;
-                setStage(true);   
+                setStage(true);
             }
         }
         else if (Stage == PlayerStage.Fight && GameManager.Instance.learnedCombineSkill())
@@ -222,7 +222,7 @@ public class PlayerManager : MonoBehaviour
         this.currentClue = Mathf.Clamp(this.currentClue + 1, 0, maxClue);
         //clueCollection.unblockClue();
         //uIInGame.starBar.setFullNodes(currentClue);
-        GameManager.Instance.UpdateClue(clueIndex); 
+        GameManager.Instance.UpdateClue(clueIndex);
         UIInGame.Instance.setStar(this.currentClue);
     }
 
@@ -293,7 +293,7 @@ public class PlayerManager : MonoBehaviour
         UIInGame.Instance.showWinningScreen();
         GameManager.Instance.LevelCompleted(level, currentMoney, currentDiamond, currentClue);
     }
-    
+
     public void Lose()
     {
         UIInGame.Instance.showLosingScreen();

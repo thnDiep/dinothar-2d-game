@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
 
     public int DEFAULT_HP = 100;
     public int DEFAULT_ATK = 10;
-    public int DEFAULT_ATTACK_SPEED = 200;
+    public int DEFAULT_ATTACK_SPEED = 50;
     public int DEFAULT_DEF = 1;
 
     public int SKILL1_PRICE = 20;
@@ -81,20 +81,21 @@ public class GameManager : MonoBehaviour
 
     public void LevelCompleted(int level, int money, int diamond, int clue)
     {
-        // Cập nhật trạng thái khi người chơi hoàn thành cấp độ
         playerData.level = level;
 
         // Lấy số sao lớn nhất
-        if(clue > playerData.stars[level - 1])
+        if (clue > playerData.stars[level - 1])
             playerData.stars[level - 1] = clue;
 
         playerData.money += money;
         playerData.diamond += diamond;
-        // Lưu dữ liệu sau khi người chơi hoàn thành cấp độ
         SavePlayerData();
 
-        //// Chuyển scene sau khi hoàn thành cấp độ
-        //SceneManager.LoadScene("NextLevelScene");
+        // chuyển tới level tiếp theo
+        //if(level < 5)
+        //{
+        //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        //}
     }
     public void LevelFailed(int level, int clue)
     {
@@ -105,7 +106,7 @@ public class GameManager : MonoBehaviour
 
     public void UpdateClue(int indexClue)
     {
-        if(indexClue >= 0 && indexClue < playerData.clue.Length)
+        if (indexClue >= 0 && indexClue < playerData.clue.Length)
         {
             if (playerData.clue[indexClue] == 0)
             {
@@ -163,7 +164,7 @@ public class GameManager : MonoBehaviour
 
     public bool UnlockSkill1()
     {
-        if(playerData.diamond < SKILL1_PRICE) 
+        if (playerData.diamond < SKILL1_PRICE)
             return false;
 
         playerData.diamond -= SKILL1_PRICE;
@@ -191,6 +192,11 @@ public class GameManager : MonoBehaviour
         playerData.combineSkill = true;
         SavePlayerData();
         return true;
+    }
+
+    public int getLevel()
+    {
+        return playerData.level;
     }
 
     public int getMoney()

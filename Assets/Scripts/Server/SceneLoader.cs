@@ -21,29 +21,65 @@ public class SceneLoader : MonoBehaviour
         //MusicManager.Instance.PlayMusicUnderground();
     }
 
-    public void ToLevelsScreen_NewGame()
-    {
-        GameManager.Instance.NewGame();
-        SceneManager.LoadScene("LevelsScreen", LoadSceneMode.Single);
-        //MusicManager.Instance.PlayMusicLevel1();
-    }
-
-    public void ToLevelsScreen_Continue()
+    public void ToLevelsScreen()
     {
         SceneManager.LoadScene("LevelsScreen", LoadSceneMode.Single);
-        //MusicManager.Instance.PlayMusicLevel1();
+        Time.timeScale = 1.0f;
     }
 
     public void ToMenuScreen()
     {
         SceneManager.LoadScene("MenuScreen", LoadSceneMode.Single);
         //MusicManager.Instance.PlayMusicLevel1();
+        Time.timeScale = 1.0f;
     }
 
     public void ToLevel1Screen()
     {
         SceneManager.LoadScene("Level1", LoadSceneMode.Single);
         MusicManager.Instance.PlayMusicLevel1();
+        Time.timeScale = 1.0f;
+    }
+
+    public void ToLevel2Screen()
+    {
+        SceneManager.LoadScene("Level2", LoadSceneMode.Single);
+        MusicManager.Instance.PlayMusicLevel1();
+        Time.timeScale = 1.0f;
+    }
+
+    public void ToLevel3Screen()
+    {
+        SceneManager.LoadScene("Level3", LoadSceneMode.Single);
+        MusicManager.Instance.PlayMusicLevel1();
+        Time.timeScale = 1.0f;
+    }
+
+    public void ToLevel4Screen()
+    {
+        SceneManager.LoadScene("Level4", LoadSceneMode.Single);
+        MusicManager.Instance.PlayMusicLevel1();
+        Time.timeScale = 1.0f;
+    }
+
+    public void ToLevel5Screen()
+    {
+        SceneManager.LoadScene("Level5", LoadSceneMode.Single);
+        MusicManager.Instance.PlayMusicLevel1();
+        Time.timeScale = 1.0f;
+    }
+
+    public void NextLevel()
+    {
+        if (GameManager.Instance.getLevel() < 5)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            MusicManager.Instance.PlayMusicLevel1();
+        } else
+        {
+            SceneManager.LoadScene("LevelsScreen", LoadSceneMode.Single);
+        }
+        Time.timeScale = 1.0f;
     }
 
     public void Replay()
