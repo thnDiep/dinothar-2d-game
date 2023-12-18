@@ -275,4 +275,15 @@ public class GameManager : MonoBehaviour
     {
         return playerData.combineSkill;
     }
+
+    public bool isCheat()
+    {
+        return playerData.isCheat;
+    }
+
+    public void setCheat(bool isCheat)
+    {
+        playerData.isCheat = isCheat;
+        SavePlayerData();
+    }
 }

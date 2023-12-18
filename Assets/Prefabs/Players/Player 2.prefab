@@ -124,7 +124,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 2, y: 2}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 1
     drawMode: 2
@@ -158,7 +158,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!95 &6853353362366531232
 Animator:
@@ -193,10 +193,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2ee72d84e06e1a4f8857d8d4fdd2266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 150
-  ATK: 10
-  ATTACK_SPEED: 200
-  DEF: 0.5
   player: 1
   bulletPrefab: {fileID: 1886405417257813160, guid: ffe26eefc06b16b4d8fa0a413fb3a792, type: 3}
   moveSpeed: 4

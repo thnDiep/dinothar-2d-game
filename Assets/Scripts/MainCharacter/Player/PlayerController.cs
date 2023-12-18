@@ -68,10 +68,8 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         if (player == PlayerManager.Player.Player1)
-            //skillBarUI = PlayerManager.Instance.uIInGame.skillBar1;
             skillBarUI = UIInGame.Instance.skillBar1;
         else
-            //skillBarUI = PlayerManager.Instance.uIInGame.skillBar2;
             skillBarUI = UIInGame.Instance.skillBar2;
 
         direction = new Vector2(1, 0); // right
@@ -129,7 +127,7 @@ public class PlayerController : MonoBehaviour
             }
 
             // Nhảy
-            if (Input.GetKeyDown(playerInput.moveUp) && isGrounded())
+            if (Input.GetKeyDown(playerInput.moveUp) && (isGrounded() || GameManager.Instance.isCheat()))
             {
                 Jump();
                 setPlayerState(PlayerState.Jumping);
