@@ -369,7 +369,7 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   fill: {fileID: 1111832809092244769}
   amount: {fileID: 4174683349164574192}
-  percent: {fileID: 7999953956139948933}
+  percent: {fileID: 4197750290104252283}
   life1: {fileID: 7515259466407951713}
   life2: {fileID: 5736935894527932052}
   life3: {fileID: 7772452527514171979}

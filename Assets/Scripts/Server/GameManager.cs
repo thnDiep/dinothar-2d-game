@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
 
     public int DEFAULT_HP = 100;
     public int DEFAULT_ATK = 10;
-    public int DEFAULT_ATTACK_SPEED = 200;
+    public int DEFAULT_ATTACK_SPEED = 50;
     public int DEFAULT_DEF = 1;
 
     public int SKILL1_PRICE = 20;
@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
         playerData.level = level;
 
         // Lấy số sao lớn nhất
-        if(clue > playerData.stars[level - 1])
+        if (clue > playerData.stars[level - 1])
             playerData.stars[level - 1] = clue;
 
         playerData.money += money;
@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour
 
     public void UpdateClue(int indexClue)
     {
-        if(indexClue >= 0 && indexClue < playerData.clue.Length)
+        if (indexClue >= 0 && indexClue < playerData.clue.Length)
         {
             if (playerData.clue[indexClue] == 0)
             {
@@ -163,7 +163,7 @@ public class GameManager : MonoBehaviour
 
     public bool UnlockSkill1()
     {
-        if(playerData.diamond < SKILL1_PRICE) 
+        if (playerData.diamond < SKILL1_PRICE)
             return false;
 
         playerData.diamond -= SKILL1_PRICE;

@@ -95,8 +95,9 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void SetVolume(float volume)
+    public void StopSound()
     {
-        audioSource.volume = volume;
+        audioSource.Pause();
+        audioSource.Stop();
     }
 }
