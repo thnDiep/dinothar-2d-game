@@ -216,6 +216,12 @@ public class PlayerController : MonoBehaviour
         SoundManager.Instance.PlaySoundUseCombineSkill();
     }
 
+    public void Hurt()
+    {
+        anim.SetTrigger("hurt");
+        SoundManager.Instance.PlaySoundHurt();
+    }
+
     public void TakeDamage(int damage)
     {
         if (PlayerManager.Instance.isDead())

@@ -23,6 +23,8 @@ public class SceneLoader : MonoBehaviour
 
     public void ToLevelsScreen()
     {
+        if (SceneManager.GetActiveScene().buildIndex != 0)
+            MusicManager.Instance.PlayMusicUnderground();
         SceneManager.LoadScene("LevelsScreen", LoadSceneMode.Single);
         Time.timeScale = 1.0f;
     }

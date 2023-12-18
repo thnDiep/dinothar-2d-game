@@ -13,33 +13,26 @@ public class Bane_1 : MonoBehaviour
     [SerializeField] LayerMask playerMask1;
     [SerializeField] LayerMask playerMask2;
 
-    // public enum PlayerState
-    // {
-    //     Idle,
-    //     Running,
-    //     Sitting,
-    //     Jumping,
-    //     Carrying,
-    // }
     void Start()
     {
         ani = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     // player bi trung vao monster
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        PlayerController player = other.GetComponent<PlayerController>();
+        if (player != null)
         {
+            player.Hurt();
             PlayerManager.Instance.changeLife(-1);
         }
+
+        //if (other.gameObject.CompareTag("Player"))
+        //{
+        //    PlayerManager.Instance.changeLife(-1);
+        //}
     }
 
     // nhay len dau

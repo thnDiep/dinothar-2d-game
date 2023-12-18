@@ -53,6 +53,7 @@ public class UpgradeUI : MonoBehaviour
     void Start()
     {
         //StartCoroutine(CheckGameManagerInstance());
+        HandleMoneyChanged(GameManager.Instance.getMoney());
         GameManager.MoneyChangedEvent += HandleMoneyChanged;
 
         atkIndex = GameManager.Instance.getAtkIndex();
@@ -191,7 +192,6 @@ public class UpgradeUI : MonoBehaviour
         }
         attack.setFullNodes(atkIndex);
         atkUpgradePrice.text = nextPrice.ToString();
-
     }
 
     public void UpgradeHealth()
