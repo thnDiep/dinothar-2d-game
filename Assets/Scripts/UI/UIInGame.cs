@@ -27,7 +27,7 @@ public class UIInGame : MonoBehaviour
     public BossHealthBar bossHealthBar;
 
     [Header("Button")]
-    public ClueCollecitonBtn clueCollectionBtn;
+    public HoverButton clueCollectionBtn;
 
     [Header("Level complete")]
     public GameObject winningScreen;
@@ -49,8 +49,11 @@ public class UIInGame : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(CheckGameManagerInstance());
-        
+        //StartCoroutine(CheckGameManagerInstance());
+        setUnlockSkill1(GameManager.Instance.learnedSkill1());
+        setUnlockSkill2(GameManager.Instance.learnedSkill2());
+        setUnlockCombineSkill(GameManager.Instance.learnedCombineSkill());
+
         winningScreen.SetActive(false);
         losingScreen.SetActive(false);
 
@@ -61,16 +64,16 @@ public class UIInGame : MonoBehaviour
         GameManager.CombineSkillChangedEvent += setUnlockCombineSkill;
     }
 
-    private IEnumerator CheckGameManagerInstance()
-    {
-        yield return new WaitForSeconds(0.1f); // Đợi một khoảng thời gian ngắn
-        if (GameManager.Instance != null)
-        {
-            setUnlockSkill1(GameManager.Instance.learnedSkill1());
-            setUnlockSkill2(GameManager.Instance.learnedSkill2());
-            setUnlockCombineSkill(GameManager.Instance.learnedCombineSkill());
-        }
-    }
+    //private IEnumerator CheckGameManagerInstance()
+    //{
+    //    yield return new WaitForSeconds(0.1f); // Đợi một khoảng thời gian ngắn
+    //    if (GameManager.Instance != null)
+    //    {
+    //        setUnlockSkill1(GameManager.Instance.learnedSkill1());
+    //        setUnlockSkill2(GameManager.Instance.learnedSkill2());
+    //        setUnlockCombineSkill(GameManager.Instance.learnedCombineSkill());
+    //    }
+    //}
 
     private void OnDestroy()
     {

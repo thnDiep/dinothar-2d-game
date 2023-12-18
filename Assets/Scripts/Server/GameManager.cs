@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
 
     public static event Action<int> MoneyChangedEvent;
     public static event Action<int> DiamondChangedEvent;
+    public static event Action<int[]> ClueChangedEvent;
 
     public static event Action<bool> Skill1ChangedEvent;
     public static event Action<bool> Skill2ChangedEvent;
@@ -89,7 +90,6 @@ public class GameManager : MonoBehaviour
 
         playerData.money += money;
         playerData.diamond += diamond;
-
         // Lưu dữ liệu sau khi người chơi hoàn thành cấp độ
         SavePlayerData();
 
@@ -101,6 +101,20 @@ public class GameManager : MonoBehaviour
         // xử lý sau
         //playerData.clue = level
         SavePlayerData();
+    }
+
+    public void UpdateClue(int indexClue)
+    {
+        if(indexClue >= 0 && indexClue < playerData.clue.Length)
+        {
+            if (playerData.clue[indexClue] == 0)
+            {
+                playerData.clue[indexClue] = 1;
+                ClueChangedEvent?.Invoke(playerData.clue);
+                SavePlayerData();
+            }
+        }
+
     }
 
     public bool UpgradeAttack(int atkIndex, int price)
@@ -192,6 +206,11 @@ public class GameManager : MonoBehaviour
     public int[] getStars()
     {
         return playerData.stars;
+    }
+
+    public int[] getClueCollection()
+    {
+        return playerData.clue;
     }
 
     public int getATK()
