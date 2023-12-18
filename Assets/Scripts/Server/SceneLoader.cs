@@ -25,14 +25,13 @@ public class SceneLoader : MonoBehaviour
     {
         GameManager.Instance.NewGame();
         SceneManager.LoadScene("LevelsScreen", LoadSceneMode.Single);
-        //MusicManager.Instance.PlayMusicLevel1();
     }
 
-    public void ToLevelsScreen_Continue()
-    {
-        SceneManager.LoadScene("LevelsScreen", LoadSceneMode.Single);
-        //MusicManager.Instance.PlayMusicLevel1();
-    }
+    // public void ToLevelsScreen_Continue()
+    // {
+    //     SceneManager.LoadScene("LevelsScreen", LoadSceneMode.Single);
+    //     //MusicManager.Instance.PlayMusicLevel1();
+    // }
 
     public void ToMenuScreen()
     {
