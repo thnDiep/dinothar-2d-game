@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Art/Sprites/UI/Button.meta
 guid: 4dc0efa5080466f4d96d6829bddc69d6
+========
+guid: 004f92e07737ad7408fe9d2d531e6059
+>>>>>>>> 420709ae2aa20415bd19268c2dd12ad7106e7c42:Assets/Scripts/UI/ClueCollection.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

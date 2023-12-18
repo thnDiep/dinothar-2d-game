@@ -124,19 +124,20 @@ public class PlayerManager : MonoBehaviour
 
 
         // Giai đoạn chiến đấu
-        StartCoroutine(CheckGameManagerInstance());
+        //StartCoroutine(CheckGameManagerInstance());
+        updatePower();
         health = HP;
         revivalPosition = new Vector3(fightArea.transform.position.x - 1.0f, fightArea.transform.position.y + 5.0f, 0);
     }
 
-    private IEnumerator CheckGameManagerInstance()
-    {
-        yield return new WaitForSeconds(0.1f); // Đợi một khoảng thời gian ngắn
-        if (GameManager.Instance != null)
-        {
-            updatePower();
-        }
-    }
+    //private IEnumerator CheckGameManagerInstance()
+    //{
+    //    yield return new WaitForSeconds(0.1f); // Đợi một khoảng thời gian ngắn
+    //    if (GameManager.Instance != null)
+    //    {
+    //        updatePower();
+    //    }
+    //}
 
     private void Update()
     {
@@ -213,11 +214,12 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public void changeClue(int clue)
+    public void collectClue(int clueIndex)
     {
-        this.currentClue = Mathf.Clamp(this.currentClue + clue, 0, maxClue);
+        this.currentClue = Mathf.Clamp(this.currentClue + 1, 0, maxClue);
         //clueCollection.unblockClue();
         //uIInGame.starBar.setFullNodes(currentClue);
+        GameManager.Instance.UpdateClue(clueIndex); 
         UIInGame.Instance.setStar(this.currentClue);
     }
 

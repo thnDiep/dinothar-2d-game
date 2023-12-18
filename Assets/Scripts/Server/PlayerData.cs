@@ -23,6 +23,8 @@ public class PlayerData
     public bool singleSkill2;
     public bool combineSkill;
 
+    // khác
+    public bool isCheat;
     public PlayerData()
     {
         level = 1;
@@ -37,5 +39,6 @@ public class PlayerData
         singleSkill1 = false;
         singleSkill2 = false;
         combineSkill = false;
+        isCheat = false;
     }
 }

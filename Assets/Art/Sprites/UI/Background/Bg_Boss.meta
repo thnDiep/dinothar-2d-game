@@ -1,7 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Art/Sprites/UI/Background/Bg_Boss.meta
 guid: f89703853fd696a4382f1e0636e6eb1d
 folderAsset: yes
 DefaultImporter:
+========
+guid: e81a9411fe4573d4c9e798512d77755f
+PrefabImporter:
+>>>>>>>> 420709ae2aa20415bd19268c2dd12ad7106e7c42:Assets/Prefabs/UI/Buttons/PauseButton.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

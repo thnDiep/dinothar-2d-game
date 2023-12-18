@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Art/Sprites/UI/TutorialBookUI.meta
 guid: e727dc9007e8b25458edb033e853e92a
+========
+guid: f75bacad721457b4f9a0b84cc0e796f9
+>>>>>>>> 420709ae2aa20415bd19268c2dd12ad7106e7c42:Assets/Prefabs/UI/ClueCollection/Component.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
