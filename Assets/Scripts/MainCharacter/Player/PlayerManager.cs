@@ -41,6 +41,7 @@ public class PlayerManager : MonoBehaviour
 
     [Header("Server")]
     public CameraController cameraController;
+    public CameraController minimap;
 
     [Header("Information")]
     public PlayerStage Stage;
@@ -164,10 +165,12 @@ public class PlayerManager : MonoBehaviour
 
     public void setStage(bool isFightStage)
     {
+        minimap.gameObject.SetActive(!isFightStage);
+        FightBossFrame.SetActive(!isFightStage);
+
         gate.gameObject.SetActive(isFightStage);
         UIInGame.Instance.setStage(isFightStage);
         StreetFrame.SetActive(isFightStage);
-        FightBossFrame.SetActive(!isFightStage);
         cameraController.setIsFightStage(isFightStage);
     }
 

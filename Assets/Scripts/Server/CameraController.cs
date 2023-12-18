@@ -11,11 +11,11 @@ public class CameraController : MonoBehaviour
     // Start is called before the first frame update
     private GameObject[] players;
     private GameObject player;
-    private float leftLimit = -29.7f;
-    float rightLimit = -5.7f;
-    float downLimit = -7.3f;
-    float topLimit = 21f;
-    float distanceToUpdateDirY = 5f;
+    [SerializeField] float leftLimit = -29.7f;
+    [SerializeField] float rightLimit = -5.7f;
+    [SerializeField] float downLimit = -7.3f;
+    [SerializeField] float topLimit = 21f;
+    [SerializeField] float distanceToUpdateDirY = 5f;
 
     bool outScreen;
     float dirX, dirY;
