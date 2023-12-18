@@ -137,7 +137,10 @@ public class PlayerController : MonoBehaviour
         }
 
         if (Input.GetKeyDown(playerInput.shoot) && canShoot)
+        {
             Shoot();
+            SoundManager.Instance.PlaySoundBulletSound();
+        }
 
         if (PlayerManager.Instance.Stage == PlayerManager.PlayerStage.Fight && GameManager.Instance.learnedSkill(player))
         {
@@ -171,6 +174,7 @@ public class PlayerController : MonoBehaviour
     private void Jump()
     {
         rb.velocity = new Vector2(rb.velocity.x, 13);
+        SoundManager.Instance.PlaySoundJump();
     }
 
     private void Shoot()
@@ -206,10 +210,12 @@ public class PlayerController : MonoBehaviour
             //Debug.Log("Stop use single skill");
             StopCoroutine(IESetCanUseSingleSkill);
             StartCoroutine(CooldownSingleSkill());
+
         }
 
         IESetCanUseCombineSkill = SetCanUseCombineSkill();
         StartCoroutine(IESetCanUseCombineSkill);
+        SoundManager.Instance.PlaySoundUseCombineSkill();
     }
 
     public void TakeDamage(int damage)
@@ -219,17 +225,19 @@ public class PlayerController : MonoBehaviour
 
         anim.SetTrigger("hurt");
         PlayerManager.Instance.TakeDamage(damage);
+        SoundManager.Instance.PlaySoundHurt();
     }
 
     public void Die()
     {
         anim.SetTrigger("dead");
         StartCoroutine(DeathEffect());
+        SoundManager.Instance.PlaySoundGameOver();
     }
 
     private IEnumerator DeathEffect()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         gameObject.SetActive(false);
     }
 

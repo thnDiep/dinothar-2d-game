@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager Instance { get; private set; }
-    public static event Action<int> LifeChangeEvent;
+    //public static event Action<int> LifeChangeEvent;
     public static event Action<float> HealthChangeEvent;
 
     [Header("Stats")]
@@ -252,6 +252,7 @@ public class PlayerManager : MonoBehaviour
             dead = true;
             player1.Die();
             player2.Die();
+            SoundManager.Instance.PlaySoundGameOver();
             rope.SetActive(false);
 
             // Hiệu ứng hồi sinh nếu còn mạng

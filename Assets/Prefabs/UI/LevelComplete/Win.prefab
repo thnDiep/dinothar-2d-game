@@ -95,7 +95,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2503248140305979531
 RectTransform:
   m_ObjectHideFlags: 0
@@ -829,7 +829,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5468760391635764673, guid: 21eaf6e80e2f4054a94e65e2fe6922a4, type: 3}
         m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
-        m_MethodName: PlayerAgain
+        m_MethodName: Replay
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1000,6 +1000,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 336381701122749372}
     m_Modifications:
+    - target: {fileID: 626156963399680967, guid: d0ac02195969da940a63a37d183a6fb0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 626156963399680967, guid: d0ac02195969da940a63a37d183a6fb0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 626156963399680967, guid: d0ac02195969da940a63a37d183a6fb0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5468760391635764673, guid: 21eaf6e80e2f4054a94e65e2fe6922a4, type: 3}
+    - target: {fileID: 626156963399680967, guid: d0ac02195969da940a63a37d183a6fb0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 626156963399680967, guid: d0ac02195969da940a63a37d183a6fb0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToLevelsScreen_Continue
+      objectReference: {fileID: 0}
+    - target: {fileID: 626156963399680967, guid: d0ac02195969da940a63a37d183a6fb0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SceneLoader, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 626156963399680967, guid: d0ac02195969da940a63a37d183a6fb0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4656468390277531478, guid: d0ac02195969da940a63a37d183a6fb0, type: 3}
       propertyPath: m_Name
       value: LevelBtn

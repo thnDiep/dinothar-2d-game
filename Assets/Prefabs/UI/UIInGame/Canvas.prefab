@@ -154,7 +154,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3520353611206872022
 RectTransform:
   m_ObjectHideFlags: 0
@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c22b5c39787652d46bf5d1071bb144d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeImage: {fileID: 0}
+  fadeImage: {fileID: 7423146567344117300}
   fadeInTime: 2
   fadeOutTime: 1
 --- !u!1001 &3514156262277636005
@@ -958,6 +958,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Win
       objectReference: {fileID: 0}
+    - target: {fileID: 1519593679866113086, guid: 243658ea6387db74e85b0ee98c244f0b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2503248140305979531, guid: 243658ea6387db74e85b0ee98c244f0b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1041,6 +1045,38 @@ PrefabInstance:
     - target: {fileID: 2575960790847293455, guid: 243658ea6387db74e85b0ee98c244f0b, type: 3}
       propertyPath: fadeDuration
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3942815726362140815, guid: 243658ea6387db74e85b0ee98c244f0b, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7927756182647159842, guid: 243658ea6387db74e85b0ee98c244f0b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7927756182647159842, guid: 243658ea6387db74e85b0ee98c244f0b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7927756182647159842, guid: 243658ea6387db74e85b0ee98c244f0b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5468760391635764673, guid: 21eaf6e80e2f4054a94e65e2fe6922a4, type: 3}
+    - target: {fileID: 7927756182647159842, guid: 243658ea6387db74e85b0ee98c244f0b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7927756182647159842, guid: 243658ea6387db74e85b0ee98c244f0b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToLevelsScreen_Continue
+      objectReference: {fileID: 0}
+    - target: {fileID: 7927756182647159842, guid: 243658ea6387db74e85b0ee98c244f0b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SceneLoader, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7927756182647159842, guid: 243658ea6387db74e85b0ee98c244f0b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -31,6 +31,7 @@ public class Diamond : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             PlayerManager.Instance.changeDiamond(value);
+            SoundManager.Instance.PlaySoundCollectMoney();
             Destroy(gameObject);
         }
     }

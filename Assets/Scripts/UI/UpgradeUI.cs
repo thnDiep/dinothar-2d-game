@@ -213,7 +213,7 @@ public class UpgradeUI : MonoBehaviour
         skill1Button.GetComponent<Selectable>().interactable = false;
         skill1Lock.gameObject.SetActive(false);
         skill1Price.gameObject.SetActive(false);
-        UIInGame.Instance.setLockSkill1(false);
+        //UIInGame.Instance.setLockSkill1(false);
     }
 
     public void LearnSkill2()
@@ -225,7 +225,7 @@ public class UpgradeUI : MonoBehaviour
         skill2Button.GetComponent<Selectable>().interactable = false;
         skill2Lock.gameObject.SetActive(false);
         skill2Price.gameObject.SetActive(false);
-        UIInGame.Instance.setLockSkill2(false);
+        //UIInGame.Instance.setLockSkill2(false);
     }
 
     public void LearnCombineSkill()
@@ -237,6 +237,6 @@ public class UpgradeUI : MonoBehaviour
         combineSkillButton.GetComponent<Selectable>().interactable = false;
         combineSkillLock.gameObject.SetActive(false);
         combineSkillPrice.gameObject.SetActive(false);
-        UIInGame.Instance.setLockCombineSkill(false);
+        //UIInGame.Instance.setLockCombineSkill(false);
     }
 }

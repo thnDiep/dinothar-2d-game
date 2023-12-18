@@ -1,10 +1,12 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
 using UnityEngine.SceneManagement;
+
 
 public class SceneLoader : MonoBehaviour
 {
     public static SceneLoader Instance { get; private set; }
+
     private void Awake()
     {
         if (Instance == null)
@@ -16,6 +18,32 @@ public class SceneLoader : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        //MusicManager.Instance.PlayMusicUnderground();
+    }
+
+    public void ToLevelsScreen_NewGame()
+    {
+        GameManager.Instance.NewGame();
+        SceneManager.LoadScene("LevelsScreen", LoadSceneMode.Single);
+        //MusicManager.Instance.PlayMusicLevel1();
+    }
+
+    public void ToLevelsScreen_Continue()
+    {
+        SceneManager.LoadScene("LevelsScreen", LoadSceneMode.Single);
+        //MusicManager.Instance.PlayMusicLevel1();
+    }
+
+    public void ToMenuScreen()
+    {
+        SceneManager.LoadScene("MenuScreen", LoadSceneMode.Single);
+        //MusicManager.Instance.PlayMusicLevel1();
+    }
+
+    public void ToLevel1Screen()
+    {
+        SceneManager.LoadScene("Level1", LoadSceneMode.Single);
+        MusicManager.Instance.PlayMusicLevel1();
     }
 
     public void Replay()
@@ -24,15 +52,9 @@ public class SceneLoader : MonoBehaviour
         Time.timeScale = 1.0f;
     }
 
-    public void LoadScene(string sceneName)
+    public void QuitGame()
     {
-        SceneManager.LoadScene(sceneName);
-    }
-
-    // Gọi hàm này từ sự kiện onClick của nút
-    public void OnButtonPress(string sceneName)
-    {
-        LoadScene(sceneName);
+        Application.Quit();
     }
 
     public void PauseGame()

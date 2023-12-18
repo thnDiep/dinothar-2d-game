@@ -56,6 +56,9 @@ public class UIInGame : MonoBehaviour
 
         PlayerManager.HealthChangeEvent += playerHealthBar.setHealth;
         Boss.HealthChangeEvent += bossHealthBar.setHealth;
+        GameManager.Skill1ChangedEvent += setUnlockSkill1;
+        GameManager.Skill2ChangedEvent += setUnlockSkill2;
+        GameManager.CombineSkillChangedEvent += setUnlockCombineSkill;
     }
 
     private IEnumerator CheckGameManagerInstance()
@@ -63,9 +66,9 @@ public class UIInGame : MonoBehaviour
         yield return new WaitForSeconds(0.1f); // Đợi một khoảng thời gian ngắn
         if (GameManager.Instance != null)
         {
-            setLockSkill1(!GameManager.Instance.learnedSkill1());
-            setLockSkill2(!GameManager.Instance.learnedSkill2());
-            setLockCombineSkill(!GameManager.Instance.learnedCombineSkill());
+            setUnlockSkill1(GameManager.Instance.learnedSkill1());
+            setUnlockSkill2(GameManager.Instance.learnedSkill2());
+            setUnlockCombineSkill(GameManager.Instance.learnedCombineSkill());
         }
     }
 
@@ -73,6 +76,9 @@ public class UIInGame : MonoBehaviour
     {
         PlayerManager.HealthChangeEvent -= playerHealthBar.setHealth;
         Boss.HealthChangeEvent -= bossHealthBar.setHealth;
+        GameManager.Skill1ChangedEvent -= setUnlockSkill1;
+        GameManager.Skill2ChangedEvent -= setUnlockSkill2;
+        GameManager.CombineSkillChangedEvent -= setUnlockCombineSkill;
     }
 
     public void setMoney(int amount)
@@ -127,20 +133,20 @@ public class UIInGame : MonoBehaviour
         losingScreen.SetActive(true);
     }
 
-    public void setLockSkill1(bool isLock)
+    public void setUnlockSkill1(bool isLearned)
     {
-        skillBar1.singleSkill.Lock(isLock);
+        skillBar1.singleSkill.Lock(!isLearned);
     }
 
-    public void setLockSkill2(bool isLock)
+    public void setUnlockSkill2(bool isLearned)
     {
-        skillBar2.singleSkill.Lock(isLock);
+        skillBar2.singleSkill.Lock(!isLearned);
     }
 
-    public void setLockCombineSkill(bool isLock)
+    public void setUnlockCombineSkill(bool isLearned)
     {
-        skillBar1.combineSkill.Lock(isLock);
-        skillBar2.combineSkill.Lock(isLock);
+        skillBar1.combineSkill.Lock(!isLearned);
+        skillBar2.combineSkill.Lock(!isLearned);
     }
 
     public void startScreenFade()

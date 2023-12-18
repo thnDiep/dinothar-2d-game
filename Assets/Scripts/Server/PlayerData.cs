@@ -26,7 +26,7 @@ public class PlayerData
     public PlayerData()
     {
         level = 1;
-        stars = new int[5]; // có 5 level
+        stars = new int[] {-1, -1, -1, -1, -1}; // có 5 level
         money = 500;
         diamond = 30;
         atkIndex = 1;
