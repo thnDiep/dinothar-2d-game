@@ -197,7 +197,7 @@ MonoBehaviour:
   player: 0
   bulletPrefab: {fileID: 1886405417257813160, guid: c0004059037a5ae41bba4fa389d4745d, type: 3}
   moveSpeed: 4
-  rotationSpeed: 5
+  rotationSpeed: 10
   groundLayer:
     serializedVersion: 2
     m_Bits: 1088
