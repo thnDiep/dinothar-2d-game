@@ -34,11 +34,6 @@ public class PlayerManager : MonoBehaviour
     public GameObject StreetFrame;
     public GameObject FightBossFrame;
 
-    //[Header("UI")]
-    //public UIInGame uIInGame;
-    //[SerializeField] ClueCollecitonBtn clueCollection;
-    //public PlayersHealthBar playerHealthBar;
-
     [Header("Server")]
     public CameraController cameraController;
     public CameraController minimap;
@@ -68,7 +63,7 @@ public class PlayerManager : MonoBehaviour
 
     private PlayerInputConfig player1Input, player2Input;
 
-    private int maxLife = 5;
+    private int maxLife = 10;
     private int maxClue = 3;
 
     private int currentMoney, currentDiamond, currentLife, currentClue;
@@ -114,31 +109,22 @@ public class PlayerManager : MonoBehaviour
 
         currentMoney = 0;
         currentDiamond = 0;
-        currentLife = 5;
+        currentLife = maxLife;
         currentClue = 0;
 
-        // Update UI lúc bắt đầu
-        UIInGame.Instance.setMoney(currentMoney);
-        UIInGame.Instance.setDiamond(currentDiamond);
-        UIInGame.Instance.setLife(currentLife);
-        UIInGame.Instance.setStar(currentClue);
-
+        if(UIInGame.Instance != null)
+        {
+            UIInGame.Instance.setMoney(currentMoney);
+            UIInGame.Instance.setDiamond(currentDiamond);
+            UIInGame.Instance.setLife(currentLife);
+            UIInGame.Instance.setStar(currentClue);
+        }
 
         // Giai đoạn chiến đấu
-        //StartCoroutine(CheckGameManagerInstance());
         updatePower();
         health = HP;
         revivalPosition = new Vector3(fightArea.transform.position.x - 1.0f, fightArea.transform.position.y + 5.0f, 0);
     }
-
-    //private IEnumerator CheckGameManagerInstance()
-    //{
-    //    yield return new WaitForSeconds(0.1f); // Đợi một khoảng thời gian ngắn
-    //    if (GameManager.Instance != null)
-    //    {
-    //        updatePower();
-    //    }
-    //}
 
     private void Update()
     {
@@ -169,9 +155,10 @@ public class PlayerManager : MonoBehaviour
         FightBossFrame.SetActive(!isFightStage);
 
         gate.gameObject.SetActive(isFightStage);
-        UIInGame.Instance.setStage(isFightStage);
         StreetFrame.SetActive(isFightStage);
         cameraController.setIsFightStage(isFightStage);
+        if (UIInGame.Instance != null)
+            UIInGame.Instance.setStage(isFightStage);
     }
 
     // giai đoạn di chuyển
@@ -182,7 +169,8 @@ public class PlayerManager : MonoBehaviour
         if (this.currentMoney < 0)
             this.currentMoney = 0;
 
-        UIInGame.Instance.setMoney(this.currentMoney);
+        if (UIInGame.Instance != null)
+            UIInGame.Instance.setMoney(this.currentMoney);
     }
 
     public int getMoney()
@@ -197,7 +185,8 @@ public class PlayerManager : MonoBehaviour
         if (this.currentDiamond < 0)
             this.currentDiamond = 0;
 
-        UIInGame.Instance.setDiamond(this.currentDiamond);
+        if(UIInGame.Instance  != null)
+            UIInGame.Instance.setDiamond(this.currentDiamond);
     }
 
     public int getDiamond()
@@ -208,7 +197,9 @@ public class PlayerManager : MonoBehaviour
     public void changeLife(int life)
     {
         this.currentLife = Mathf.Clamp(this.currentLife + life, 0, maxLife);
-        UIInGame.Instance.updateLife(currentLife);
+
+        if(UIInGame.Instance != null)
+            UIInGame.Instance.updateLife(currentLife);
 
         // Thua nếu hết mạng
         if (currentLife <= 0)
@@ -220,10 +211,11 @@ public class PlayerManager : MonoBehaviour
     public void collectClue(int clueIndex)
     {
         this.currentClue = Mathf.Clamp(this.currentClue + 1, 0, maxClue);
-        //clueCollection.unblockClue();
-        //uIInGame.starBar.setFullNodes(currentClue);
-        GameManager.Instance.UpdateClue(clueIndex);
-        UIInGame.Instance.setStar(this.currentClue);
+
+        if(GameManager.Instance != null)
+            GameManager.Instance.UpdateClue(clueIndex);
+        if(UIInGame.Instance != null)
+            UIInGame.Instance.setStar(this.currentClue);
     }
 
     public int getStar()
@@ -235,19 +227,21 @@ public class PlayerManager : MonoBehaviour
     // giai đoạn chiến đấu
     public void updatePower()
     {
-        ATK = GameManager.Instance.getATK();
-        HP = GameManager.Instance.getHP();
-        UIInGame.Instance.playerHealthBar.setMaxHealth(HP);
-        ATTACK_SPEED = GameManager.Instance.getAttackSpeed();
-        DEF = GameManager.Instance.getDEF();
+        if(GameManager.Instance != null)
+        {
+            ATK = GameManager.Instance.getATK();
+            HP = GameManager.Instance.getHP();
+            ATTACK_SPEED = GameManager.Instance.getAttackSpeed();
+            DEF = GameManager.Instance.getDEF();
+
+            if(UIInGame.Instance != null)
+                UIInGame.Instance.playerHealthBar.setMaxHealth(HP);
+        }
     }
 
     public void TakeDamage(int damage)
     {
         float lossHealth = (1 - DEF / 10.0f) * damage;
-        // health -= lossHealth;
-        //currentHealth = Mathf.Clamp(currentHealth - lossHealth, 0, HP);
-        //UIInGame.Instance.playerHealthBar.setHealth(currentHealth);
         health = Mathf.Clamp(health - lossHealth, 0, HP);
 
         // Nếu hết máu, trừ 1 mạng và fill đầy máu lại (nếu còn mạng)
@@ -257,7 +251,6 @@ public class PlayerManager : MonoBehaviour
             dead = true;
             player1.Die();
             player2.Die();
-            SoundManager.Instance.PlaySoundGameOver();
             rope.SetActive(false);
 
             // Hiệu ứng hồi sinh nếu còn mạng
@@ -270,7 +263,8 @@ public class PlayerManager : MonoBehaviour
 
     IEnumerator RevivalAfterDelay(float delay)
     {
-        UIInGame.Instance.startScreenFade();
+        if(UIInGame.Instance != null)
+            UIInGame.Instance.startScreenFade();
         // Chờ đợi cho animation chết hoàn thành
         yield return new WaitForSeconds(delay);
         dead = false;
@@ -287,16 +281,24 @@ public class PlayerManager : MonoBehaviour
         return dead;
     }
 
-    // kết thúc level
+    // Kết thúc level
     public void Win()
     {
-        UIInGame.Instance.showWinningScreen();
-        GameManager.Instance.LevelCompleted(level, currentMoney, currentDiamond, currentClue);
+        if (UIInGame.Instance != null)
+            UIInGame.Instance.showWinningScreen();
+        if (GameManager.Instance != null)
+            GameManager.Instance.LevelCompleted(level, currentMoney, currentDiamond, currentClue);
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.PlaySoundWinLevel();
     }
 
     public void Lose()
     {
-        UIInGame.Instance.showLosingScreen();
-        GameManager.Instance.LevelFailed(level, currentClue);
+        if(UIInGame.Instance != null)
+            UIInGame.Instance.showLosingScreen();
+        if(GameManager.Instance != null)
+            GameManager.Instance.LevelFailed(level, currentClue);
+        if(SoundManager.Instance != null)
+            SoundManager.Instance.PlaySoundGameOver();
     }
 }

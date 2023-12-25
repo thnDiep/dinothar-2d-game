@@ -53,6 +53,13 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
         }
 
+        Minion minion = collider.GetComponent<Minion>();
+        if (minion != null)
+        {
+            minion.TakeDamage(1);
+            Destroy(gameObject);
+        }
+
         Wander_4 wander_4 = collider.GetComponent<Wander_4>();
         if (wander_4 != null)
         {

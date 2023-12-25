@@ -49,7 +49,6 @@ public class Boss : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
-
     }
 
     public void Start()

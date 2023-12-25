@@ -36,9 +36,16 @@ public class SceneLoader : MonoBehaviour
         Time.timeScale = 1.0f;
     }
 
+    //public void ToTestScreen()
+    //{
+    //    SceneManager.LoadScene("Level1_Diep", LoadSceneMode.Single);
+    //    MusicManager.Instance.PlayMusicLevel1();
+    //    Time.timeScale = 1.0f;
+    //}
+
     public void ToLevel1Screen()
     {
-        SceneManager.LoadScene("Level1", LoadSceneMode.Single);
+        SceneManager.LoadScene("Level1_Diep", LoadSceneMode.Single);
         MusicManager.Instance.PlayMusicLevel1();
         Time.timeScale = 1.0f;
     }

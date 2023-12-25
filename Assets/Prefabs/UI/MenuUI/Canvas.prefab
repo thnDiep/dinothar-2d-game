@@ -121,9 +121,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5468760391635764673, guid: 21eaf6e80e2f4054a94e65e2fe6922a4, type: 3}
-        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
-        m_MethodName: ToLevelsScreen_Continue
+      - m_Target: {fileID: 4581901468400552589}
+        m_TargetAssemblyTypeName: MenuScreen, Assembly-CSharp
+        m_MethodName: OnClickContinue
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -319,7 +319,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4326414e2e520ed4b8d6c2ca445f3150, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 26d66f11171d1bb45bdf3b37019f6be9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -986,9 +986,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5468760391635764673, guid: 21eaf6e80e2f4054a94e65e2fe6922a4, type: 3}
-        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
-        m_MethodName: ToLevelsScreen_NewGame
+      - m_Target: {fileID: 4581901468400552589}
+        m_TargetAssemblyTypeName: MenuScreen, Assembly-CSharp
+        m_MethodName: OnClickStart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1293,7 +1293,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7460916665986599532}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5468760391635764673, guid: 21eaf6e80e2f4054a94e65e2fe6922a4, type: 3}
+        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
+        m_MethodName: ToTestScreen
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5474565098350629316
 GameObject:
   m_ObjectHideFlags: 0
@@ -1306,6 +1318,7 @@ GameObject:
   - component: {fileID: 553998906902101201}
   - component: {fileID: 580280588937103308}
   - component: {fileID: 218438640528921677}
+  - component: {fileID: 4581901468400552589}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1401,6 +1414,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &4581901468400552589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5474565098350629316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9df0febc4045442488ea0e0507d46231, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7249564503622367072
 GameObject:
   m_ObjectHideFlags: 0

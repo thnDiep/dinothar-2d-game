@@ -24,7 +24,6 @@ public class BossRun : StateMachineBehaviour
 
         if (isAngry)
             speed += 0.5f;
-
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
