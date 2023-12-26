@@ -77,7 +77,8 @@ public class SceneLoader : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             MusicManager.Instance.PlayMusicLevel1();
-        } else
+        }
+        else
         {
             SceneManager.LoadScene("LevelsScreen", LoadSceneMode.Single);
         }

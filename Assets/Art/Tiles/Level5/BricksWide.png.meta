@@ -146,7 +146,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 32
-        width: 64
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -165,9 +165,9 @@ TextureImporter:
       name: BricksWide_1
       rect:
         serializedVersion: 2
-        x: 64
+        x: 32
         y: 32
-        width: 64
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -186,9 +186,9 @@ TextureImporter:
       name: BricksWide_2
       rect:
         serializedVersion: 2
-        x: 128
+        x: 64
         y: 32
-        width: 64
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -207,9 +207,9 @@ TextureImporter:
       name: BricksWide_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 64
+        x: 96
+        y: 32
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -228,9 +228,9 @@ TextureImporter:
       name: BricksWide_4
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
-        width: 64
+        x: 128
+        y: 32
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -249,9 +249,9 @@ TextureImporter:
       name: BricksWide_5
       rect:
         serializedVersion: 2
-        x: 128
-        y: 0
-        width: 64
+        x: 160
+        y: 32
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -266,10 +266,136 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: BricksWide_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db5757218471a4142bf75200d374adeb
+      internalID: -1489338658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BricksWide_7
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3cb99440a9c53ab498fd33201dd34cd3
+      internalID: -1767159487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BricksWide_8
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5620293f738a7034f8ff12f1eb1e4731
+      internalID: 1436817123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BricksWide_9
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0773beae13f59f84cb308c57cddecb5d
+      internalID: -1361952863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BricksWide_10
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69e61d65d2ff51648b01095540485e19
+      internalID: 1406293735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BricksWide_11
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 019fe7ca5a1f8bb4bb74b56e8412deaf
+      internalID: 1045018122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 09a575d2980e9904b92fa1a331b3d281
     internalID: 0
     vertices: []
     indices: 
@@ -279,10 +405,16 @@ TextureImporter:
     nameFileIdTable:
       BricksWide_0: 21300000
       BricksWide_1: 21300002
+      BricksWide_10: 1406293735
+      BricksWide_11: 1045018122
       BricksWide_2: 21300004
       BricksWide_3: 21300006
       BricksWide_4: 21300008
       BricksWide_5: 21300010
+      BricksWide_6: -1489338658
+      BricksWide_7: -1767159487
+      BricksWide_8: 1436817123
+      BricksWide_9: -1361952863
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
