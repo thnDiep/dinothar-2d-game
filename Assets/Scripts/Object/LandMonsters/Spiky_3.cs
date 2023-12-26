@@ -16,7 +16,7 @@ public class Spiky_3 : MonoBehaviour
         if (player != null)
         {
             player.Hurt();
-            PlayerManager.Instance.changeLife(-1);
+            //PlayerManager.Instance.changeLife(-1);
         }
     }
 }

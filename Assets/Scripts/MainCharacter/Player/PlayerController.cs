@@ -1,7 +1,4 @@
-using System;
 using System.Collections;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -220,6 +217,7 @@ public class PlayerController : MonoBehaviour
     {
         anim.SetTrigger("hurt");
         SoundManager.Instance.PlaySoundHurt();
+        PlayerManager.Instance.changeLife(-1);
     }
 
     public void TakeDamage(int damage)
@@ -227,8 +225,8 @@ public class PlayerController : MonoBehaviour
         if (PlayerManager.Instance.isDead())
             return;
 
-        anim.SetTrigger("hurt");
         PlayerManager.Instance.TakeDamage(damage);
+        anim.SetTrigger("hurt");
         SoundManager.Instance.PlaySoundHurt();
     }
 
@@ -268,26 +266,6 @@ public class PlayerController : MonoBehaviour
 
         }
     }
-
-    //IEnumerator MoveSmoothly()
-    //{
-    //    float elapsedTime = 0f;
-    //    Vector3 startingPos = transform.position;
-    //    Vector3 targetPosition = PlayerManager.Instance.revivalPosition;
-
-    //    while (elapsedTime < moveDuration)
-    //    {
-    //        // Lerp giữa vị trí hiện tại và vị trí đích
-    //        transform.position = Vector3.Lerp(startingPos, targetPosition, elapsedTime / moveDuration);
-
-    //        // Tăng thời gian đã trôi qua
-    //        elapsedTime += Time.deltaTime;
-
-    //        yield return null; // Chờ đợi cho frame tiếp theo
-    //    }
-
-    //    transform.position = targetPosition;
-    //}
 
     private void updateAnimation()
     {
