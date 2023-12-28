@@ -45,7 +45,7 @@ public class SceneLoader : MonoBehaviour
 
     public void ToLevel1Screen()
     {
-        SceneManager.LoadScene("Level1_Diep", LoadSceneMode.Single);
+        SceneManager.LoadScene("Level1", LoadSceneMode.Single);
         MusicManager.Instance.PlayMusicLevel1();
         Time.timeScale = 1.0f;
     }
@@ -84,7 +84,8 @@ public class SceneLoader : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             MusicManager.Instance.PlayMusicLevel1();
-        } else
+        }
+        else
         {
             SceneManager.LoadScene("LevelsScreen", LoadSceneMode.Single);
         }

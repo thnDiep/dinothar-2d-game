@@ -371,42 +371,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4100942555600741448, guid: dc9f0a8cc5783a84d8980b1b00af1e4c, type: 3}
-      propertyPath: levelButtons.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4100942555600741448, guid: dc9f0a8cc5783a84d8980b1b00af1e4c, type: 3}
-      propertyPath: levelButtons.Array.data[0]
-      value: 
-      objectReference: {fileID: 5948991677714779449}
-    - target: {fileID: 4100942555600741448, guid: dc9f0a8cc5783a84d8980b1b00af1e4c, type: 3}
-      propertyPath: levelButtons.Array.data[1]
-      value: 
-      objectReference: {fileID: 5948991677714779448}
-    - target: {fileID: 4100942555600741448, guid: dc9f0a8cc5783a84d8980b1b00af1e4c, type: 3}
-      propertyPath: levelButtons.Array.data[2]
-      value: 
-      objectReference: {fileID: 5948991677714779447}
-    - target: {fileID: 4100942555600741448, guid: dc9f0a8cc5783a84d8980b1b00af1e4c, type: 3}
-      propertyPath: levelButtons.Array.data[3]
-      value: 
-      objectReference: {fileID: 5948991677714779446}
-    - target: {fileID: 4100942555600741448, guid: dc9f0a8cc5783a84d8980b1b00af1e4c, type: 3}
-      propertyPath: levelButtons.Array.data[4]
-      value: 
-      objectReference: {fileID: 5948991677714779445}
-    - target: {fileID: 4410222917844059543, guid: dc9f0a8cc5783a84d8980b1b00af1e4c, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 5468760391635764673, guid: 21eaf6e80e2f4054a94e65e2fe6922a4, type: 3}
-    - target: {fileID: 4410222917844059543, guid: dc9f0a8cc5783a84d8980b1b00af1e4c, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ToMenuScreen
-      objectReference: {fileID: 0}
-    - target: {fileID: 4410222917844059543, guid: dc9f0a8cc5783a84d8980b1b00af1e4c, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: SceneLoader, Assembly-CSharp
-      objectReference: {fileID: 0}
     - target: {fileID: 8632150281365836019, guid: dc9f0a8cc5783a84d8980b1b00af1e4c, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -416,31 +380,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc9f0a8cc5783a84d8980b1b00af1e4c, type: 3}
---- !u!1 &5948991677714779445 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1499760224256859508, guid: dc9f0a8cc5783a84d8980b1b00af1e4c, type: 3}
-  m_PrefabInstance: {fileID: 5948991677714779444}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &5948991677714779446 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7220992804268266464, guid: dc9f0a8cc5783a84d8980b1b00af1e4c, type: 3}
-  m_PrefabInstance: {fileID: 5948991677714779444}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &5948991677714779447 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7889601684678445144, guid: dc9f0a8cc5783a84d8980b1b00af1e4c, type: 3}
-  m_PrefabInstance: {fileID: 5948991677714779444}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &5948991677714779448 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8373647177467224084, guid: dc9f0a8cc5783a84d8980b1b00af1e4c, type: 3}
-  m_PrefabInstance: {fileID: 5948991677714779444}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &5948991677714779449 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7673158726003243141, guid: dc9f0a8cc5783a84d8980b1b00af1e4c, type: 3}
-  m_PrefabInstance: {fileID: 5948991677714779444}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

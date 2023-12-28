@@ -59,7 +59,8 @@ public class LevelsScreen : MonoBehaviour
                         changeAlpha(planet, 0.76f);
                     }
                 }
-            } else
+            }
+            else
             {
                 changeAlpha(levelImages[i], 1.0f);
                 foreach (Image planet in planetImages[i])

@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     private PlayerData playerData;
-
+ 
     public static event Action<int> MoneyChangedEvent;
     public static event Action<int> DiamondChangedEvent;
     public static event Action<int[]> ClueChangedEvent;

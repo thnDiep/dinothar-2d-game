@@ -123,17 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &131417238 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 399222809986782416, guid: 6eaeef5420ee24e80b86af631d6ae6e3, type: 3}
-  m_PrefabInstance: {fileID: 1262777259}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3a61e7711fce5245a12c426aa56e5d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &204895523
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -263,7 +252,7 @@ PrefabInstance:
     - target: {fileID: 1718238387357865110, guid: 2e2b1a1b9748b1548abfb01ec34d0038, type: 3}
       propertyPath: playerHealthBar
       value: 
-      objectReference: {fileID: 763399061}
+      objectReference: {fileID: 0}
     - target: {fileID: 1718238387357865110, guid: 2e2b1a1b9748b1548abfb01ec34d0038, type: 3}
       propertyPath: cameraController
       value: 
@@ -326,17 +315,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8c35770f4b28ced438f13c2b6e7bc877, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &763399061 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2326359285534117815, guid: 6eaeef5420ee24e80b86af631d6ae6e3, type: 3}
-  m_PrefabInstance: {fileID: 1262777259}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 683038baef268cb4baba51e834c23212, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &881567943 stripped
@@ -562,7 +540,7 @@ PrefabInstance:
     - target: {fileID: 2912193519837230487, guid: 6eaeef5420ee24e80b86af631d6ae6e3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 131417238}
+      objectReference: {fileID: 0}
     - target: {fileID: 2912193519837230487, guid: 6eaeef5420ee24e80b86af631d6ae6e3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: closeClueCollection
@@ -906,6 +884,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18bc06656783039419352fed34acc943, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftLimit: -29.7
+  rightLimit: -5.7
+  downLimit: -7.3
+  topLimit: 21
+  distanceToUpdateDirY: 5
 --- !u!1001 &5376505916639682593
 PrefabInstance:
   m_ObjectHideFlags: 0
