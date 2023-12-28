@@ -706,12 +706,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1779224737367447778}
     - target: {fileID: 7510565912420853509, guid: 15921f09d0cf9cd4e90b912db1494be1, type: 3}
+      propertyPath: attackWidth
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7510565912420853509, guid: 15921f09d0cf9cd4e90b912db1494be1, type: 3}
       propertyPath: attackHeight
       value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 7510565912420853509, guid: 15921f09d0cf9cd4e90b912db1494be1, type: 3}
       propertyPath: attackOffset.x
-      value: 0.4
+      value: 0.223
       objectReference: {fileID: 0}
     - target: {fileID: 7510565912420853509, guid: 15921f09d0cf9cd4e90b912db1494be1, type: 3}
       propertyPath: attackOffset.y
@@ -721,6 +725,10 @@ PrefabInstance:
       propertyPath: rewardContainer
       value: 
       objectReference: {fileID: 2436703151865915237}
+    - target: {fileID: 7510565912420853509, guid: 15921f09d0cf9cd4e90b912db1494be1, type: 3}
+      propertyPath: attackMask.m_Bits
+      value: 384
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

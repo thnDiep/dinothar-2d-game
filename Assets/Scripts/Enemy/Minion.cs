@@ -17,7 +17,7 @@ public class Minion : MonoBehaviour
     public Vector3 attackOffset;
     public float attackHeight;
     public float attackWidth;
-    //public float attackCooldown = 1f;
+    public LayerMask attackMask;
 
     [Header("Difference")]
     public MinionHealthBar healthBar;
@@ -137,38 +137,13 @@ public class Minion : MonoBehaviour
         pos += transform.right * attackOffset.x;
         pos += transform.up * attackOffset.y;
 
-        Collider2D colInfo = Physics2D.OverlapBox(pos, new Vector3(attackWidth, attackHeight), 0f);
+        Collider2D colInfo = Physics2D.OverlapBox(pos, new Vector3(attackWidth, attackHeight), 0f, attackMask);
 
         if (colInfo != null)
         {
-            PlayerController player = colInfo.GetComponent<PlayerController>();
-            if (player != null)
-            {
-                player.Hurt();
-                //isAttack = true;
-                //anim.SetBool("isRun", false);
-
-                //if (canAttack)
-                //{
-                //StartCoroutine(AttackCooldown());
-                //player.Hurt();
-                //}
-            }
-            //else
-            //{
-            //    //isAttack = false;
-            //    canAttack = true;
-            //    //anim.SetBool("isRun", true);
-            //}
+            colInfo.GetComponent<PlayerController>().Hurt();
         }
     }
-
-    //IEnumerator AttackCooldown()
-    //{
-    //    canAttack = false;
-    //    yield return new WaitForSeconds(attackCooldown);
-    //    canAttack = true;
-    //}
 
     public void TakeDamage(int damage)
     {

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Timeline;
 
 public class Boss : MonoBehaviour
 {
@@ -13,14 +14,21 @@ public class Boss : MonoBehaviour
     public float SPEED = 4;
     public float DEF = 0;
 
-    [Header("Range Attack")]
-    [SerializeField] private Vector3 attackOffset;
-    public float attackRange;
-    [SerializeField] private LayerMask attackMask;
+    [Header("Melee Attack")]
+    public Vector3 meleeAttackOffset;
+    public float meleeAttackRange;
+    public LayerMask attackMask;
+
+    [Header("Ranged Attack")]
+    public bool hasRangedAttack = false;
+    public Vector3 rangedAttackOffset;
+    public float rangedAttackWidth;
+    public float rangedAttackHeight;
 
     [Header("Difference")]
     public bool isInvulnerable = false;
     public GameObject deathEffect;
+    public float deathEffectTimer = 1f;
 
     private Animator anim;
     private Rigidbody2D rb;
@@ -29,6 +37,8 @@ public class Boss : MonoBehaviour
     private bool isStart = false;
     private bool grounded = false;
     private bool isLookAtRight = true;
+    public bool isAttack = false;
+    public bool isShoting = false;
 
     private float currentHealth;
     public float health
@@ -70,7 +80,7 @@ public class Boss : MonoBehaviour
         if (!isStart && PlayerManager.Instance.Stage == PlayerManager.PlayerStage.Fight)
         {
             rb.constraints = RigidbodyConstraints2D.None;
-            rb.AddForce(Vector2.down * 0.1f, ForceMode2D.Impulse);
+            rb.AddForce(Vector2.down * 0.01f, ForceMode2D.Impulse);
 
             isStart = true;
             anim.SetBool("isStart", isStart);
@@ -110,13 +120,54 @@ public class Boss : MonoBehaviour
         }
     }
 
+    public bool PlayerIsInMeleeAttack()
+    {
+        Vector3 pos = transform.position;
+        pos += transform.right * meleeAttackOffset.x;
+        pos += transform.up * meleeAttackOffset.y;
+
+        Collider2D colInfo = Physics2D.OverlapCircle(pos, meleeAttackRange, attackMask);
+        if (colInfo != null)
+            return true;
+        return false;
+    }
+
+    public bool PlayerIsInRangedAttack()
+    {
+        if(hasRangedAttack)
+        {
+            Vector3 pos = transform.position;
+            pos += transform.right * rangedAttackOffset.x;
+            pos += transform.up * rangedAttackOffset.y;
+
+            Collider2D colInfo = Physics2D.OverlapBox(pos, new Vector3(rangedAttackWidth, rangedAttackHeight), 0f, attackMask);
+            if (colInfo != null)
+                return true;
+        }
+
+        return false;
+    }
+
     public void Attack()
     {
         Vector3 pos = transform.position;
-        pos += transform.right * attackOffset.x;
-        pos += transform.up * attackOffset.y;
+        pos += transform.right * meleeAttackOffset.x;
+        pos += transform.up * meleeAttackOffset.y;
 
-        Collider2D colInfo = Physics2D.OverlapCircle(pos, attackRange, attackMask);
+        Collider2D colInfo = Physics2D.OverlapCircle(pos, meleeAttackRange, attackMask);
+        if (colInfo != null)
+        {
+            colInfo.GetComponent<PlayerController>().TakeDamage(ATK);
+        }
+    }
+
+    public void RangedAttack()
+    {
+        Vector3 pos = transform.position;
+        pos += transform.right * rangedAttackOffset.x;
+        pos += transform.up * rangedAttackOffset.y;
+
+        Collider2D colInfo = Physics2D.OverlapBox(pos, new Vector3(rangedAttackWidth, rangedAttackHeight), 0f, attackMask);
         if (colInfo != null)
         {
             colInfo.GetComponent<PlayerController>().TakeDamage(ATK);
@@ -126,23 +177,45 @@ public class Boss : MonoBehaviour
     public void AngryAttack()
     {
         Vector3 pos = transform.position;
-        pos += transform.right * attackOffset.x;
-        pos += transform.up * attackOffset.y;
+        pos += transform.right * meleeAttackOffset.x;
+        pos += transform.up * meleeAttackOffset.y;
 
-        Collider2D colInfo = Physics2D.OverlapCircle(pos, attackRange, attackMask);
+        Collider2D colInfo = Physics2D.OverlapCircle(pos, meleeAttackRange, attackMask);
         if (colInfo != null)
         {
-            colInfo.GetComponent<PlayerController>().TakeDamage(ATK * 2);
+            colInfo.GetComponent<PlayerController>().TakeDamage(ATK + 10);
+        }
+    }
+
+    public void RangedAngryAttack()
+    {
+        Vector3 pos = transform.position;
+        pos += transform.right * rangedAttackOffset.x;
+        pos += transform.up * rangedAttackOffset.y;
+
+        Collider2D colInfo = Physics2D.OverlapBox(pos, new Vector3(rangedAttackWidth, rangedAttackHeight), 0f, attackMask);
+        if (colInfo != null)
+        {
+            colInfo.GetComponent<PlayerController>().TakeDamage(ATK + 10);
         }
     }
 
     void OnDrawGizmosSelected()
     {
-        Vector3 pos = transform.position;
-        pos += transform.right * attackOffset.x;
-        pos += transform.up * attackOffset.y;
+        Vector3 meleePos = transform.position;
+        meleePos += transform.right * meleeAttackOffset.x;
+        meleePos += transform.up * meleeAttackOffset.y;
 
-        Gizmos.DrawWireSphere(pos, attackRange);
+        Gizmos.DrawWireSphere(meleePos, meleeAttackRange);
+
+        if(hasRangedAttack)
+        {
+            Gizmos.color = Color.red;
+            Vector3 rangedPos = transform.position;
+            rangedPos += transform.right * rangedAttackOffset.x;
+            rangedPos += transform.up * rangedAttackOffset.y;
+            Gizmos.DrawWireCube(rangedPos, new Vector3(rangedAttackWidth, rangedAttackHeight, 1));
+        }
     }
 
     public void TakeDamage(int damage)
@@ -157,9 +230,14 @@ public class Boss : MonoBehaviour
         {
             anim.SetBool("isAngry", true);
         } 
+
+
         if (health <= 0)
         {
             Die();
+        } else
+        {
+            //anim.SetTrigger("Hurt");
         }
     }
 
@@ -192,7 +270,7 @@ public class Boss : MonoBehaviour
 
     private IEnumerator DeathEffect()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(deathEffectTimer);
         Instantiate(deathEffect, transform.position, Quaternion.identity);
         Destroy(gameObject);
         PlayerManager.Instance.Win();
@@ -210,4 +288,29 @@ public class Boss : MonoBehaviour
             grounded = true;
         }
     }
+
+    //private void CheckGrounded()
+    //{
+    //    float raycastLength = 0.1f; // Độ dài của Raycast từ vị trí boss xuống mặt đất
+    //    //Vector2 raycastOrigin = transform.position;
+    //    //raycastOrigin.y -= 0.5f; // Độ cao của điểm bắt đầu Raycast từ trung tâm của boss
+
+    //    // Kiểm tra xem có bề mặt dưới boss không
+    //    RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, raycastLength, LayerMask.GetMask("Ground"));
+
+    //    if (hit.collider != null)
+    //    {
+    //        if (!grounded)
+    //            anim.SetBool("grounded", true);
+
+    //        grounded = true;
+    //        rb.constraints = RigidbodyConstraints2D.FreezePositionY;
+    //    }
+    //    //else
+    //    //{
+    //    //    grounded = false;
+    //    //    anim.SetBool("grounded", false);
+    //    //    rb.constraints = RigidbodyConstraints2D.None; // Mở khóa Y khi không ở trên mặt đất
+    //    //}
+    //}
 }

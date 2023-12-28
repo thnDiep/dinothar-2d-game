@@ -1138,6 +1138,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1779224737367447778}
     - target: {fileID: 7510565912420853509, guid: 84f6b40e33b990d4f8d20ab0ba9bc22a, type: 3}
+      propertyPath: attackOffset.y
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 7510565912420853509, guid: 84f6b40e33b990d4f8d20ab0ba9bc22a, type: 3}
       propertyPath: rewardContainer
       value: 
       objectReference: {fileID: 2436703151865915237}
