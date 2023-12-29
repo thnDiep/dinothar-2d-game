@@ -33,28 +33,31 @@ public class UpgradeUI : MonoBehaviour
 
     [Header("Single Skill 1")]
     public GameObject skill1Button;
-    public GameObject skill1Lock;
+    public GameObject skill1LockImage;
+    public GameObject skill1UnlockImage;
     public GameObject skill1Price;
     public TextMeshProUGUI skill1PriceText;
 
     [Header("Single Skill 2")]
     public GameObject skill2Button;
-    public GameObject skill2Lock;
+    public GameObject skill2LockImage;
+    public GameObject skill2UnlockImage;
     public GameObject skill2Price;
     public TextMeshProUGUI skill2PriceText;
 
     [Header("Combine skill")]
     public GameObject combineSkillButton;
-    public GameObject combineSkillLock;
+    public GameObject combineSkillLockImage;
+    public GameObject combineSkillUnlockImage;
     public GameObject combineSkillPrice;
     public TextMeshProUGUI combineSkillPriceText;
 
 
     void Start()
     {
-        //StartCoroutine(CheckGameManagerInstance());
-        HandleMoneyChanged(GameManager.Instance.getMoney());
         GameManager.MoneyChangedEvent += HandleMoneyChanged;
+        GameManager.DiamondChangedEvent += HandleDiamondChanged;
+        //StartCoroutine(CheckGameManagerInstance());
 
         atkIndex = GameManager.Instance.getAtkIndex();
         attack.setFullNodes(atkIndex);
@@ -74,28 +77,25 @@ public class UpgradeUI : MonoBehaviour
 
         if (GameManager.Instance.learnedSkill1())
         {
-            skill1Button.GetComponent<Selectable>().interactable = false;
-            skill1Lock.gameObject.SetActive(false);
-            skill1Price.gameObject.SetActive(false);
+            learnedSkill1();
         }
 
         if (GameManager.Instance.learnedSkill2())
         {
-            skill2Button.GetComponent<Selectable>().interactable = false;
-            skill2Lock.gameObject.SetActive(false);
-            skill2Price.gameObject.SetActive(false);
+            learnedSkill2();
         }
 
         if (GameManager.Instance.learnedCombineSkill())
         {
-            combineSkillButton.GetComponent<Selectable>().interactable = false;
-            combineSkillLock.gameObject.SetActive(false);
-            combineSkillPrice.gameObject.SetActive(false);
+            learnedCombineSkill();
         }
 
         skill1PriceText.text = GameManager.Instance.SKILL1_PRICE.ToString();
         skill2PriceText.text = GameManager.Instance.SKILL2_PRICE.ToString();
         combineSkillPriceText.text = GameManager.Instance.COMBINE_SKILL_PRICE.ToString();
+
+        HandleMoneyChanged(GameManager.Instance.getMoney());
+        HandleDiamondChanged(GameManager.Instance.getDiamond());
     }
 
     //private IEnumerator CheckGameManagerInstance()
@@ -151,6 +151,7 @@ public class UpgradeUI : MonoBehaviour
     private void OnDestroy()
     {
         GameManager.MoneyChangedEvent -= HandleMoneyChanged;
+        GameManager.DiamondChangedEvent -= HandleDiamondChanged;
     }
 
 
@@ -175,6 +176,13 @@ public class UpgradeUI : MonoBehaviour
         {
             defensePlus.GetComponent<Selectable>().interactable = false;
         }
+    }
+
+    private void HandleDiamondChanged(int newDiamond)
+    {
+        setCanLearnSkill1(newDiamond >= GameManager.Instance.SKILL1_PRICE);
+        setCanLearnSkill2(newDiamond >= GameManager.Instance.SKILL2_PRICE);
+        setCanLearnCombineSkill(newDiamond >= GameManager.Instance.COMBINE_SKILL_PRICE);
     }
 
     public void UpgradeAttack()
@@ -251,10 +259,7 @@ public class UpgradeUI : MonoBehaviour
         if(!isSuccess)
             return;
 
-        skill1Button.GetComponent<Selectable>().interactable = false;
-        skill1Lock.gameObject.SetActive(false);
-        skill1Price.gameObject.SetActive(false);
-        //UIInGame.Instance.setLockSkill1(false);
+        learnedSkill1();
     }
 
     public void LearnSkill2()
@@ -263,10 +268,7 @@ public class UpgradeUI : MonoBehaviour
         if (!isSuccess)
             return;
 
-        skill2Button.GetComponent<Selectable>().interactable = false;
-        skill2Lock.gameObject.SetActive(false);
-        skill2Price.gameObject.SetActive(false);
-        //UIInGame.Instance.setLockSkill2(false);
+        learnedSkill2();
     }
 
     public void LearnCombineSkill()
@@ -275,9 +277,54 @@ public class UpgradeUI : MonoBehaviour
         if (!isSuccess)
             return;
 
+        learnedCombineSkill();
+    }
+
+    private void learnedSkill1()
+    {
+        skill1Button.GetComponent<Selectable>().interactable = false;
+        skill1LockImage.gameObject.SetActive(false);
+        skill1UnlockImage.gameObject.SetActive(false);
+        skill1Price.gameObject.SetActive(false);
+    }
+
+    private void setCanLearnSkill1(bool canLearn)
+    {
+        skill1Button.GetComponent<Selectable>().interactable = canLearn;
+        skill1UnlockImage.gameObject.SetActive(canLearn);
+        skill1LockImage.gameObject.SetActive(!canLearn);
+        skill1Price.gameObject.SetActive(true);
+    }
+
+    private void learnedSkill2()
+    {
+        skill2Button.GetComponent<Selectable>().interactable = false;
+        skill2LockImage.gameObject.SetActive(false);
+        skill2UnlockImage.gameObject.SetActive(false);
+        skill2Price.gameObject.SetActive(false);
+    }
+
+    private void setCanLearnSkill2(bool canLearn)
+    {
+        skill2Button.GetComponent<Selectable>().interactable = canLearn;
+        skill2UnlockImage.gameObject.SetActive(canLearn);
+        skill2LockImage.gameObject.SetActive(!canLearn);
+        skill2Price.gameObject.SetActive(true);
+    }
+
+    private void learnedCombineSkill() 
+    {
         combineSkillButton.GetComponent<Selectable>().interactable = false;
-        combineSkillLock.gameObject.SetActive(false);
+        combineSkillLockImage.gameObject.SetActive(false);
+        combineSkillUnlockImage.gameObject.SetActive(false);
         combineSkillPrice.gameObject.SetActive(false);
-        //UIInGame.Instance.setLockCombineSkill(false);
+    }
+
+    private void setCanLearnCombineSkill(bool canLearn)
+    {
+        combineSkillButton.GetComponent<Selectable>().interactable = canLearn;
+        combineSkillUnlockImage.gameObject.SetActive(canLearn);
+        combineSkillLockImage.gameObject.SetActive(!canLearn);
+        combineSkillPrice.gameObject.SetActive(true);
     }
 }
