@@ -97,10 +97,10 @@ public class GameManager : MonoBehaviour
         //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         //}
     }
+
     public void LevelFailed(int level, int clue)
     {
         // xử lý sau
-        //playerData.clue = level
         SavePlayerData();
     }
 
@@ -192,6 +192,25 @@ public class GameManager : MonoBehaviour
         playerData.combineSkill = true;
         SavePlayerData();
         return true;
+    }
+
+    public bool BuyProduct(bool isMoney, int amount)
+    {
+        if(isMoney && playerData.money >= amount)
+        {
+            playerData.money -= amount;
+            SavePlayerData();
+            return true;
+        } 
+        
+        if (!isMoney && playerData.diamond >= amount)
+        {
+            playerData.diamond -= amount;
+            SavePlayerData();
+            return true;
+        }
+
+        return false;
     }
 
     public int getLevel()

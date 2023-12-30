@@ -8,7 +8,9 @@ using UnityEngine.UI;
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager Instance { get; private set; }
-    //public static event Action<int> LifeChangeEvent;
+
+    public static event Action<int> LifeChangeEvent;
+    public static event Action<PlayerStage> StageChangeEvent;
     public static event Action<float> HealthChangeEvent;
 
     [Header("Stats")]
@@ -42,6 +44,11 @@ public class PlayerManager : MonoBehaviour
     public PlayerStage Stage;
     public PlayerState State;
 
+    [Header("Shop")]
+    public float healthBonus;
+    public int damageBonus;
+    public float attackSpeedBonus;
+
 
     public enum Player
     {
@@ -63,10 +70,23 @@ public class PlayerManager : MonoBehaviour
 
     private PlayerInputConfig player1Input, player2Input;
 
-    private int maxLife = 10;
+    private int maxLife = 5;
     private int maxClue = 3;
 
     private int currentMoney, currentDiamond, currentLife, currentClue;
+
+    public int life
+    {
+        get { return currentLife; }
+        set
+        {
+            if (currentLife != value)
+            {
+                currentLife = value;
+                LifeChangeEvent?.Invoke(currentLife);
+            }
+        }
+    }
 
     private float currentHealth;
     private bool dead;
@@ -105,22 +125,28 @@ public class PlayerManager : MonoBehaviour
 
         // Giai đoạn di chuyển
         Stage = PlayerStage.Move;
+        StageChangeEvent?.Invoke(Stage);
         setStage(false);
 
         currentMoney = 0;
         currentDiamond = 0;
-        currentLife = maxLife;
+        //currentLife = maxLife;
+        life = maxLife;
+        Debug.Log("PLayerManager Life:" + life);
         currentClue = 0;
 
         if(UIInGame.Instance != null)
         {
             UIInGame.Instance.setMoney(currentMoney);
             UIInGame.Instance.setDiamond(currentDiamond);
-            UIInGame.Instance.setLife(currentLife);
+            //UIInGame.Instance.setLife(currentLife);
             UIInGame.Instance.setStar(currentClue);
         }
 
         // Giai đoạn chiến đấu
+        healthBonus = 0;
+        damageBonus = 0;
+        attackSpeedBonus = 0;
         updatePower();
         health = HP;
         revivalPosition = new Vector3(fightArea.transform.position.x - 1.0f, fightArea.transform.position.y + 5.0f, 0);
@@ -135,6 +161,7 @@ public class PlayerManager : MonoBehaviour
             {
                 // chuyển sang giai đoạn chiến đấu
                 Stage = PlayerStage.Fight;
+                StageChangeEvent?.Invoke(Stage);
                 setStage(true);
             }
         }
@@ -194,15 +221,21 @@ public class PlayerManager : MonoBehaviour
         return currentDiamond;
     }
 
-    public void changeLife(int life)
+    public int getMaxLife()
     {
-        this.currentLife = Mathf.Clamp(this.currentLife + life, 0, maxLife);
+        return maxLife;
+    }
 
-        if(UIInGame.Instance != null)
-            UIInGame.Instance.updateLife(currentLife);
+    public void changeLife(int amount)
+    {
+        //this.currentLife = Mathf.Clamp(this.currentLife + life, 0, maxLife);
+        life = Mathf.Clamp(life + amount, 0, maxLife);
+
+        //if (UIInGame.Instance != null)
+        //    UIInGame.Instance.updateLife(currentLife);
 
         // Thua nếu hết mạng
-        if (currentLife <= 0)
+        if (life <= 0)
         {
             Lose();
         }
@@ -225,13 +258,34 @@ public class PlayerManager : MonoBehaviour
 
 
     // giai đoạn chiến đấu
+    public void buyHealth(float amount)
+    {
+        healthBonus += amount;
+        health += amount;
+        Debug.Log("Health" + health);
+    }
+
+    public void buyDamage(int amount)
+    {
+        damageBonus += amount;
+        ATK += amount;
+        Debug.Log("ATK" + ATK);
+    }
+
+    public void buyAttackSpeed(float amount)
+    {
+        attackSpeedBonus += amount;
+        ATTACK_SPEED += amount;
+        Debug.Log("ATTACK_SPEED" + attackSpeedBonus);
+    }
+
     public void updatePower()
     {
         if(GameManager.Instance != null)
         {
-            ATK = GameManager.Instance.getATK();
-            HP = GameManager.Instance.getHP();
-            ATTACK_SPEED = GameManager.Instance.getAttackSpeed();
+            ATK = GameManager.Instance.getATK() + damageBonus;
+            HP = GameManager.Instance.getHP() + healthBonus;
+            ATTACK_SPEED = GameManager.Instance.getAttackSpeed() + attackSpeedBonus;
             DEF = GameManager.Instance.getDEF();
 
             if(UIInGame.Instance != null)

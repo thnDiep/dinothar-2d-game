@@ -34,6 +34,57 @@ public class PlayersHealthBar : MonoBehaviour
         amount.text = health.ToString();
     }
 
+    public void setLife(int lifeNumber)
+    {
+        if(lifeNumber == 5)
+        {
+            life5.gameObject.SetActive(true);
+            life4.gameObject.SetActive(true);
+            life3.gameObject.SetActive(true);
+            life2.gameObject.SetActive(true);
+            life1.gameObject.SetActive(true);
+        }
+        else if(lifeNumber == 4)
+        {
+            life5.gameObject.SetActive(false);
+            life4.gameObject.SetActive(true);
+            life3.gameObject.SetActive(true);
+            life2.gameObject.SetActive(true);
+            life1.gameObject.SetActive(true);
+        }
+        else if(lifeNumber == 3)
+        {
+            life5.gameObject.SetActive(false);
+            life4.gameObject.SetActive(false);
+            life3.gameObject.SetActive(true);
+            life2.gameObject.SetActive(true);
+            life1.gameObject.SetActive(true);
+        }
+        else if (lifeNumber == 2)
+        {
+            life5.gameObject.SetActive(false);
+            life4.gameObject.SetActive(false);
+            life3.gameObject.SetActive(false);
+            life2.gameObject.SetActive(true);
+            life1.gameObject.SetActive(true);
+        }
+        else if (lifeNumber == 1)
+        {
+            life5.gameObject.SetActive(false);
+            life4.gameObject.SetActive(false);
+            life3.gameObject.SetActive(false);
+            life2.gameObject.SetActive(false);
+            life1.gameObject.SetActive(true);
+        }
+        else if (lifeNumber == 0)
+        {
+            life5.gameObject.SetActive(false);
+            life4.gameObject.SetActive(false);
+            life3.gameObject.SetActive(false);
+            life2.gameObject.SetActive(false);
+            life1.gameObject.SetActive(false);
+        }
+    }
     public void loseLife(int LifeNumber)
     {
         if (LifeNumber == 4 && life5 != null)
