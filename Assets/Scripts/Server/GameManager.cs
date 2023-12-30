@@ -311,4 +311,40 @@ public class GameManager : MonoBehaviour
         playerData.isCheat = isCheat;
         SavePlayerData();
     }
+    public bool isMusicStatus()
+    {
+        return playerData.isMusicStatus;
+    }
+    public void setMusicStatus(bool status)
+    {
+        playerData.isMusicStatus = status;
+        SavePlayerData();
+    }
+    public bool isSoundStatus()
+    {
+        return playerData.isSoundStatus;
+    }
+    public void setSoundStatus(bool status)
+    {
+        playerData.isSoundStatus = status;
+        SavePlayerData();
+    }
+    public float getMusicVolume()
+    {
+        return playerData.musicSlider;
+    }
+    public void setMusicVolume(float value)
+    {
+        playerData.musicSlider = value;
+        SavePlayerData();
+    }
+    public float getSoundVolume()
+    {
+        return playerData.soundSlider;
+    }
+    public void setSoundVolume(float value)
+    {
+        playerData.soundSlider = value;
+        SavePlayerData();
+    }
 }

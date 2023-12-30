@@ -120,12 +120,16 @@ public class UIInGame : MonoBehaviour
     {
         FightStageUI.SetActive(false);
         winningScreen.SetActive(true);
+        MusicManager.Instance.StopMusic();
+        SoundManager.Instance.PlaySoundWinLevel();
     }
 
     public void showLosingScreen()
     {
         FightStageUI.SetActive(false);
         losingScreen.SetActive(true);
+        MusicManager.Instance.StopMusic();
+        SoundManager.Instance.PlaySoundGameOver();
     }
 
     public void setUnlockSkill1(bool isLearned)

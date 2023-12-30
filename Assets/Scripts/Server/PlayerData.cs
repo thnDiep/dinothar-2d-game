@@ -25,6 +25,13 @@ public class PlayerData
 
     // khác
     public bool isCheat;
+
+    //audio
+    public bool isMusicStatus;
+    public bool isSoundStatus;
+
+    public float musicSlider;
+    public float soundSlider;
     public PlayerData()
     {
         level = 1;
@@ -40,5 +47,9 @@ public class PlayerData
         singleSkill2 = false;
         combineSkill = false;
         isCheat = false;
+        isMusicStatus = true;
+        isSoundStatus = true;
+        musicSlider = 0.5f;
+        soundSlider = 0.5f;
     }
 }

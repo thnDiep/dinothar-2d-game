@@ -10,7 +10,7 @@ public class Clue : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             PlayerManager.Instance.collectClue(value);
-            SoundManager.Instance.PlaySoundCollectMoney();
+            SoundManager.Instance.PlaySoundCollectClue();
             Destroy(gameObject);
         }
     }

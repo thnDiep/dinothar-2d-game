@@ -84,6 +84,8 @@ public class Boss : MonoBehaviour
 
             isStart = true;
             anim.SetBool("isStart", isStart);
+            MusicManager.Instance.StopMusic();
+            MusicManager.Instance.PlayMusicBoss();
         }
     }
 

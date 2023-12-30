@@ -24,57 +24,66 @@ public class SceneLoader : MonoBehaviour
     public void ToLevelsScreen()
     {
         if (SceneManager.GetActiveScene().buildIndex != 0)
+        {
+            SoundManager.Instance.StopSound();
             MusicManager.Instance.PlayMusicUnderground();
+        }
         SceneManager.LoadScene("LevelsScreen", LoadSceneMode.Single);
         Time.timeScale = 1.0f;
     }
 
+
     public void ToMenuScreen()
     {
         SceneManager.LoadScene("MenuScreen", LoadSceneMode.Single);
-        //MusicManager.Instance.PlayMusicLevel1();
         Time.timeScale = 1.0f;
     }
 
-    public void ToTestScreen()
-    {
-        SceneManager.LoadScene("Level1_Diep", LoadSceneMode.Single);
-        MusicManager.Instance.PlayMusicLevel1();
-        Time.timeScale = 1.0f;
-    }
+    // public void ToTestScreen()
+    // {
+    //     SceneManager.LoadScene("Level1_Diep", LoadSceneMode.Single);
+    //     MusicManager.Instance.PlayMusicLevel1();
+    //     Time.timeScale = 1.0f;
+    // }
 
-    public void ToLevel1Screen()
+    public void ToTestScreenNgan()
     {
-        SceneManager.LoadScene("Level1", LoadSceneMode.Single);
+        SceneManager.LoadScene("Level1_Ngan", LoadSceneMode.Single);
         MusicManager.Instance.PlayMusicLevel1();
         Time.timeScale = 1.0f;
     }
+    // public void ToLevel1Screen()
+    // {
+    //     SceneManager.LoadScene("Level1", LoadSceneMode.Single);
+    //     MusicManager.Instance.PlayMusicLevel1();
+    //     Time.timeScale = 1.0f;
+    // }
 
     public void ToLevel2Screen()
     {
         SceneManager.LoadScene("Level2", LoadSceneMode.Single);
-        MusicManager.Instance.PlayMusicLevel1();
+        MusicManager.Instance.PlayMusicLevel2();
         Time.timeScale = 1.0f;
     }
 
     public void ToLevel3Screen()
     {
         SceneManager.LoadScene("Level3", LoadSceneMode.Single);
-        MusicManager.Instance.PlayMusicLevel1();
+        MusicManager.Instance.PlayMusicLevel3();
         Time.timeScale = 1.0f;
     }
 
     public void ToLevel4Screen()
     {
         SceneManager.LoadScene("Level4", LoadSceneMode.Single);
-        MusicManager.Instance.PlayMusicLevel1();
+        MusicManager.Instance.PlayMusicLevel4();
         Time.timeScale = 1.0f;
     }
 
     public void ToLevel5Screen()
     {
         SceneManager.LoadScene("Level5", LoadSceneMode.Single);
-        MusicManager.Instance.PlayMusicLevel1();
+        MusicManager.Instance.PlayMusicLevel5();
         Time.timeScale = 1.0f;
     }
 
@@ -82,12 +91,21 @@ public class SceneLoader : MonoBehaviour
     {
         if (GameManager.Instance.getLevel() < 5)
         {
+
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-            MusicManager.Instance.PlayMusicLevel1();
+            //xử lý lấy name của scene tiếp theo 
+            int nextBuildIndex = SceneManager.GetActiveScene().buildIndex + 1;
+            Scene nextScene = SceneManager.GetSceneByBuildIndex(nextBuildIndex);
+            string nextSceneName = nextScene.name;
+
+            SoundManager.Instance.StopSound();
+            MusicManager.Instance.PlayMusicScene(nextSceneName);
         }
         else
         {
             SceneManager.LoadScene("LevelsScreen", LoadSceneMode.Single);
+            SoundManager.Instance.StopSound();
+            MusicManager.Instance.PlayMusicUnderground();
         }
         Time.timeScale = 1.0f;
     }
@@ -95,6 +113,13 @@ public class SceneLoader : MonoBehaviour
     public void Replay()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+        int curBuildIndex = SceneManager.GetActiveScene().buildIndex;
+        Scene curScene = SceneManager.GetSceneByBuildIndex(curBuildIndex);
+        string curSceneName = curScene.name;
+
+        SoundManager.Instance.StopSound();
+        MusicManager.Instance.PlayMusicScene(curSceneName);
         Time.timeScale = 1.0f;
     }
 
