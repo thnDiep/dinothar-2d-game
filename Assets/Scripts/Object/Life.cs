@@ -29,7 +29,7 @@ public class Life : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             PlayerManager.Instance.changeLife(1);
-            SoundManager.Instance.PlaySoundCollectMoney();
+            SoundManager.Instance.PlaySoundCollectClue();
             Destroy(gameObject);
         }
     }

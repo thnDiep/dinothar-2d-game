@@ -3533,8 +3533,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: CHUC MUNG !!!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6c21b2b00d3c683409cd78b7cb259cb8, type: 2}
-  m_sharedMaterial: {fileID: 1871374743569283193, guid: 6c21b2b00d3c683409cd78b7cb259cb8, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d0aaaf54e4f458b4fab73a56ca0c140f, type: 2}
+  m_sharedMaterial: {fileID: -2819507570384369990, guid: d0aaaf54e4f458b4fab73a56ca0c140f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -9413,8 +9413,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Da chien thang
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6c21b2b00d3c683409cd78b7cb259cb8, type: 2}
-  m_sharedMaterial: {fileID: 1871374743569283193, guid: 6c21b2b00d3c683409cd78b7cb259cb8, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d0aaaf54e4f458b4fab73a56ca0c140f, type: 2}
+  m_sharedMaterial: {fileID: -2819507570384369990, guid: d0aaaf54e4f458b4fab73a56ca0c140f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

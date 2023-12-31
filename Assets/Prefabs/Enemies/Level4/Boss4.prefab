@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 8783852203808819546}
   - component: {fileID: 2955575599021033314}
   - component: {fileID: 6576707317858479646}
-  - component: {fileID: 5671045107243576289}
   - component: {fileID: 8874253774937189339}
+  - component: {fileID: 5971991370715740610}
   - component: {fileID: 3402582317376993072}
   m_Layer: 10
   m_Name: Boss4
@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -13.87, y: 17.99, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.6534472, y: 0.4490543}
+  m_Size: {x: 1.7227908, y: 1.0254307}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -99,7 +99,7 @@ Animator:
   m_GameObject: {fileID: 1814601323997520823}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3f33147cb8a4f194e860a8ee452eb6ca, type: 2}
+  m_Controller: {fileID: 9100000, guid: f8ccd721d245c1e48a9ef4af64b0651d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -125,7 +125,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 5
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -135,43 +135,8 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
---- !u!58 &5671045107243576289
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1814601323997520823}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.036498785, y: 0.39053822}
-  serializedVersion: 2
-  m_Radius: 0.4097631
 --- !u!61 &8874253774937189339
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -204,19 +169,54 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.03196621, y: -0.38282967}
+  m_Offset: {x: -0.050753117, y: -0.5847188}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 2.0093896}
-    newSize: {x: 0.6534472, y: 0.4490543}
+    oldSize: {x: 1.065, y: 2.14}
+    newSize: {x: 1.7227908, y: 1.0254307}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5325451, y: 1.2249641}
+  m_Size: {x: 0.63132, y: 1.136344}
   m_EdgeRadius: 0
+--- !u!58 &5971991370715740610
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1814601323997520823}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.026035309, y: 0.4165659}
+  serializedVersion: 2
+  m_Radius: 0.42779255
 --- !u!114 &3402582317376993072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,15 +229,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e688de4403a8a046ba2585b53bd3306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  players:
-  - {fileID: 0}
-  - {fileID: 0}
-  attackDamage: 10
-  attackOffset: {x: 0.5, y: 0.24, z: 0}
-  attackRange: 1.12
+  HP: 300
+  ATK: 20
+  SPEED: 1.5
+  DEF: 1
+  meleeAttackOffset: {x: 0.61, y: 0.05, z: 0}
+  meleeAttackRange: 0.8
   attackMask:
     serializedVersion: 2
     m_Bits: 384
-  health: 300
+  hasRangedAttack: 0
+  rangedAttackOffset: {x: 0, y: 0, z: 0}
+  rangedAttackWidth: 0
+  rangedAttackHeight: 0
   isInvulnerable: 0
   deathEffect: {fileID: 4639613071580762366, guid: 23abbea8fbdcecf4597240863d409822, type: 3}
+  deathEffectTimer: 1
+  isAttack: 0
+  isShoting: 0

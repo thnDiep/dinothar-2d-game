@@ -11,7 +11,7 @@ public class LevelCompleteUI : MonoBehaviour
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI diamondText;
 
-    public float fadeDuration = 2.0f;
+    public float fadeDuration = 1.0f;
     private float currentAlpha = 0f;
 
     void Start()
@@ -35,7 +35,7 @@ public class LevelCompleteUI : MonoBehaviour
 
         while (elapsedTime < fadeDuration)
         {
-            currentAlpha = Mathf.Lerp(0f, 0.5f, elapsedTime / fadeDuration);
+            currentAlpha = Mathf.Lerp(0f, 0.8f, elapsedTime / fadeDuration);
             SetAlpha(currentAlpha);
 
             elapsedTime += Time.deltaTime;

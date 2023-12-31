@@ -109,7 +109,6 @@ public class GameManager : MonoBehaviour
     public void LevelFailed(int level, int clue)
     {
         // xử lý sau
-        //playerData.clue = level
         SavePlayerData();
     }
 
@@ -203,7 +202,24 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
+    public bool BuyProduct(bool isMoney, int amount)
+    {
+        if (isMoney && playerData.money >= amount)
+        {
+            playerData.money -= amount;
+            SavePlayerData();
+            return true;
+        }
 
+        if (!isMoney && playerData.diamond >= amount)
+        {
+            playerData.diamond -= amount;
+            SavePlayerData();
+            return true;
+        }
+
+        return false;
+    }
 
     public int getLevel()
     {
@@ -306,6 +322,42 @@ public class GameManager : MonoBehaviour
     public void setCheat(bool isCheat)
     {
         playerData.isCheat = isCheat;
+        SavePlayerData();
+    }
+    public bool isMusicStatus()
+    {
+        return playerData.isMusicStatus;
+    }
+    public void setMusicStatus(bool status)
+    {
+        playerData.isMusicStatus = status;
+        SavePlayerData();
+    }
+    public bool isSoundStatus()
+    {
+        return playerData.isSoundStatus;
+    }
+    public void setSoundStatus(bool status)
+    {
+        playerData.isSoundStatus = status;
+        SavePlayerData();
+    }
+    public float getMusicVolume()
+    {
+        return playerData.musicSlider;
+    }
+    public void setMusicVolume(float value)
+    {
+        playerData.musicSlider = value;
+        SavePlayerData();
+    }
+    public float getSoundVolume()
+    {
+        return playerData.soundSlider;
+    }
+    public void setSoundVolume(float value)
+    {
+        playerData.soundSlider = value;
         SavePlayerData();
     }
 }

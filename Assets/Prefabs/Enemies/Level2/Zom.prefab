@@ -333,14 +333,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 5
-  speed: 2
+  speed: 1
   leftEdge: {fileID: 0}
   rightEdge: {fileID: 0}
   topEdge: {fileID: 0}
   bottomEdge: {fileID: 0}
-  attackOffset: {x: 0.38, y: -0.03, z: 0}
+  attackOffset: {x: 0.2, y: -0.03, z: 0}
   attackHeight: 0.6
-  attackWidth: 0.4
+  attackWidth: 0.65
+  attackMask:
+    serializedVersion: 2
+    m_Bits: 384
   healthBar: {fileID: 8844797722000717852}
   rewardContainer: {fileID: 0}
   isAttack: 0

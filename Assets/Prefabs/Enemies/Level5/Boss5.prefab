@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -13.87, y: 17.99, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.6534472, y: 0.4490543}
+  m_Size: {x: 1.7227908, y: 1.0254307}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -98,7 +98,7 @@ Animator:
   m_GameObject: {fileID: 1814601323997520823}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e0b112dea32bc434281ed913b5690362, type: 2}
+  m_Controller: {fileID: 9100000, guid: 0ea5c016e20251d4eb101c8c164a2ee9, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -124,7 +124,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 5
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -134,7 +134,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &8874253774937189339
 BoxCollider2D:
@@ -168,18 +168,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.054483533, y: -0.059233904}
+  m_Offset: {x: -0.07999998, y: 1.1276001}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.97035575, y: 1}
-    newSize: {x: 0.6534472, y: 0.4490543}
+    pivot: {x: 0.5, y: 0.04}
+    oldSize: {x: 2.8057144, y: 2.8914285}
+    newSize: {x: 1.7227908, y: 1.0254307}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.35611415, y: 0.85051966}
+  m_Size: {x: 0.72183514, y: 2.5048}
   m_EdgeRadius: 0
 --- !u!114 &3402582317376993072
 MonoBehaviour:
@@ -193,14 +193,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e688de4403a8a046ba2585b53bd3306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 50
-  ATK: 10
-  SPEED: 4
-  DEF: 0
-  attackOffset: {x: 0.91, y: -0.1, z: 0}
-  attackRange: 1.4
+  HP: 500
+  ATK: 20
+  SPEED: 2
+  DEF: 2
+  meleeAttackOffset: {x: 1, y: 1.25, z: 0}
+  meleeAttackRange: 1.3
   attackMask:
     serializedVersion: 2
     m_Bits: 384
+  hasRangedAttack: 1
+  rangedAttackOffset: {x: 5.09, y: 1.22, z: 0}
+  rangedAttackWidth: 2
+  rangedAttackHeight: 2.5
   isInvulnerable: 0
   deathEffect: {fileID: 4639613071580762366, guid: 23abbea8fbdcecf4597240863d409822, type: 3}
+  deathEffectTimer: 1
+  isAttack: 0
+  isShoting: 0

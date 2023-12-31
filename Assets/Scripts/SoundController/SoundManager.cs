@@ -39,15 +39,16 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-
     public static string jumpSound = "PlayerJump";
     public static string collectMoneySound = "CollectMoney";
+    public static string collectClueSound = "CollectClue";
     public static string bulletSound = "PlayerBullet";
     public static string combineSkilSound = "UserCombineSkill";
     public static string hurtSound = "PlayerHurt";
     public static string gameoverSound = "GameOver";
     public static string loseHeartSound = "LoseHeart";
     public static string winSound = "WinLevel";
+
     public void PlaySoundJump()
     {
         PlaySound(jumpSound);
@@ -60,6 +61,10 @@ public class SoundManager : MonoBehaviour
     public void PlaySoundCollectMoney()
     {
         PlaySound(collectMoneySound);
+    }
+    public void PlaySoundCollectClue()
+    {
+        PlaySound(collectClueSound);
     }
 
     public void PlaySoundHurt()
@@ -78,7 +83,7 @@ public class SoundManager : MonoBehaviour
     {
         PlaySound(loseHeartSound);
     }
-     public void PlaySoundWinLevel()
+    public void PlaySoundWinLevel()
     {
         PlaySound(winSound);
     }
@@ -99,5 +104,17 @@ public class SoundManager : MonoBehaviour
     {
         audioSource.Pause();
         audioSource.Stop();
+    }
+    public void SoundStatus(bool status)
+    {
+        if (this.audioSource.mute == !status) return; //nghịch đảo trạng thái mute của status
+        this.audioSource.mute = !status;
+
+        if (this.audioSource.mute) audioSource.Stop();
+        else this.audioSource.Play();
+    }
+    public void SoundVolume(float volume)
+    {
+        this.audioSource.volume = volume;
     }
 }

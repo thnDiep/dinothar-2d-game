@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level1_Diep.unity
     guid: 110a2710588aa684ca697b278ff86b09
+  - enabled: 1
+    path: Assets/Scenes/Level1_Ngan.unity
+    guid: 6eb2a5d536cf54073a1ae5ba162a922b
   m_configObjects: {}

@@ -1208,12 +1208,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1779224737367447778}
     - target: {fileID: 7510565912420853509, guid: 989f1a9f54973724c869a5cc0655a626, type: 3}
+      propertyPath: attackWidth
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7510565912420853509, guid: 989f1a9f54973724c869a5cc0655a626, type: 3}
       propertyPath: attackHeight
       value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 7510565912420853509, guid: 989f1a9f54973724c869a5cc0655a626, type: 3}
       propertyPath: attackOffset.x
-      value: 0.4
+      value: 0.223
       objectReference: {fileID: 0}
     - target: {fileID: 7510565912420853509, guid: 989f1a9f54973724c869a5cc0655a626, type: 3}
       propertyPath: attackOffset.y

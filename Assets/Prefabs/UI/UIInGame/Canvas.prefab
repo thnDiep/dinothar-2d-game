@@ -35,12 +35,12 @@ RectTransform:
   - {fileID: 4149020091484723503}
   - {fileID: 1095103080053241640}
   - {fileID: 1321589592244643294}
-  - {fileID: 7260205721671360461}
   - {fileID: 7232609968177707714}
+  - {fileID: 2849120487244890633}
   - {fileID: 7779598090980984078}
+  - {fileID: 3520353611206872022}
   - {fileID: 8797444246889646534}
   - {fileID: 1331262753580353326}
-  - {fileID: 3520353611206872022}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -371,7 +371,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 710859899469838079, guid: 910051a57abfcff408e7b6bc5b06600f, type: 3}
       propertyPath: m_Color.a
-      value: 0.78431374
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1519593679866113086, guid: 910051a57abfcff408e7b6bc5b06600f, type: 3}
       propertyPath: m_Name
@@ -387,7 +387,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1980219265702302518, guid: 910051a57abfcff408e7b6bc5b06600f, type: 3}
       propertyPath: fadeDuration
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2503248140305979531, guid: 910051a57abfcff408e7b6bc5b06600f, type: 3}
       propertyPath: m_Pivot.x
@@ -507,6 +507,10 @@ PrefabInstance:
     - target: {fileID: 2699564273925973133, guid: c91a8d74768a1af4c934cc614715a5bf, type: 3}
       propertyPath: m_Name
       value: PauseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 2699564273925973133, guid: c91a8d74768a1af4c934cc614715a5bf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3957576638942801616, guid: c91a8d74768a1af4c934cc614715a5bf, type: 3}
       propertyPath: m_Sprite
@@ -1735,6 +1739,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Replay
       objectReference: {fileID: 0}
+    - target: {fileID: 710859899469838079, guid: 243658ea6387db74e85b0ee98c244f0b, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1519593679866113086, guid: 243658ea6387db74e85b0ee98c244f0b, type: 3}
       propertyPath: m_Name
       value: Win
@@ -1825,7 +1833,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2575960790847293455, guid: 243658ea6387db74e85b0ee98c244f0b, type: 3}
       propertyPath: fadeDuration
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3942815726362140815, guid: 243658ea6387db74e85b0ee98c244f0b, type: 3}
       propertyPath: m_Interactable

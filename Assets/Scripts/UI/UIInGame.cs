@@ -46,36 +46,31 @@ public class UIInGame : MonoBehaviour
 
     private void Start()
     {
-        //StartCoroutine(CheckGameManagerInstance());
         setUnlockSkill1(GameManager.Instance.learnedSkill1());
         setUnlockSkill2(GameManager.Instance.learnedSkill2());
         setUnlockCombineSkill(GameManager.Instance.learnedCombineSkill());
+        updateLife(PlayerManager.Instance.life);
 
         winningScreen.SetActive(false);
         losingScreen.SetActive(false);
 
         PlayerManager.HealthChangeEvent += playerHealthBar.setHealth;
+        PlayerManager.LifeChangeEvent += updateLife;
+
         Boss.HealthChangeEvent += bossHealthBar.setHealth;
+
         GameManager.Skill1ChangedEvent += setUnlockSkill1;
         GameManager.Skill2ChangedEvent += setUnlockSkill2;
         GameManager.CombineSkillChangedEvent += setUnlockCombineSkill;
     }
 
-    //private IEnumerator CheckGameManagerInstance()
-    //{
-    //    yield return new WaitForSeconds(0.1f); // Đợi một khoảng thời gian ngắn
-    //    if (GameManager.Instance != null)
-    //    {
-    //        setUnlockSkill1(GameManager.Instance.learnedSkill1());
-    //        setUnlockSkill2(GameManager.Instance.learnedSkill2());
-    //        setUnlockCombineSkill(GameManager.Instance.learnedCombineSkill());
-    //    }
-    //}
-
     private void OnDestroy()
     {
         PlayerManager.HealthChangeEvent -= playerHealthBar.setHealth;
+        PlayerManager.LifeChangeEvent -= updateLife;
+
         Boss.HealthChangeEvent -= bossHealthBar.setHealth;
+
         GameManager.Skill1ChangedEvent -= setUnlockSkill1;
         GameManager.Skill2ChangedEvent -= setUnlockSkill2;
         GameManager.CombineSkillChangedEvent -= setUnlockCombineSkill;
@@ -98,7 +93,7 @@ public class UIInGame : MonoBehaviour
 
     public void setLife(int amount)
     {
-        if (diamondText != null)
+        if (lifeText != null)
         {
             lifeText.text = amount.ToString();
         }
@@ -112,7 +107,7 @@ public class UIInGame : MonoBehaviour
     public void updateLife(int amount)
     {
         setLife(amount);
-        playerHealthBar.loseLife(amount);
+        playerHealthBar.setLife(amount);
     }
 
     public void setStage(bool isFightStage)
@@ -125,12 +120,16 @@ public class UIInGame : MonoBehaviour
     {
         FightStageUI.SetActive(false);
         winningScreen.SetActive(true);
+        MusicManager.Instance.StopMusic();
+        SoundManager.Instance.PlaySoundWinLevel();
     }
 
     public void showLosingScreen()
     {
         FightStageUI.SetActive(false);
         losingScreen.SetActive(true);
+        MusicManager.Instance.StopMusic();
+        SoundManager.Instance.PlaySoundGameOver();
     }
 
     public void setUnlockSkill1(bool isLearned)
