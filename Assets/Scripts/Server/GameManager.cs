@@ -8,7 +8,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     private PlayerData playerData;
- 
+
+    public static event Action<int> CurrentLevelChangedEvent;
     public static event Action<int> MoneyChangedEvent;
     public static event Action<int> DiamondChangedEvent;
     public static event Action<int[]> ClueChangedEvent;
@@ -49,6 +50,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetString("PlayerData", JsonUtility.ToJson(playerData));
         PlayerPrefs.Save();
 
+        CurrentLevelChangedEvent?.Invoke(playerData.currentLevel);
         MoneyChangedEvent?.Invoke(playerData.money);
         DiamondChangedEvent?.Invoke(playerData.diamond);
         Skill1ChangedEvent?.Invoke(playerData.singleSkill1);
@@ -97,6 +99,13 @@ public class GameManager : MonoBehaviour
         //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         //}
     }
+
+    public void StartNewLevel(int lv)
+    {
+        playerData.currentLevel = lv;
+        Debug.Log("Start New Level: " + lv + playerData.currentLevel);
+    }
+
     public void LevelFailed(int level, int clue)
     {
         // xử lý sau
@@ -194,9 +203,16 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
+
+
     public int getLevel()
     {
         return playerData.level;
+    }
+
+    public int getCurrentLevel()
+    {
+        return playerData.currentLevel;
     }
 
     public int getMoney()

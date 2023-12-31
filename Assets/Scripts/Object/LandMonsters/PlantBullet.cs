@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlantBullet : MonoBehaviour
@@ -32,11 +33,28 @@ public class PlantBullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        PlayerController playerController = other.GetComponent<PlayerController>();
-        if (playerController != null)
+        // PlayerController playerController = other.GetComponent<PlayerController>();
+
+        // if (playerController != null)
+        // {
+        //     PlayerManager.Instance.changeLife(-1);
+        //     Destroy(gameObject);
+        // }
+
+        if (other != null)
         {
-            PlayerManager.Instance.changeLife(-1);
-            Destroy(gameObject);
+
+            if (other.CompareTag("Player"))
+            {
+                // PlayerManager.Instance.changeLife(-1);
+                other.GetComponent<PlayerController>().Hurt();
+                Destroy(gameObject);
+            }
+            else if (other.CompareTag("Ground"))
+            {
+                Destroy(gameObject);
+
+            }
         }
     }
 

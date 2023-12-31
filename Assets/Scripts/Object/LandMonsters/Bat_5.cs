@@ -96,10 +96,17 @@ public class Bat_5 : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other != null && other.gameObject.CompareTag("Player"))
+        PlayerController player = other.gameObject.GetComponent<PlayerController>();
+        if (player != null)
         {
-            PlayerManager.Instance.changeLife(-1);
+            player.Hurt();
+            //PlayerManager.Instance.changeLife(-1);
         }
+
+        // if (other != null && other.gameObject.CompareTag("Player"))
+        // {
+        //     PlayerManager.Instance.changeLife(-1);
+        // }
     }
 
 }

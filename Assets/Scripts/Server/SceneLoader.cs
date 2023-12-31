@@ -46,6 +46,7 @@ public class SceneLoader : MonoBehaviour
     public void ToLevel1Screen()
     {
         SceneManager.LoadScene("Level1", LoadSceneMode.Single);
+        GameManager.Instance.StartNewLevel(1);
         MusicManager.Instance.PlayMusicLevel1();
         Time.timeScale = 1.0f;
     }
@@ -53,6 +54,7 @@ public class SceneLoader : MonoBehaviour
     public void ToLevel2Screen()
     {
         SceneManager.LoadScene("Level2", LoadSceneMode.Single);
+        GameManager.Instance.StartNewLevel(2);
         MusicManager.Instance.PlayMusicLevel1();
         Time.timeScale = 1.0f;
     }
@@ -60,6 +62,7 @@ public class SceneLoader : MonoBehaviour
     public void ToLevel3Screen()
     {
         SceneManager.LoadScene("Level3", LoadSceneMode.Single);
+        GameManager.Instance.StartNewLevel(3);
         MusicManager.Instance.PlayMusicLevel1();
         Time.timeScale = 1.0f;
     }
@@ -67,6 +70,7 @@ public class SceneLoader : MonoBehaviour
     public void ToLevel4Screen()
     {
         SceneManager.LoadScene("Level4", LoadSceneMode.Single);
+        GameManager.Instance.StartNewLevel(4);
         MusicManager.Instance.PlayMusicLevel1();
         Time.timeScale = 1.0f;
     }
@@ -74,6 +78,7 @@ public class SceneLoader : MonoBehaviour
     public void ToLevel5Screen()
     {
         SceneManager.LoadScene("Level5", LoadSceneMode.Single);
+        GameManager.Instance.StartNewLevel(5);
         MusicManager.Instance.PlayMusicLevel1();
         Time.timeScale = 1.0f;
     }
@@ -82,6 +87,7 @@ public class SceneLoader : MonoBehaviour
     {
         if (GameManager.Instance.getLevel() < 5)
         {
+            GameManager.Instance.StartNewLevel(SceneManager.GetActiveScene().buildIndex);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             MusicManager.Instance.PlayMusicLevel1();
         }

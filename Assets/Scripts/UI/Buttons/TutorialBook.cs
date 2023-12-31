@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-
-// using System.Numerics;
 using UnityEngine;
 
 public class TutorialBook : MonoBehaviour
@@ -14,6 +12,8 @@ public class TutorialBook : MonoBehaviour
     bool rotate = false;
     [SerializeField] GameObject backBtn;
     [SerializeField] GameObject forwardBtn;
+
+    [SerializeField] private AudioSource turnPage;
 
     private void Start()
     {
@@ -34,6 +34,7 @@ public class TutorialBook : MonoBehaviour
     {
         if (rotate == true) { return; }
         index++;
+        turnPage.Play();
         float angle = 180;
         forwardButtonActions();
         pages[index].SetAsLastSibling();
@@ -59,9 +60,11 @@ public class TutorialBook : MonoBehaviour
     {
         if (rotate == true) { return; }
         float angle = 0;
+        turnPage.Play();
         backButtonActions();
         pages[index].SetAsLastSibling();
         StartCoroutine(Rotate(angle, false));
+
     }
 
     public void backButtonActions()

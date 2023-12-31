@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class PlayerData
 {
     public int level;
+    public int currentLevel;
     public int[] stars; // mỗi level có 3 sao 
     public int money;
     public int diamond;
@@ -28,7 +29,8 @@ public class PlayerData
     public PlayerData()
     {
         level = 1;
-        stars = new int[] {-1, -1, -1, -1, -1}; // có 5 level
+        currentLevel = 1;
+        stars = new int[] { -1, -1, -1, -1, -1 }; // có 5 level
         money = 0;
         diamond = 0;
         atkIndex = 1;

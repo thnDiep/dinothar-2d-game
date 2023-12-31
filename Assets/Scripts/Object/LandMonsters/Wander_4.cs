@@ -136,13 +136,20 @@ public class Wander_4 : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other != null && other.gameObject.CompareTag("Player"))
+        // if (other != null && other.CompareTag("Player"))
+        // {
+        //     PlayerManager.Instance.changeLife(-1);
+        // }
+        PlayerController player = other.GetComponent<PlayerController>();
+        if (player != null)
         {
-            PlayerManager.Instance.changeLife(-1);
+            player.Hurt();
+            //PlayerManager.Instance.changeLife(-1);
         }
     }
+
 
     // public bool isGrounded()
     // {

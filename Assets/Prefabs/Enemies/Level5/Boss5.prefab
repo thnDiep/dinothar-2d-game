@@ -193,15 +193,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e688de4403a8a046ba2585b53bd3306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  players:
-  - {fileID: 0}
-  - {fileID: 0}
-  attackDamage: 10
+  HP: 50
+  ATK: 10
+  SPEED: 4
+  DEF: 0
   attackOffset: {x: 0.91, y: -0.1, z: 0}
   attackRange: 1.4
   attackMask:
     serializedVersion: 2
     m_Bits: 384
-  health: 300
   isInvulnerable: 0
   deathEffect: {fileID: 4639613071580762366, guid: 23abbea8fbdcecf4597240863d409822, type: 3}
