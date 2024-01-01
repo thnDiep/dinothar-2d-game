@@ -4,8 +4,8 @@ using UnityEngine;
 public class Minion : MonoBehaviour
 {
     [Header("Stats")]
-    public float HP = 2;
-    public float speed = 2f; // Tốc độ di chuyển
+    public float HP = 5;
+    public float speed = 1f; // Tốc độ di chuyển
 
     [Header("Movement")]
     public Transform leftEdge;
@@ -69,7 +69,7 @@ public class Minion : MonoBehaviour
     {
         Vector2 position = transform.position;
 
-        if(position.x <= leftEdge.position.x || position.x >= rightEdge.position.x)
+        if((position.x <= leftEdge.position.x && direction == -1) || (position.x >= rightEdge.position.x && direction == 1))
         {
             flip();
         }
