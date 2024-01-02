@@ -39,6 +39,12 @@ public class SceneLoader : MonoBehaviour
         Time.timeScale = 1.0f;
     }
 
+    public void ToCutScreen()
+    {
+        SceneManager.LoadScene("CutScene", LoadSceneMode.Single);
+        Time.timeScale = 1.0f;
+    }
+
     // public void ToTestScreen()
     // {
     //     SceneManager.LoadScene("Level1_Diep", LoadSceneMode.Single);
@@ -54,7 +60,7 @@ public class SceneLoader : MonoBehaviour
     // }
     public void ToLevel1Screen()
     {
-        SceneManager.LoadScene("Level1", LoadSceneMode.Single);
+        SceneManager.LoadScene("Level5", LoadSceneMode.Single);
         GameManager.Instance.StartNewLevel(1);
         MusicManager.Instance.PlayMusicLevel1();
         Time.timeScale = 1.0f;

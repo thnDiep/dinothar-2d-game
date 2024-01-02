@@ -4724,6 +4724,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2755246738341283044, guid: 22625b0dbaf8ba04398b550ff7484259, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2798039484884958181, guid: 22625b0dbaf8ba04398b550ff7484259, type: 3}
       propertyPath: m_LocalPosition.x
       value: 24.5
@@ -5768,6 +5772,10 @@ PrefabInstance:
     - target: {fileID: 8837959587934922983, guid: 44c683f8fb2eeb445981f9dc5ebbdb10, type: 3}
       propertyPath: m_Name
       value: OrgePatrol
+      objectReference: {fileID: 0}
+    - target: {fileID: 8837959587934922983, guid: 44c683f8fb2eeb445981f9dc5ebbdb10, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
