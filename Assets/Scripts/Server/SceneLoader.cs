@@ -18,7 +18,6 @@ public class SceneLoader : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        //MusicManager.Instance.PlayMusicUnderground();
     }
 
     public void ToLevelsScreen()
@@ -54,10 +53,21 @@ public class SceneLoader : MonoBehaviour
 
     // public void ToTestScreenNgan()
     // {
-    //     SceneManager.LoadScene("Level1_Ngan", LoadSceneMode.Single);
-    //     MusicManager.Instance.PlayMusicLevel1();
+    //     SceneManager.LoadScene("MenuScreen_Ngan", LoadSceneMode.Single);
+    //     //MusicManager.Instance.PlayMusicUnderground();
     //     Time.timeScale = 1.0f;
     // }
+    // public void ToTestLevelScreenNgan()
+    // {
+    //     if (SceneManager.GetActiveScene().buildIndex != 0)
+    //     {
+    //         SoundManager.Instance.StopSound();
+    //         MusicManager.Instance.PlayMusicUnderground();
+    //     }
+    //     SceneManager.LoadScene("LevelsScreen_Ngan", LoadSceneMode.Single);
+    //     Time.timeScale = 1.0f;
+    // }
+
     public void ToLevel1Screen()
     {
         SceneManager.LoadScene("Level5", LoadSceneMode.Single);
@@ -148,6 +158,10 @@ public class SceneLoader : MonoBehaviour
         Time.timeScale = 0.0f;
     }
 
+    public void SettingGame()
+    {
+        Time.timeScale = 0.0f;
+    }
     public void ResumeGame()
     {
         Time.timeScale = 1.0f;

@@ -12,6 +12,14 @@ public class ToggleInPause : MonoBehaviour
     private bool onMusic;
     private bool onSound;
     private bool isCheat;
+     private void OnEnable() {
+        onMusic = GameManager.Instance.isMusicStatus();
+        onSound = GameManager.Instance.isSoundStatus();
+        isCheat = GameManager.Instance.isCheat();
+        
+        MusicManager.Instance.MusicStatus(onMusic);
+        SoundManager.Instance.SoundStatus(onSound);    
+    }
     void Start()
     {
         onMusic = GameManager.Instance.isMusicStatus();
@@ -22,18 +30,7 @@ public class ToggleInPause : MonoBehaviour
         soundToggleOn.gameObject.SetActive(onSound);
         cheatToggleOn.gameObject.SetActive(isCheat);
     }
-    private void OnEnable() {
-        onMusic = GameManager.Instance.isMusicStatus();
-        onSound = GameManager.Instance.isSoundStatus();
-        isCheat = GameManager.Instance.isCheat();
-        
-        MusicManager.Instance.MusicStatus(onMusic);
-        SoundManager.Instance.SoundStatus(onSound);    
-        // if(onSound == false)
-        // {
-        //     SoundButtonClick.Instance.StopSoundButton();
-        // } 
-    }
+   
 
     public void musicToggle()
     {
@@ -50,7 +47,6 @@ public class ToggleInPause : MonoBehaviour
         soundToggleOn.gameObject.SetActive(onSound);
         GameManager.Instance.setSoundStatus(onSound);
         SoundManager.Instance.StopSound();
-        //SoundButtonClick.Instance.StopSoundButton();
         SoundManager.Instance.SoundStatus(onSound);        
     }
 
