@@ -8,6 +8,8 @@ public class MusicManager : MonoBehaviour
 {
     [SerializeField] private AudioSource audioSource;
     private static MusicManager _instance;
+    private bool onMusic;
+
     //private static SceneLoader sceneLoader;
 
     public static MusicManager Instance
@@ -42,7 +44,20 @@ public class MusicManager : MonoBehaviour
 
     private void Start()
     {
-        PlayMusicUnderground();
+        StartCoroutine(CheckGameManagerInstance());
+    }
+
+    private IEnumerator CheckGameManagerInstance()
+    {
+        yield return new WaitForSeconds(0.1f); // Đợi một khoảng thời gian ngắn
+        if (GameManager.Instance != null)
+        {
+            onMusic = GameManager.Instance.isMusicStatus();
+            if(onMusic)
+            {
+                PlayMusicUnderground();
+            }
+        }
     }
 
     public static string musicLevel1 = "MusicLevel1";

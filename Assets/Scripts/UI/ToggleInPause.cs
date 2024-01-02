@@ -12,25 +12,44 @@ public class ToggleInPause : MonoBehaviour
     private bool onMusic;
     private bool onSound;
     private bool isCheat;
-     private void OnEnable() {
-        onMusic = GameManager.Instance.isMusicStatus();
-        onSound = GameManager.Instance.isSoundStatus();
-        isCheat = GameManager.Instance.isCheat();
-        
-        MusicManager.Instance.MusicStatus(onMusic);
-        SoundManager.Instance.SoundStatus(onSound);    
+
+    private void OnEnable() {
+        StartCoroutine(CheckGameManagerInstance1());
     }
+
     void Start()
     {
-        onMusic = GameManager.Instance.isMusicStatus();
-        onSound = GameManager.Instance.isSoundStatus();
-        isCheat = GameManager.Instance.isCheat();
-
-        musicToggleOn.gameObject.SetActive(onMusic);
-        soundToggleOn.gameObject.SetActive(onSound);
-        cheatToggleOn.gameObject.SetActive(isCheat);
+        StartCoroutine(CheckGameManagerInstance());
     }
-   
+
+    private IEnumerator CheckGameManagerInstance()
+    {
+        yield return new WaitForSeconds(0.1f); // Đợi một khoảng thời gian ngắn
+        if (GameManager.Instance != null)
+        {
+            onMusic = GameManager.Instance.isMusicStatus();
+            onSound = GameManager.Instance.isSoundStatus();
+            isCheat = GameManager.Instance.isCheat();
+
+            musicToggleOn.gameObject.SetActive(onMusic);
+            soundToggleOn.gameObject.SetActive(onSound);
+            cheatToggleOn.gameObject.SetActive(isCheat);
+        }
+    }
+
+    private IEnumerator CheckGameManagerInstance1()
+    {
+        yield return new WaitForSeconds(0.1f); // Đợi một khoảng thời gian ngắn
+        if (GameManager.Instance != null)
+        {
+            onMusic = GameManager.Instance.isMusicStatus();
+            onSound = GameManager.Instance.isSoundStatus();
+            isCheat = GameManager.Instance.isCheat();
+
+            MusicManager.Instance.MusicStatus(onMusic);
+            SoundManager.Instance.SoundStatus(onSound);
+        }
+    }
 
     public void musicToggle()
     {

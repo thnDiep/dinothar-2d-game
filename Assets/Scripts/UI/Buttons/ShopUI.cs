@@ -69,7 +69,7 @@ public class ShopUI : MonoBehaviour
     private void HandleChangeStage(PlayerManager.PlayerStage newStage)
     {
         bool canBuy = (newStage == PlayerManager.PlayerStage.Fight);
-        Debug.Log("Can buy " + canBuy);
+        //Debug.Log("Can buy " + canBuy);
         health.setCanBuy(canBuy);
         damage.setCanBuy(canBuy);
         attackSpeed.setCanBuy(canBuy);
@@ -112,7 +112,7 @@ public class ShopUI : MonoBehaviour
     {
         if (damage.buyProduct())
         {
-            int amount =  (int) (GameManager.Instance.getATK() * 0.1);
+            int amount = Mathf.RoundToInt(GameManager.Instance.getATK() * 0.1f);
             PlayerManager.Instance.buyDamage(amount);
         }
     }

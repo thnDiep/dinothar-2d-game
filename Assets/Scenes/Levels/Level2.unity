@@ -2733,6 +2733,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3265480965588979836, guid: d6bab0d0dc328e544a90fe125205452f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.76
+      objectReference: {fileID: 0}
     - target: {fileID: 4538682709866595992, guid: d6bab0d0dc328e544a90fe125205452f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.56
@@ -4035,7 +4039,6 @@ Transform:
   - {fileID: 875372385}
   - {fileID: 1855207384}
   - {fileID: 1264736763}
-  - {fileID: 1512477050}
   - {fileID: 1035212283}
   - {fileID: 1276300852}
   - {fileID: 1360831298}
@@ -4904,7 +4907,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5043086447779900928, guid: 9f4f6f5acc752dd45919c15e01ae3be9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6932741972736811007, guid: 9f4f6f5acc752dd45919c15e01ae3be9, type: 3}
       propertyPath: m_NormalizedViewPortRect.x
@@ -7702,68 +7705,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 971443784441519258, guid: 214828ed739134a4bad40c3f330587d1, type: 3}
   m_PrefabInstance: {fileID: 1511990852}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1512477049
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 895964960}
-    m_Modifications:
-    - target: {fileID: 971443784441519258, guid: 214828ed739134a4bad40c3f330587d1, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -2.09
-      objectReference: {fileID: 0}
-    - target: {fileID: 971443784441519258, guid: 214828ed739134a4bad40c3f330587d1, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -2.81
-      objectReference: {fileID: 0}
-    - target: {fileID: 971443784441519258, guid: 214828ed739134a4bad40c3f330587d1, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 971443784441519258, guid: 214828ed739134a4bad40c3f330587d1, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 971443784441519258, guid: 214828ed739134a4bad40c3f330587d1, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 971443784441519258, guid: 214828ed739134a4bad40c3f330587d1, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 971443784441519258, guid: 214828ed739134a4bad40c3f330587d1, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 971443784441519258, guid: 214828ed739134a4bad40c3f330587d1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 971443784441519258, guid: 214828ed739134a4bad40c3f330587d1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 971443784441519258, guid: 214828ed739134a4bad40c3f330587d1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5055797846740940087, guid: 214828ed739134a4bad40c3f330587d1, type: 3}
-      propertyPath: m_Name
-      value: Coin3
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 214828ed739134a4bad40c3f330587d1, type: 3}
---- !u!4 &1512477050 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 971443784441519258, guid: 214828ed739134a4bad40c3f330587d1, type: 3}
-  m_PrefabInstance: {fileID: 1512477049}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1518001169
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9435,7 +9376,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 2147491831
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

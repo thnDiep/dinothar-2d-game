@@ -34,7 +34,10 @@ public class TutorialBook : MonoBehaviour
     {
         if (rotate == true) { return; }
         index++;
-        turnPage.Play();
+        if(GameManager.Instance != null && GameManager.Instance.isSoundStatus())
+        {
+            turnPage.Play();
+        }
         float angle = 180;
         forwardButtonActions();
         pages[index].SetAsLastSibling();
@@ -60,7 +63,10 @@ public class TutorialBook : MonoBehaviour
     {
         if (rotate == true) { return; }
         float angle = 0;
-        turnPage.Play();
+        if (GameManager.Instance != null && GameManager.Instance.isSoundStatus())
+        {
+            turnPage.Play();
+        }
         backButtonActions();
         pages[index].SetAsLastSibling();
         StartCoroutine(Rotate(angle, false));
@@ -80,6 +86,16 @@ public class TutorialBook : MonoBehaviour
         }
 
     }
+
+    public bool isRotating()
+    {
+        return rotate;
+    }
+
+    //public void OnDisable()
+    //{
+    //    rotate = false;
+    //}
 
     IEnumerator Rotate(float angle, bool forward)
     {

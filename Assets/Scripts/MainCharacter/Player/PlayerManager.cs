@@ -16,7 +16,7 @@ public class PlayerManager : MonoBehaviour
     [Header("Stats")]
     public float HP = 100;
     public int ATK = 10;
-    public float ATTACK_SPEED = 50f;
+    public float ATTACK_SPEED = 50;
     public float DEF = 0;
 
     [Header("Frictions")]
@@ -135,7 +135,7 @@ public class PlayerManager : MonoBehaviour
         Debug.Log("PLayerManager Life:" + life);
         currentClue = 0;
 
-        if(UIInGame.Instance != null)
+        if (UIInGame.Instance != null)
         {
             UIInGame.Instance.setMoney(currentMoney);
             UIInGame.Instance.setDiamond(currentDiamond);
@@ -212,7 +212,7 @@ public class PlayerManager : MonoBehaviour
         if (this.currentDiamond < 0)
             this.currentDiamond = 0;
 
-        if(UIInGame.Instance  != null)
+        if (UIInGame.Instance != null)
             UIInGame.Instance.setDiamond(this.currentDiamond);
     }
 
@@ -245,9 +245,9 @@ public class PlayerManager : MonoBehaviour
     {
         this.currentClue = Mathf.Clamp(this.currentClue + 1, 0, maxClue);
 
-        if(GameManager.Instance != null)
+        if (GameManager.Instance != null)
             GameManager.Instance.UpdateClue(clueIndex);
-        if(UIInGame.Instance != null)
+        if (UIInGame.Instance != null)
             UIInGame.Instance.setStar(this.currentClue);
     }
 
@@ -281,14 +281,14 @@ public class PlayerManager : MonoBehaviour
 
     public void updatePower()
     {
-        if(GameManager.Instance != null)
+        if (GameManager.Instance != null)
         {
             ATK = GameManager.Instance.getATK() + damageBonus;
             HP = GameManager.Instance.getHP() + healthBonus;
             ATTACK_SPEED = GameManager.Instance.getAttackSpeed() + attackSpeedBonus;
             DEF = GameManager.Instance.getDEF();
 
-            if(UIInGame.Instance != null)
+            if (UIInGame.Instance != null)
                 UIInGame.Instance.playerHealthBar.setMaxHealth(HP);
         }
     }
@@ -297,6 +297,8 @@ public class PlayerManager : MonoBehaviour
     {
         float lossHealth = (1 - DEF / 10.0f) * damage;
         health = Mathf.Clamp(health - lossHealth, 0, HP);
+        //Debug.Log(lossHealth);
+        //Debug.Log(health);
 
         // Nếu hết máu, trừ 1 mạng và fill đầy máu lại (nếu còn mạng)
         if (health <= 0)
@@ -317,7 +319,7 @@ public class PlayerManager : MonoBehaviour
 
     IEnumerator RevivalAfterDelay(float delay)
     {
-        if(UIInGame.Instance != null)
+        if (UIInGame.Instance != null)
             UIInGame.Instance.startScreenFade();
         // Chờ đợi cho animation chết hoàn thành
         yield return new WaitForSeconds(delay);
@@ -339,7 +341,14 @@ public class PlayerManager : MonoBehaviour
     public void Win()
     {
         if (UIInGame.Instance != null)
-            UIInGame.Instance.showWinningScreen();
+            if (level == 5)
+            {
+                SceneLoader.Instance.ToCutScreen();
+            }
+            else
+            {
+                UIInGame.Instance.showWinningScreen();
+            }
         if (GameManager.Instance != null)
             GameManager.Instance.LevelCompleted(level, currentMoney, currentDiamond, currentClue);
         if (SoundManager.Instance != null)
@@ -348,11 +357,11 @@ public class PlayerManager : MonoBehaviour
 
     public void Lose()
     {
-        if(UIInGame.Instance != null)
+        if (UIInGame.Instance != null)
             UIInGame.Instance.showLosingScreen();
-        if(GameManager.Instance != null)
+        if (GameManager.Instance != null)
             GameManager.Instance.LevelFailed(level, currentClue);
-        if(SoundManager.Instance != null)
+        if (SoundManager.Instance != null)
             SoundManager.Instance.PlaySoundGameOver();
     }
 }

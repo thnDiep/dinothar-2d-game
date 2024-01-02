@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEditor;
@@ -13,14 +13,22 @@ public class SliderInPause : MonoBehaviour
 
     private void Start()
     {
-        updateMusicUI();
-        updateSoundUI();
+        StartCoroutine(CheckGameManagerInstance());
     }
 
     private void OnEnable()
     {
-        updateMusicUI();
-        updateSoundUI();
+        StartCoroutine(CheckGameManagerInstance());
+    }
+
+    private IEnumerator CheckGameManagerInstance()
+    {
+        yield return new WaitForSeconds(0.1f); // Đợi một khoảng thời gian ngắn
+        if (GameManager.Instance != null)
+        {
+            updateMusicUI();
+            updateSoundUI();
+        }
     }
     //music slider volume 
     public void updateMusicUI()

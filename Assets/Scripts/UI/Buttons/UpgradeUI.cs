@@ -290,6 +290,8 @@ public class UpgradeUI : MonoBehaviour
 
     private void setCanLearnSkill1(bool canLearn)
     {
+        if (GameManager.Instance.learnedSkill1())
+            return;
         skill1Button.GetComponent<Selectable>().interactable = canLearn;
         skill1UnlockImage.gameObject.SetActive(canLearn);
         skill1LockImage.gameObject.SetActive(!canLearn);
@@ -306,6 +308,8 @@ public class UpgradeUI : MonoBehaviour
 
     private void setCanLearnSkill2(bool canLearn)
     {
+        if (GameManager.Instance.learnedSkill2())
+            return;
         skill2Button.GetComponent<Selectable>().interactable = canLearn;
         skill2UnlockImage.gameObject.SetActive(canLearn);
         skill2LockImage.gameObject.SetActive(!canLearn);
@@ -322,6 +326,8 @@ public class UpgradeUI : MonoBehaviour
 
     private void setCanLearnCombineSkill(bool canLearn)
     {
+        if (GameManager.Instance.learnedCombineSkill())
+            return;
         combineSkillButton.GetComponent<Selectable>().interactable = canLearn;
         combineSkillUnlockImage.gameObject.SetActive(canLearn);
         combineSkillLockImage.gameObject.SetActive(!canLearn);

@@ -4575,7 +4575,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5043086447779900928, guid: 9f4f6f5acc752dd45919c15e01ae3be9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6932741972736811007, guid: 9f4f6f5acc752dd45919c15e01ae3be9, type: 3}
       propertyPath: m_NormalizedViewPortRect.x
@@ -9740,7 +9740,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 2147491831
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

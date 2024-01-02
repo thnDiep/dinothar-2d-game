@@ -6,6 +6,7 @@ public class TutorialBookBtn : MonoBehaviour, IPointerEnterHandler, IPointerExit
 {
     [SerializeField] Image tutorialBookIcon;
     [SerializeField] GameObject tutorialBook;
+    public TutorialBook page;
 
     private void Awake()
     {
@@ -31,6 +32,8 @@ public class TutorialBookBtn : MonoBehaviour, IPointerEnterHandler, IPointerExit
     }
     public void closeTutorialBook()
     {
+        if(page.isRotating()) 
+            return;
         tutorialBook.SetActive(false);
     }
 

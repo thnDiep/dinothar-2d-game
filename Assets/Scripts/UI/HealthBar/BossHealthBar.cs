@@ -19,14 +19,14 @@ public class BossHealthBar : MonoBehaviour
         slider.maxValue = health;
         slider.value = health;
         fill.color = gradient.Evaluate(1f);
-        percent.text = health.ToString();
-        amount.text = health.ToString();
+        percent.text = Mathf.RoundToInt(health).ToString();
+        amount.text = Mathf.RoundToInt(health).ToString();
     }
 
     public void setHealth(float health)
     {
         slider.value = health;
         fill.color = gradient.Evaluate(slider.normalizedValue);
-        amount.text = health.ToString();
+        amount.text = Mathf.RoundToInt(health).ToString();
     }
 }
