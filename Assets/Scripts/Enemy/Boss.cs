@@ -160,6 +160,7 @@ public class Boss : MonoBehaviour
         if (colInfo != null)
         {
             colInfo.GetComponent<PlayerController>().TakeDamage(ATK);
+
         }
     }
 
@@ -170,9 +171,11 @@ public class Boss : MonoBehaviour
         pos += transform.up * rangedAttackOffset.y;
 
         Collider2D colInfo = Physics2D.OverlapBox(pos, new Vector3(rangedAttackWidth, rangedAttackHeight), 0f, attackMask);
+        SoundManager.Instance.PlayBossHurtSound();
         if (colInfo != null)
         {
             colInfo.GetComponent<PlayerController>().TakeDamage(ATK);
+            
         }
     }
 
@@ -183,9 +186,11 @@ public class Boss : MonoBehaviour
         pos += transform.up * meleeAttackOffset.y;
 
         Collider2D colInfo = Physics2D.OverlapCircle(pos, meleeAttackRange, attackMask);
+        SoundManager.Instance.PlayBossHurtSound();
         if (colInfo != null)
         {
             colInfo.GetComponent<PlayerController>().TakeDamage(ATK + 10);
+            
         }
     }
 
@@ -196,9 +201,11 @@ public class Boss : MonoBehaviour
         pos += transform.up * rangedAttackOffset.y;
 
         Collider2D colInfo = Physics2D.OverlapBox(pos, new Vector3(rangedAttackWidth, rangedAttackHeight), 0f, attackMask);
+        SoundManager.Instance.PlayBossHurtSound();
         if (colInfo != null)
         {
             colInfo.GetComponent<PlayerController>().TakeDamage(ATK + 10);
+            
         }
     }
 

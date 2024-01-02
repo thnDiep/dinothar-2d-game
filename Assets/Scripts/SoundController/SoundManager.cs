@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
@@ -31,7 +32,6 @@ public class SoundManager : MonoBehaviour
         if (_instance == null)
         {
             _instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -44,10 +44,11 @@ public class SoundManager : MonoBehaviour
     public static string collectClueSound = "CollectClue";
     public static string bulletSound = "PlayerBullet";
     public static string combineSkilSound = "UserCombineSkill";
-    public static string hurtSound = "PlayerHurt";
-    public static string gameoverSound = "GameOver";
+    public static string playerHurtSound = "PlayerHurt";
+    public static string bossHurtSound = "BossHurt";
     public static string loseHeartSound = "LoseHeart";
     public static string winSound = "WinLevel";
+    public static string gameoverSound = "GameOver";
 
     public void PlaySoundJump()
     {
@@ -69,7 +70,12 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySoundHurt()
     {
-        PlaySound(hurtSound);
+        PlaySound(playerHurtSound);
+    }
+
+    public void PlayBossHurtSound()
+    {
+        PlaySound(bossHurtSound);
     }
     public void PlaySoundUseCombineSkill()
     {

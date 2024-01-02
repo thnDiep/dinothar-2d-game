@@ -43,6 +43,5 @@ public class SliderInPause : MonoBehaviour
     {
         GameManager.Instance.setSoundVolume(soundSlider.value);
         SoundManager.Instance.SoundVolume(soundSlider.value);
-        //SoundButtonClick.Instance.SoundButtonVolume(soundSlider.value);
     }
 }
