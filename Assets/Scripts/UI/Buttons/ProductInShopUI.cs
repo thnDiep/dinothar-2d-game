@@ -13,7 +13,7 @@ public class ProductInShopUI : MonoBehaviour
 
     private bool canBuy;
     private bool enoughMoney;
-    private bool isNotOverBuyTime;
+    private bool isNotOverBuyTime = true;
 
     void Start()
     {
@@ -21,6 +21,7 @@ public class ProductInShopUI : MonoBehaviour
         canBuy = false;
         enoughMoney = false;
         isNotOverBuyTime = true;
+        updateButton();
 
         if (isMoney)
         {
@@ -101,6 +102,9 @@ public class ProductInShopUI : MonoBehaviour
 
     private void updateButton()
     {
+        Debug.Log("Can buy: " + canBuy);
+        Debug.Log("Enough money: " + enoughMoney);
+        Debug.Log("Not Over Buy Time" + isNotOverBuyTime);
         if (canBuy && enoughMoney && isNotOverBuyTime)
         {
             buyButton.GetComponent<Selectable>().interactable = true;

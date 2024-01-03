@@ -1127,7 +1127,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4265170124947506860, guid: b4f342239496b5d4390582cf4f210b95, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5302650811426209890, guid: b4f342239496b5d4390582cf4f210b95, type: 3}
       propertyPath: m_hasFontAssetChanged
@@ -1369,7 +1369,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4334889649089818323, guid: 359a4e78999f8ca4b82960cc769c9362, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -100
+      value: -40
       objectReference: {fileID: 0}
     - target: {fileID: 4334889649089818323, guid: 359a4e78999f8ca4b82960cc769c9362, type: 3}
       propertyPath: m_SizeDelta.y
@@ -1409,7 +1409,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4334889649089818323, guid: 359a4e78999f8ca4b82960cc769c9362, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 50
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4334889649089818323, guid: 359a4e78999f8ca4b82960cc769c9362, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

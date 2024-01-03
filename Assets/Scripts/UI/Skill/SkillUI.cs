@@ -25,12 +25,10 @@ public class SkillUI : MonoBehaviour
         if (isLock)
         {
             lockImage.gameObject.SetActive(true);
-            cooldownImage.fillAmount = 1.0f;
         }
         else
         {
             lockImage.gameObject.SetActive(false);
-            cooldownImage.fillAmount = 0.0f;
         }
     }
 

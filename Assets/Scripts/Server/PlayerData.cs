@@ -39,8 +39,8 @@ public class PlayerData
                 level = 1;
                 currentLevel = 1;
                 stars = new int[] { -1, -1, -1, -1, -1 }; // có 5 level
-                money = 500;
-                diamond = 150;
+                money = 100;
+                diamond = 20;
                 atkIndex = 1;
                 hpIndex = 1;
                 attackSpeedIndex = 1;
@@ -60,8 +60,8 @@ public class PlayerData
                 level = 1;
                 currentLevel = 1;
                 stars = new int[] { -1, -1, -1, -1, -1 }; // có 5 level
-                money = 500;
-                diamond = 150;
+                money = 100;
+                diamond = 20;
                 atkIndex = 1;
                 hpIndex = 1;
                 attackSpeedIndex = 1;

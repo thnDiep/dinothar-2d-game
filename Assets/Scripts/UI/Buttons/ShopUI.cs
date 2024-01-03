@@ -69,7 +69,6 @@ public class ShopUI : MonoBehaviour
     private void HandleChangeStage(PlayerManager.PlayerStage newStage)
     {
         bool canBuy = (newStage == PlayerManager.PlayerStage.Fight);
-        //Debug.Log("Can buy " + canBuy);
         health.setCanBuy(canBuy);
         damage.setCanBuy(canBuy);
         attackSpeed.setCanBuy(canBuy);
