@@ -5,12 +5,6 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/MenuScreen_Ngan.unity
-    guid: ae2a7b854194a458e939ebe02cc92a60
-  - enabled: 0
-    path: Assets/Scenes/LevelsScreen_Ngan.unity
-    guid: 9304994c78c404b9e88cf5de63a2b291
   - enabled: 1
     path: Assets/Scenes/MenuScreen.unity
     guid: dc591ad491ea5ec4f85959087f6c7576
@@ -23,9 +17,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/Level2.unity
     guid: 5c412332029196b4bb940d0a6deaa109
-  - enabled: 0
-    path: Assets/Scenes/Levels/Level2_new.unity
-    guid: 9d36115e32e2a85448a13f73447fe99e
   - enabled: 1
     path: Assets/Scenes/Levels/Level3.unity
     guid: 611136c1c73b75c4a888544aab6ce5b9
@@ -38,10 +29,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CutScene.unity
     guid: adf60092dae675c43a37a743d9420577
-  - enabled: 0
-    path: Assets/Scenes/Level1_Diep.unity
-    guid: eeb5ad34fcf7ec142abcd8072b137f5c
-  - enabled: 0
-    path: Assets/Scenes/Level1_Ngan.unity
-    guid: 6eb2a5d536cf54073a1ae5ba162a922b
   m_configObjects: {}

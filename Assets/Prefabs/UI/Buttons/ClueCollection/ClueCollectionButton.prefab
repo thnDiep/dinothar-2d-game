@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 6402825430336904904}
   - component: {fileID: 891761520718027134}
   - component: {fileID: 3924869743180899413}
+  - component: {fileID: 3057773827766184969}
   m_Layer: 5
-  m_Name: ClueCollectionBtn
+  m_Name: ClueCollectionButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -147,6 +148,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iconButton: {fileID: 74179361802014829}
+--- !u!114 &3057773827766184969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5279034299998277165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14d618371f611406d920b375c66afdd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9144405026655964199
 GameObject:
   m_ObjectHideFlags: 0

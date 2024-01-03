@@ -23375,7 +23375,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1745938932644507707}
   m_Layer: 5
-  m_Name: TutorialBook
+  m_Name: TutorialBookScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
