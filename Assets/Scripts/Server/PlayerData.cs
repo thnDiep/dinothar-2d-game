@@ -33,6 +33,7 @@ public class PlayerData
 
         public float musicSlider;
         public float soundSlider;
+
         public PlayerData()
         {
                 level = 1;
@@ -53,5 +54,21 @@ public class PlayerData
                 isSoundStatus = true;
                 musicSlider = 0.5f;
                 soundSlider = 0.5f;
+        }
+        public void ResetKey()
+        {
+                level = 1;
+                currentLevel = 1;
+                stars = new int[] { -1, -1, -1, -1, -1 }; // có 5 level
+                money = 500;
+                diamond = 150;
+                atkIndex = 1;
+                hpIndex = 1;
+                attackSpeedIndex = 1;
+                defIndex = 0;
+                clue = new int[15];
+                singleSkill1 = false;
+                singleSkill2 = false;
+                combineSkill = false;
         }
 }

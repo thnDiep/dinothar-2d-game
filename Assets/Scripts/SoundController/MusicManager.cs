@@ -8,9 +8,7 @@ public class MusicManager : MonoBehaviour
 {
     [SerializeField] private AudioSource audioSource;
     private static MusicManager _instance;
-    private bool onMusic;
-
-    //private static SceneLoader sceneLoader;
+    public bool onMusicMenu;
 
     public static MusicManager Instance
     {
@@ -52,10 +50,18 @@ public class MusicManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f); // Đợi một khoảng thời gian ngắn
         if (GameManager.Instance != null)
         {
-            onMusic = GameManager.Instance.isMusicStatus();
-            if(onMusic)
+            onMusicMenu = GameManager.Instance.isMusicStatus();
+            if (onMusicMenu)
             {
                 PlayMusicUnderground();
+                GameManager.Instance.setMusicStatus(onMusicMenu);
+                Debug.Log("Music is on");
+            }
+            if (!onMusicMenu)
+            {
+                Debug.Log("Music is off");
+                GameManager.Instance.setMusicStatus(onMusicMenu);
+                StopMusic();
             }
         }
     }
@@ -121,11 +127,11 @@ public class MusicManager : MonoBehaviour
     }
     public void PlayMusicScene(string sceneName)
     {
-        if(sceneName == "Level1") PlayMusicLevel1();
-        else if(sceneName == "Level2") PlayMusicLevel2();
-        else if(sceneName == "Level3") PlayMusicLevel3();
-        else if(sceneName == "Level4") PlayMusicLevel4();
-        else if(sceneName == "Level5") PlayMusicLevel5();
+        if (sceneName == "Level1") PlayMusicLevel1();
+        else if (sceneName == "Level2") PlayMusicLevel2();
+        else if (sceneName == "Level3") PlayMusicLevel3();
+        else if (sceneName == "Level4") PlayMusicLevel4();
+        else if (sceneName == "Level5") PlayMusicLevel5();
     }
     public void StopMusic()
     {
@@ -134,10 +140,10 @@ public class MusicManager : MonoBehaviour
     }
     public void MusicStatus(bool status)
     {
-        if(this.audioSource.mute == !status) return; //nghịch đảo trạng thái mute của status
+        if (this.audioSource.mute == !status) return; //nghịch đảo trạng thái mute của status
         this.audioSource.mute = !status;
 
-        if(this.audioSource.mute) audioSource.Stop();
+        if (this.audioSource.mute) audioSource.Stop();
         else this.audioSource.Play();
     }
     public void MusicVolume(float volume)

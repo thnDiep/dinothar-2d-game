@@ -8,6 +8,7 @@ public class SoundManager : MonoBehaviour
 {
     [SerializeField] private AudioSource audioSource;
     private static SoundManager _instance;
+    private bool onSoundMenu;
 
     public static SoundManager Instance
     {
@@ -38,8 +39,30 @@ public class SoundManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    private void Start()
+    {
+        StartCoroutine(CheckGameManagerInstance());
+    }
+
+    private IEnumerator CheckGameManagerInstance()
+    {
+        yield return new WaitForSeconds(0.1f); // Đợi một khoảng thời gian ngắn
+        if (GameManager.Instance != null)
+        {
+            onSoundMenu = GameManager.Instance.isSoundStatus();
+            if (!onSoundMenu)
+            {
+                Debug.Log("Sound is off");
+                StopSound();
+                GameManager.Instance.setSoundStatus(onSoundMenu);
+            }
+        }
+    }
 
     public static string jumpSound = "PlayerJump";
+    public static string sitSound = "PlayerSitting";
+
+    public static string ButtonClickSound = "ButtonClick";
     public static string collectMoneySound = "CollectMoney";
     public static string collectClueSound = "CollectClue";
     public static string bulletSound = "PlayerBullet";
@@ -50,9 +73,18 @@ public class SoundManager : MonoBehaviour
     public static string winSound = "WinLevel";
     public static string gameoverSound = "GameOver";
 
+    public void PlaySoundButtonClick()
+    {
+        PlaySound(ButtonClickSound);
+    }
     public void PlaySoundJump()
     {
         PlaySound(jumpSound);
+    }
+
+    public void PlaySoundSitting()
+    {
+        PlaySound(sitSound);
     }
 
     public void PlaySoundBulletSound()

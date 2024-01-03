@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 2021868693847133207}
   - component: {fileID: 4188982915140742511}
   - component: {fileID: 520709054064351140}
+  - component: {fileID: 3055709002142984847}
   m_Layer: 5
   m_Name: TutorialBookBtn
   m_TagString: Untagged
@@ -102,7 +103,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2422563322984209347}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -196,7 +197,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2021868693847133207}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 520709054064351140}
+        m_TargetAssemblyTypeName: TutorialBookBtn, Assembly-CSharp
+        m_MethodName: openTutorialBook
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &520709054064351140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,3 +224,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tutorialBookIcon: {fileID: 6173994337651040693}
   tutorialBook: {fileID: 0}
+  page: {fileID: 0}
+--- !u!114 &3055709002142984847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2422563322984209347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14d618371f611406d920b375c66afdd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

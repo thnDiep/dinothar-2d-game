@@ -104,6 +104,7 @@ public class PlayerController : MonoBehaviour
         {
             setPlayerState(PlayerState.Sitting);
             PlayerManager.Instance.State = PlayerManager.PlayerState.Rotate;
+            SoundManager.Instance.PlaySoundSitting();
         }
 
         if (isSitting() && Input.GetKeyUp(playerInput.moveDown))

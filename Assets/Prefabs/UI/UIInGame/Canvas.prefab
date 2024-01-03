@@ -454,14 +454,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4855656192659806940, guid: 655a33325ec5e924982243443701ca16, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5675802728988947615, guid: 655a33325ec5e924982243443701ca16, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -480,25 +472,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9203296663780513434}
     m_Modifications:
-    - target: {fileID: 710859899469838079, guid: 910051a57abfcff408e7b6bc5b06600f, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1519593679866113086, guid: 910051a57abfcff408e7b6bc5b06600f, type: 3}
       propertyPath: m_Name
       value: Lose
-      objectReference: {fileID: 0}
-    - target: {fileID: 1519593679866113086, guid: 910051a57abfcff408e7b6bc5b06600f, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1813091817471815098, guid: 910051a57abfcff408e7b6bc5b06600f, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ToLevelsScreen
-      objectReference: {fileID: 0}
-    - target: {fileID: 1980219265702302518, guid: 910051a57abfcff408e7b6bc5b06600f, type: 3}
-      propertyPath: fadeDuration
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2503248140305979531, guid: 910051a57abfcff408e7b6bc5b06600f, type: 3}
       propertyPath: m_Pivot.x
@@ -580,18 +556,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4609889353002713382, guid: 910051a57abfcff408e7b6bc5b06600f, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4609889353002713382, guid: 910051a57abfcff408e7b6bc5b06600f, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 5468760391635764673, guid: 21eaf6e80e2f4054a94e65e2fe6922a4, type: 3}
-    - target: {fileID: 4609889353002713382, guid: 910051a57abfcff408e7b6bc5b06600f, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Replay
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -618,26 +582,6 @@ PrefabInstance:
     - target: {fileID: 2699564273925973133, guid: c91a8d74768a1af4c934cc614715a5bf, type: 3}
       propertyPath: m_Name
       value: PauseButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 2699564273925973133, guid: c91a8d74768a1af4c934cc614715a5bf, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3957576638942801616, guid: c91a8d74768a1af4c934cc614715a5bf, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 94d0b0aad1727724ea3983b3ea2a6331, type: 3}
-    - target: {fileID: 6425935112812804138, guid: c91a8d74768a1af4c934cc614715a5bf, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6479204933906497712, guid: c91a8d74768a1af4c934cc614715a5bf, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6479204933906497712, guid: c91a8d74768a1af4c934cc614715a5bf, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -496
       objectReference: {fileID: 0}
     - target: {fileID: 6638204101064409307, guid: c91a8d74768a1af4c934cc614715a5bf, type: 3}
       propertyPath: m_Pivot.x
@@ -1838,29 +1782,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9203296663780513434}
     m_Modifications:
-    - target: {fileID: 288757018415180198, guid: 243658ea6387db74e85b0ee98c244f0b, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 288757018415180198, guid: 243658ea6387db74e85b0ee98c244f0b, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 5468760391635764673, guid: 21eaf6e80e2f4054a94e65e2fe6922a4, type: 3}
-    - target: {fileID: 288757018415180198, guid: 243658ea6387db74e85b0ee98c244f0b, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Replay
-      objectReference: {fileID: 0}
-    - target: {fileID: 710859899469838079, guid: 243658ea6387db74e85b0ee98c244f0b, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1519593679866113086, guid: 243658ea6387db74e85b0ee98c244f0b, type: 3}
       propertyPath: m_Name
       value: Win
-      objectReference: {fileID: 0}
-    - target: {fileID: 1519593679866113086, guid: 243658ea6387db74e85b0ee98c244f0b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2503248140305979531, guid: 243658ea6387db74e85b0ee98c244f0b, type: 3}
       propertyPath: m_Pivot.x
@@ -1941,46 +1865,6 @@ PrefabInstance:
     - target: {fileID: 2503248140305979531, guid: 243658ea6387db74e85b0ee98c244f0b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2575960790847293455, guid: 243658ea6387db74e85b0ee98c244f0b, type: 3}
-      propertyPath: fadeDuration
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3942815726362140815, guid: 243658ea6387db74e85b0ee98c244f0b, type: 3}
-      propertyPath: m_Interactable
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6423658448205042386, guid: 243658ea6387db74e85b0ee98c244f0b, type: 3}
-      propertyPath: m_Name
-      value: NextLevelBtn
-      objectReference: {fileID: 0}
-    - target: {fileID: 7927756182647159842, guid: 243658ea6387db74e85b0ee98c244f0b, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7927756182647159842, guid: 243658ea6387db74e85b0ee98c244f0b, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7927756182647159842, guid: 243658ea6387db74e85b0ee98c244f0b, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 5468760391635764673, guid: 21eaf6e80e2f4054a94e65e2fe6922a4, type: 3}
-    - target: {fileID: 7927756182647159842, guid: 243658ea6387db74e85b0ee98c244f0b, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7927756182647159842, guid: 243658ea6387db74e85b0ee98c244f0b, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ToLevelsScreen
-      objectReference: {fileID: 0}
-    - target: {fileID: 7927756182647159842, guid: 243658ea6387db74e85b0ee98c244f0b, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: SceneLoader, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 7927756182647159842, guid: 243658ea6387db74e85b0ee98c244f0b, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

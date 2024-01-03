@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
         Skill1ChangedEvent?.Invoke(playerData.singleSkill1);
         Skill2ChangedEvent?.Invoke(playerData.singleSkill2);
         CombineSkillChangedEvent?.Invoke(playerData.combineSkill);
+
     }
 
     void LoadPlayerData()
@@ -77,9 +78,12 @@ public class GameManager : MonoBehaviour
 
     public void NewGame()
     {
-        PlayerPrefs.DeleteKey("PlayerData");
+        //PlayerPrefs.DeleteKey("PlayerData");
+        playerData.ResetKey();
+        SavePlayerData();
         LoadPlayerData();
     }
+
 
     public void LevelCompleted(int level, int money, int diamond, int clue)
     {
