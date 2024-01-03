@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
     public void StartNewLevel(int lv)
     {
         playerData.currentLevel = lv;
-        Debug.Log("Start New Level: " + lv + playerData.currentLevel);
+        //Debug.Log("Start New Level: " + lv + playerData.currentLevel);
     }
 
     public void LevelFailed(int level, int clue)

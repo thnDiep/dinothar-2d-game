@@ -371,9 +371,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1869077696695213717, guid: dc9f0a8cc5783a84d8980b1b00af1e4c, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SliderMusicUpdate
+      objectReference: {fileID: 0}
     - target: {fileID: 3562185787302304618, guid: dc9f0a8cc5783a84d8980b1b00af1e4c, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 220
+      objectReference: {fileID: 0}
+    - target: {fileID: 6287728367649666595, guid: dc9f0a8cc5783a84d8980b1b00af1e4c, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SliderSoundUpdate
       objectReference: {fileID: 0}
     - target: {fileID: 8632150281365836019, guid: dc9f0a8cc5783a84d8980b1b00af1e4c, type: 3}
       propertyPath: m_Name

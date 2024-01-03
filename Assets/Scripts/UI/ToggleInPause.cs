@@ -30,7 +30,7 @@ public class ToggleInPause : MonoBehaviour
             onMusic = GameManager.Instance.isMusicStatus();
             onSound = GameManager.Instance.isSoundStatus();
             isCheat = GameManager.Instance.isCheat();
-
+            Debug.Log(onMusic);
             musicToggleOn.gameObject.SetActive(onMusic);
             soundToggleOn.gameObject.SetActive(onSound);
             cheatToggleOn.gameObject.SetActive(isCheat);
