@@ -118,7 +118,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7465687162360621179, guid: ea5e220e4c722b1469c0a4ea13457482, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 7465687162360621179, guid: ea5e220e4c722b1469c0a4ea13457482, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -576,6 +576,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7509213939193157624, guid: 21e4411c7f1a81842b0aaf4a9c772f30, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: eb2a5ee116692924f990f3b88c04b3d3, type: 3}
+    - target: {fileID: 7592284109104214249, guid: 21e4411c7f1a81842b0aaf4a9c772f30, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1850481d3ced07142b2d885adad1de6d, type: 3}
+    - target: {fileID: 8817844238021377173, guid: 21e4411c7f1a81842b0aaf4a9c772f30, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 50a481b94824a9e49ad42ba087de5fd4, type: 3}
+    - target: {fileID: 8866994824911059542, guid: 21e4411c7f1a81842b0aaf4a9c772f30, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6654cc957400c3441ac236a368045ee8, type: 3}
+    - target: {fileID: 9040769209183860093, guid: 21e4411c7f1a81842b0aaf4a9c772f30, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cdd74653573e9d54dac9c18bbafbda60, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

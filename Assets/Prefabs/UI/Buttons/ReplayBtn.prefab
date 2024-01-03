@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1083318775671512138}
   - component: {fileID: 1722377082149328155}
   - component: {fileID: 1066027958854215125}
+  - component: {fileID: 1166899793688432656}
   m_Layer: 5
   m_Name: ReplayBtn
   m_TagString: Untagged
@@ -132,3 +133,15 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1166899793688432656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5722870085091253128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14d618371f611406d920b375c66afdd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -62,6 +62,9 @@ public class MusicManager : MonoBehaviour
                 Debug.Log("Music is off");
                 GameManager.Instance.setMusicStatus(onMusicMenu);
                 StopMusic();
+                onMusicMenu =!onMusicMenu;
+                PlayMusicUnderground();
+                GameManager.Instance.setMusicStatus(onMusicMenu);
             }
         }
     }
